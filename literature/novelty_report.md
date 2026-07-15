@@ -13,19 +13,17 @@ This document contains the adversarial verification of BanLegit-Cite's novelty, 
 
 ## 2. Competitor Comparison Table
 
-| Competitor Paper | Year | Task / Focus | Language | Jurisdiction | Dataset Size | Citation Taxonomy | Why it does NOT cover BanLegit-Cite's gap |
-|---|---|---|---|---|---|---|---|
-| **LePhantomCite** | 2026 | Citation fabrication detection & agentic verification | English | United States (Common Law) | 1,300 brief excerpts (4,499 citation instances) | 5 categories (Non-existent, wrong case, wrong opinion, wrong page, wrong quote) | English-only, US common law, lacks statutory-code duality, lacks multilingual/diglossic query evaluation. |
-| **LegalCiteBench** | 2026 | Closed-book citation tasks (completion, error detection, matching) | English | United States (Common Law) | ~24K instances | N/A (task-based) | English-only, US common law, closed-book focus, no South Asian legal structure. |
-| **SG-LegalCite** | 2026 | Precedent retrieval ranking | English | Singapore (Common Law) | 100,890 case-principle pairs | None | Evaluates retrieval ranking, not hallucination or citation fabrication. |
-| **LeCNet** | 2024 | Citation network link prediction | English | India (Common Law) | N/A (graph) | None | Network/graph link prediction task, not citation fabrication. |
-| **BenHalluEval** | 2026 | General NLP hallucination evaluation | Bangla | General Domain | 12,000 candidates | General NLP types | Evaluates general-domain Bengali hallucination, completely lacking legal structure, citation rules, or legal-domain terminology. |
-| **MINA** (ACL Findings) | 2026 | Bar Council exam assistant (two-stage RAG + citation insertion) | Bangla & English | Bangladesh (Mixed Law) | N/A (applied model) | None | It is a model pipeline/assistant for exam-passing, not an evaluation benchmark. It reports answer accuracy, not citation-level precision/recall/fabrication metrics. |
-| **LegalRAG** | 2025 | Multilingual RAG with relevance checker | Bangla & English | Bangladesh (Mixed Law) | N/A (applied RAG) | None | An applied RAG retrieval system to raise precision, not a benchmark. Lacks citation-level precision/recall metrics or a double-annotated gold set. |
-| **JusticeNetBD** | 2025 | Women's legal rights RAG assistant | Bangla | Bangladesh (Mixed Law) | N/A (applied RAG) | None | Applied QA assistant, not a benchmark. No evaluation of citation fabrication. |
-| **UKIL-DB-EN** | 2024 | BD legal assistant | English | Bangladesh (Mixed Law) | N/A (applied RAG) | None | First structured BD legal assistant, but lacks citation-level fabrication auditing and Bangla multilingual support. |
+Competitor Paper	Year	Task / Focus	Language	Jurisdiction	Dataset Size	Citation Taxonomy	Why it does NOT cover BanLegit-Cite's gap
+LePhantomCite :https://arxiv.org/pdf/2606.21155	2026	Citation fabrication detection & agentic verification	English	United States (Common Law)	1,300 brief excerpts (4,499 citation instances)	5 categories (Non-existent, wrong case, wrong opinion, wrong page, wrong quote)	English-only, US common law, lacks statutory-code duality, lacks multilingual/diglossic query evaluation. 
+LegalCiteBench:  https://arxiv.org/pdf/2605.10186	2026	Closed-book citation tasks (completion, error detection, matching)	English	United States (Common Law)	~24K instances	N/A (task-based)	English-only, US common law, closed-book focus, no South Asian legal structure.
+SG-LegalCite : https://arxiv.org/pdf/2605.21057	2026	Precedent retrieval ranking	English	Singapore (Common Law)	100,890 case-principle pairs	None	Evaluates retrieval ranking, not hallucination or citation fabrication.
+LeCNet : https://aclanthology.org/2025.justnlp-main.4/	2024	Citation network link prediction	English	India (Common Law)	N/A (graph)	None	Network/graph link prediction task, not citation fabrication.
+BenHalluEval : https://arxiv.org/pdf/2605.31483	2026	General NLP hallucination evaluation	Bangla	General Domain	12,000 candidates	General NLP types	Evaluates general-domain Bengali hallucination, completely lacking legal structure, citation rules, or legal-domain terminology.
+MINA (ACL Findings) : https://aclanthology.org/2026.findings-acl.1295.pdf	2026	Bar Council exam assistant (two-stage RAG + citation insertion)	Bangla & English	Bangladesh (Mixed Law)	N/A (applied model)	None	It is a model pipeline/assistant for exam-passing, not an evaluation benchmark. It reports answer accuracy, not citation-level precision/recall/fabrication metrics.
+LegalRAG: https://arxiv.org/pdf/2504.16121	2025	Multilingual RAG with relevance checker	Bangla & English	Bangladesh (Mixed Law)	N/A (applied RAG)	None	An applied RAG retrieval system to raise precision, not a benchmark. Lacks citation-level precision/recall metrics or a double-annotated gold set.
+JusticeNetBD : 	2025	Women's legal rights RAG assistant	Bangla	Bangladesh (Mixed Law)	N/A (applied RAG)	None	Applied QA assistant, not a benchmark. No evaluation of citation fabrication.
+UKIL-DB-EN : https://arxiv.org/html/2410.17210v1	2024	BD legal assistant	English	Bangladesh (Mixed Law)	N/A (applied RAG)	None	First structured BD legal assistant, but lacks citation-level fabrication auditing and Bangla multilingual support.
 
----
 
 ## 3. Core Research Questions and Hypotheses
 

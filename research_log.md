@@ -34,3 +34,18 @@ This log tracks daily research activities, agent run logs, outputs, and PI revie
 - **PI review status:** Approved (by Ema)
 - **Notes/deviations from plan:** Cohen's Kappa score reached `κ = 0.8765`, exceeding the `κ ≥ 0.6` exit gate requirement. Taxonomy and guidelines are officially frozen.
 
+---
+
+### [2026-07-16] [Phase 2 - Researcher A Shadow-Work] [Antigravity]
+- **Action taken:**
+  - Prepared the recruitment protocol and invitation templates for primary annotators and adjudicators (`annotation/recruitment_plan.md`).
+  - Drafted the onboarding tutorial, taxonomy reference sheet, and self-test guide for the annotation team (`annotation/annotator_training.md`).
+  - Designed the Label Studio interface schema XML (`annotation/label_studio_schema.xml`) featuring conditional validation categories, rating scales, and comments fields.
+- **Output produced:**
+  - [recruitment_plan.md](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/annotation/recruitment_plan.md)
+  - [annotator_training.md](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/annotation/annotator_training.md)
+  - [label_studio_schema.xml](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/annotation/label_studio_schema.xml)
+- **PI review status:** Approved (by Ema)
+- **Notes/deviations from plan:** None. Preparation for Phase 3 annotation launch is complete.
+
+
