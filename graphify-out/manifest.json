@@ -115,8 +115,8 @@
     "semantic_hash": ""
   },
   "implementation_plan.md": {
-    "mtime": 1784135295.706102,
-    "ast_hash": "3575e70d03851ac9da935cf2dded0551",
+    "mtime": 1784141810.705865,
+    "ast_hash": "9e4cbf03c29d4e3ca120ac92fcb44766",
     "semantic_hash": ""
   },
   "BanLegit-Cite_Sequential_Phase_Plan.md.pdf": {
@@ -212,6 +212,36 @@
   "requirements.txt": {
     "mtime": 1784137275.5163522,
     "ast_hash": "3b6286bfc79b9676f41027ebfd363e59",
+    "semantic_hash": ""
+  },
+  "data/release/banlegit_cite_dataset.json": {
+    "mtime": 1784141887.2810996,
+    "ast_hash": "9895c07d4ba00addb2727fa8cb0881b8",
+    "semantic_hash": ""
+  },
+  "scripts/evaluation/reviewer_sim.py": {
+    "mtime": 1784141837.7837603,
+    "ast_hash": "c1391a4adba9f50f2013d8faae07c7d4",
+    "semantic_hash": ""
+  },
+  "scripts/utils/release_package.py": {
+    "mtime": 1784141882.8028543,
+    "ast_hash": "c02b3132123fabb0c98cd5dc39bdecfa",
+    "semantic_hash": ""
+  },
+  "data/dataset_card.md": {
+    "mtime": 1784141843.2099707,
+    "ast_hash": "50129ada6a309ea3a7cc4dc3e8b75b09",
+    "semantic_hash": ""
+  },
+  "docs/draft_placeholder.md": {
+    "mtime": 1784141863.0495505,
+    "ast_hash": "b6af3b491f5c0b6cbb31d7c435dbb42d",
+    "semantic_hash": ""
+  },
+  "logs/reviewer_simulation_report.md": {
+    "mtime": 1784141868.376009,
+    "ast_hash": "8ce9e2443bd8b966a28f90786d727bf1",
     "semantic_hash": ""
   }
 }

@@ -1,52 +1,42 @@
-# Implementation Plan: Phase 3 Shadow Work (Baseline Evaluation Harness)
+# Implementation Plan: Phase 6 (Reproducibility, Release & Reviewer Simulation)
 
-This plan details the construction of the **Baseline Evaluation Harness** during Phase 3. B operates independently of the human annotation process, writing and testing the evaluation harness against synthetic data so it is ready to execute immediately when Phase 4 begins.
+This plan details the implementation of **Phase 6** tasks, which include setting up the reviewer simulation runner, completing end-to-end reproducibility dry-runs, and preparing configuration catalogs for release packaging.
 
 ## User Review Required
 
 > [!IMPORTANT]
-> - **Evaluation Settings:** We will implement two core prompting configurations for the baseline models:
->   1. **Standard Setting:** Zero-shot/Few-shot direct verification prompt containing context and citation.
->   2. **Agentic Setting:** Retrieval-augmented prompting, incorporating facts fetched from a simulated local document index over the scraped corpus.
-> - **W&B Mock/Real Runs:** We will verify that runs are logged to W&B. Ensure you have the `WANDB_API_KEY` set if you wish to run a live test; otherwise, the harness will fallback to local file logging.
+> - **Paper Draft Location:** The Reviewer Simulation (E2) runs against the final paper draft. Since the draft is not yet fully written, we will configure the simulation to scan a placeholder file (`docs/draft_placeholder.md`) so the harness is verified and ready.
+> - **Zenodo & HF Releases:** The actual dataset upload will be simulated using script endpoints that check schema alignment and catalog metadata.
 
 ## Proposed Changes
 
-We will create the evaluation framework under `scripts/evaluation/` and `tests/`:
+We will create the release and simulation infrastructure:
 
-### Component: Evaluation Runner & Prompts
+### Component: Reviewer Simulation (E2 Agent)
 
-#### [NEW] [prompts.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/prompts.py)
-- Defines prompt templates for standard direct prompts and agentic retrieval-augmented prompts.
-#### [NEW] [runner.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/runner.py)
-- Main baseline model execution class. Connects to the LLM (Gemini or placeholder mock client), queries prompts, parses predictions (REAL/FABRICATED), and logs outputs.
+#### [NEW] [reviewer_sim.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/reviewer_sim.py)
+- Evaluates the draft against the pre-registered 5 standard review criteria (Clarity, Novelty, Methodology correctness, Citation integrity, and Reproducibility details).
 
-### Component: Retrieval (Agentic Setting)
+### Component: Packaging & Release Preparation
 
-#### [NEW] [retriever.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/retriever.py)
-- Keyword/BM25 local index retriever matching citations to the scraped document corpus to construct agentic context.
+#### [NEW] [dataset_card.md](file:///c:/Users/user/Desktop/BanLegitCite/data/dataset_card.md)
+- Dataset documentation card for HuggingFace Datasets Hub including licensing, language, features, and source attribution.
+#### [NEW] [release_package.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/utils/release_package.py)
+- Final script to package clean CSV files, build checksums (`sha256`), and verify licensing/copyright policies before push.
 
-### Component: Pipeline Logging & Metrics
-
-#### [NEW] [metrics.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/metrics.py)
-- Metrics calculator (Accuracy, F1, Precision, Recall, Confusion Matrix) and integration with `wb_config.py` for logging directly to Weights & Biases.
-
-### Component: Scaffolding Tests
-
-#### [NEW] [test_harness.py](file:///c:/Users/user/Desktop/BanLegitCite/tests/test_harness.py)
-- Pytest script testing mock inference, retriever lookups, metric computation, and logging functions.
+### Component: Git Workflow
+- Checkout git branch `stage6-release`.
 
 ---
 
 ## Verification Plan
 
 ### Automated Tests
-- Run unit tests with `pytest tests/test_harness.py`.
-- Run baseline harness on 5 sample inputs using:
+- Run reviewer simulation on draft placeholder using:
   ```bash
-  .venv\Scripts\python -m scripts.evaluation.runner --limit 5 --setting standard
-  .venv\Scripts\python -m scripts.evaluation.runner --limit 5 --setting agentic
+  .venv\Scripts\python -m scripts.evaluation.reviewer_sim
   ```
-
-### Manual Verification
-- Confirm local prediction results are saved in `experiments/results/` and metadata is properly formatted.
+- Run final release packaging verification:
+  ```bash
+  .venv\Scripts\python -m scripts.utils.release_package
+  ```

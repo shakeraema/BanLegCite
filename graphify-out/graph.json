@@ -73,8 +73,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "scripts_evaluation_metrics_compute_metrics",
-      "community": 19,
-      "community_name": "compute_metrics",
+      "community": 14,
+      "community_name": "wb_config.py",
       "norm_label": "compute_metrics()"
     },
     {
@@ -117,8 +117,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "scripts_evaluation_metrics_rationale_9",
-      "community": 19,
-      "community_name": "compute_metrics",
+      "community": 14,
+      "community_name": "wb_config.py",
       "norm_label": "computes accuracy, precision, recall, f1-score, and per-class breakdown.     ret"
     },
     {
@@ -331,6 +331,72 @@
       "norm_label": "looks up the citation in the index and returns verified holding text."
     },
     {
+      "label": "reviewer_sim.py",
+      "file_type": "code",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_evaluation_reviewer_sim",
+      "community": 24,
+      "community_name": "ReviewerSim",
+      "norm_label": "reviewer_sim.py"
+    },
+    {
+      "label": "ReviewerSim",
+      "file_type": "code",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "scripts_evaluation_reviewer_sim_reviewersim",
+      "community": 24,
+      "community_name": "ReviewerSim",
+      "norm_label": "reviewersim"
+    },
+    {
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "scripts_evaluation_reviewer_sim_reviewersim_init",
+      "community": 24,
+      "community_name": "ReviewerSim",
+      "norm_label": ".__init__()"
+    },
+    {
+      "label": ".load_draft()",
+      "file_type": "code",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "scripts_evaluation_reviewer_sim_reviewersim_load_draft",
+      "community": 24,
+      "community_name": "ReviewerSim",
+      "norm_label": ".load_draft()"
+    },
+    {
+      "label": ".run_review()",
+      "file_type": "code",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L31",
+      "_origin": "ast",
+      "id": "scripts_evaluation_reviewer_sim_reviewersim_run_review",
+      "community": 24,
+      "community_name": "ReviewerSim",
+      "norm_label": ".run_review()"
+    },
+    {
+      "label": "compile_reviewer_report()",
+      "file_type": "code",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L85",
+      "_origin": "ast",
+      "id": "scripts_evaluation_reviewer_sim_compile_reviewer_report",
+      "community": 24,
+      "community_name": "ReviewerSim",
+      "norm_label": "compile_reviewer_report()"
+    },
+    {
       "label": "run_phase4.py",
       "file_type": "code",
       "source_file": "scripts/evaluation/run_phase4.py",
@@ -535,8 +601,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_evaluation_stats",
-      "community": 23,
-      "community_name": "run_all_tests",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": "stats.py"
     },
     {
@@ -546,8 +612,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "scripts_evaluation_stats_mcnemar_test",
-      "community": 23,
-      "community_name": "run_all_tests",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": "mcnemar_test()"
     },
     {
@@ -557,8 +623,8 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "scripts_evaluation_stats_wilcoxon_test",
-      "community": 23,
-      "community_name": "run_all_tests",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": "wilcoxon_test()"
     },
     {
@@ -568,8 +634,8 @@
       "source_location": "L116",
       "_origin": "ast",
       "id": "scripts_evaluation_stats_chi_squared_category_test",
-      "community": 23,
-      "community_name": "run_all_tests",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": "chi_squared_category_test()"
     },
     {
@@ -579,8 +645,8 @@
       "source_location": "L179",
       "_origin": "ast",
       "id": "scripts_evaluation_stats_run_all_tests",
-      "community": 23,
-      "community_name": "run_all_tests",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": "run_all_tests()"
     },
     {
@@ -590,8 +656,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "scripts_evaluation_stats_rationale_27",
-      "community": 23,
-      "community_name": "run_all_tests",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": "compares binary correct/incorrect vectors for llm vs human annotator     using m"
     },
     {
@@ -601,8 +667,8 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "scripts_evaluation_stats_rationale_70",
-      "community": 23,
-      "community_name": "run_all_tests",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": "tests whether the agentic setting produces significantly higher     confidence s"
     },
     {
@@ -612,8 +678,8 @@
       "source_location": "L117",
       "_origin": "ast",
       "id": "scripts_evaluation_stats_rationale_117",
-      "community": 23,
-      "community_name": "run_all_tests",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": "tests whether accuracy differs significantly across citation taxonomy     catego"
     },
     {
@@ -623,8 +689,8 @@
       "source_location": "L181",
       "_origin": "ast",
       "id": "scripts_evaluation_stats_rationale_181",
-      "community": 23,
-      "community_name": "run_all_tests",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": "convenience wrapper that runs h1, h2, h3 and returns a unified report dict."
     },
     {
@@ -1013,6 +1079,94 @@
       "norm_label": "format_for_label_studio()"
     },
     {
+      "label": "release_package.py",
+      "file_type": "code",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_utils_release_package",
+      "community": 3,
+      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "norm_label": "release_package.py"
+    },
+    {
+      "label": "ReleasePackager",
+      "file_type": "code",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "scripts_utils_release_package_releasepackager",
+      "community": 3,
+      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "norm_label": "releasepackager"
+    },
+    {
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "scripts_utils_release_package_releasepackager_init",
+      "community": 3,
+      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "norm_label": ".__init__()"
+    },
+    {
+      "label": ".load_combined_data()",
+      "file_type": "code",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "scripts_utils_release_package_releasepackager_load_combined_data",
+      "community": 3,
+      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "norm_label": ".load_combined_data()"
+    },
+    {
+      "label": ".check_copyright_compliance()",
+      "file_type": "code",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "scripts_utils_release_package_releasepackager_check_copyright_compliance",
+      "community": 3,
+      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "norm_label": ".check_copyright_compliance()"
+    },
+    {
+      "label": ".compile_release_files()",
+      "file_type": "code",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "scripts_utils_release_package_releasepackager_compile_release_files",
+      "community": 3,
+      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "norm_label": ".compile_release_files()"
+    },
+    {
+      "label": ".generate_checksum()",
+      "file_type": "code",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L83",
+      "_origin": "ast",
+      "id": "scripts_utils_release_package_releasepackager_generate_checksum",
+      "community": 3,
+      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "norm_label": ".generate_checksum()"
+    },
+    {
+      "label": "Verifies that no text contains full cases (i.e. length is limited to excerpts).",
+      "file_type": "rationale",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "scripts_utils_release_package_rationale_28",
+      "community": 3,
+      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "norm_label": "verifies that no text contains full cases (i.e. length is limited to excerpts)."
+    },
+    {
       "label": "repro_check.py",
       "file_type": "code",
       "source_file": "scripts/utils/repro_check.py",
@@ -1305,8 +1459,8 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "tests_test_harness_testmetrics",
-      "community": 19,
-      "community_name": "compute_metrics",
+      "community": 14,
+      "community_name": "wb_config.py",
       "norm_label": "testmetrics"
     },
     {
@@ -1316,8 +1470,8 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "tests_test_harness_testmetrics_test_overall_accuracy",
-      "community": 19,
-      "community_name": "compute_metrics",
+      "community": 14,
+      "community_name": "wb_config.py",
       "norm_label": ".test_overall_accuracy()"
     },
     {
@@ -1327,8 +1481,8 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "tests_test_harness_testmetrics_test_precision_recall_f1_computed",
-      "community": 19,
-      "community_name": "compute_metrics",
+      "community": 14,
+      "community_name": "wb_config.py",
       "norm_label": ".test_precision_recall_f1_computed()"
     },
     {
@@ -1338,8 +1492,8 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "tests_test_harness_testmetrics_test_perfect_predictions",
-      "community": 19,
-      "community_name": "compute_metrics",
+      "community": 14,
+      "community_name": "wb_config.py",
       "norm_label": ".test_perfect_predictions()"
     },
     {
@@ -1849,6 +2003,160 @@
       "norm_label": "freeze checklist"
     },
     {
+      "label": "dataset_card.md",
+      "file_type": "document",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "data_dataset_card",
+      "community": 9,
+      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
+      "norm_label": "dataset_card.md"
+    },
+    {
+      "label": "Dataset Card for BanLegit-Cite",
+      "file_type": "document",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "data_dataset_card_dataset_card_for_banlegit_cite",
+      "community": 9,
+      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
+      "norm_label": "dataset card for banlegit-cite"
+    },
+    {
+      "label": "Dataset Description",
+      "file_type": "document",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "data_dataset_card_dataset_description",
+      "community": 9,
+      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
+      "norm_label": "dataset description"
+    },
+    {
+      "label": "Dataset Summary",
+      "file_type": "document",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "data_dataset_card_dataset_summary",
+      "community": 9,
+      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
+      "norm_label": "dataset summary"
+    },
+    {
+      "label": "Supported Tasks",
+      "file_type": "document",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "data_dataset_card_supported_tasks",
+      "community": 9,
+      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
+      "norm_label": "supported tasks"
+    },
+    {
+      "label": "Dataset Structure",
+      "file_type": "document",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "data_dataset_card_dataset_structure",
+      "community": 9,
+      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
+      "norm_label": "dataset structure"
+    },
+    {
+      "label": "Dataset Licensing & Copyright",
+      "file_type": "document",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "data_dataset_card_dataset_licensing_copyright",
+      "community": 9,
+      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
+      "norm_label": "dataset licensing & copyright"
+    },
+    {
+      "label": "draft_placeholder.md",
+      "file_type": "document",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_draft_placeholder",
+      "community": 23,
+      "community_name": "run_all_tests",
+      "norm_label": "draft_placeholder.md"
+    },
+    {
+      "label": "Draft Paper: BanLegit-Cite",
+      "file_type": "document",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_draft_placeholder_draft_paper_banlegit_cite",
+      "community": 23,
+      "community_name": "run_all_tests",
+      "norm_label": "draft paper: banlegit-cite"
+    },
+    {
+      "label": "Title",
+      "file_type": "document",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "docs_draft_placeholder_title",
+      "community": 23,
+      "community_name": "run_all_tests",
+      "norm_label": "title"
+    },
+    {
+      "label": "Abstract",
+      "file_type": "document",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "docs_draft_placeholder_abstract",
+      "community": 23,
+      "community_name": "run_all_tests",
+      "norm_label": "abstract"
+    },
+    {
+      "label": "Methodology",
+      "file_type": "document",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "docs_draft_placeholder_methodology",
+      "community": 23,
+      "community_name": "run_all_tests",
+      "norm_label": "methodology"
+    },
+    {
+      "label": "Results",
+      "file_type": "document",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "docs_draft_placeholder_results",
+      "community": 23,
+      "community_name": "run_all_tests",
+      "norm_label": "results"
+    },
+    {
+      "label": "Reproducibility",
+      "file_type": "document",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "docs_draft_placeholder_reproducibility",
+      "community": 23,
+      "community_name": "run_all_tests",
+      "norm_label": "reproducibility"
+    },
+    {
       "label": "eval_protocol.md",
       "file_type": "document",
       "source_file": "docs/eval_protocol.md",
@@ -2146,15 +2454,15 @@
       "norm_label": "implementation_plan.md"
     },
     {
-      "label": "Implementation Plan: Phase 3 Shadow Work (Baseline Evaluation Harness)",
+      "label": "Implementation Plan: Phase 6 (Reproducibility, Release & Reviewer Simulation)",
       "file_type": "document",
       "source_file": "implementation_plan.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "implementation_plan_implementation_plan_phase_3_shadow_work_baseline_evaluation_harness",
+      "id": "implementation_plan_implementation_plan_phase_6_reproducibility_release_reviewer_simulation",
       "community": 12,
       "community_name": "Phase Roadmap for Researcher B",
-      "norm_label": "implementation plan: phase 3 shadow work (baseline evaluation harness)"
+      "norm_label": "implementation plan: phase 6 (reproducibility, release & reviewer simulation)"
     },
     {
       "label": "User Review Required",
@@ -2171,7 +2479,7 @@
       "label": "Proposed Changes",
       "file_type": "document",
       "source_file": "implementation_plan.md",
-      "source_location": "L13",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "implementation_plan_proposed_changes",
       "community": 12,
@@ -2179,109 +2487,76 @@
       "norm_label": "proposed changes"
     },
     {
-      "label": "Component: Evaluation Runner & Prompts",
+      "label": "Component: Reviewer Simulation (E2 Agent)",
+      "file_type": "document",
+      "source_file": "implementation_plan.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "implementation_plan_component_reviewer_simulation_e2_agent",
+      "community": 12,
+      "community_name": "Phase Roadmap for Researcher B",
+      "norm_label": "component: reviewer simulation (e2 agent)"
+    },
+    {
+      "label": "[NEW] [reviewer_sim.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/reviewer_sim.py)",
       "file_type": "document",
       "source_file": "implementation_plan.md",
       "source_location": "L17",
       "_origin": "ast",
-      "id": "implementation_plan_component_evaluation_runner_prompts",
+      "id": "implementation_plan_new_reviewer_sim_py_file_c_users_user_desktop_banlegitcite_scripts_evaluation_reviewer_sim_py",
       "community": 12,
       "community_name": "Phase Roadmap for Researcher B",
-      "norm_label": "component: evaluation runner & prompts"
+      "norm_label": "[new] [reviewer_sim.py](file:///c:/users/user/desktop/banlegitcite/scripts/evaluation/reviewer_sim.py)"
     },
     {
-      "label": "[NEW] [prompts.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/prompts.py)",
+      "label": "Component: Packaging & Release Preparation",
       "file_type": "document",
       "source_file": "implementation_plan.md",
-      "source_location": "L19",
+      "source_location": "L20",
       "_origin": "ast",
-      "id": "implementation_plan_new_prompts_py_file_c_users_user_desktop_banlegitcite_scripts_evaluation_prompts_py",
+      "id": "implementation_plan_component_packaging_release_preparation",
       "community": 12,
       "community_name": "Phase Roadmap for Researcher B",
-      "norm_label": "[new] [prompts.py](file:///c:/users/user/desktop/banlegitcite/scripts/evaluation/prompts.py)"
+      "norm_label": "component: packaging & release preparation"
     },
     {
-      "label": "[NEW] [runner.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/runner.py)",
+      "label": "[NEW] [dataset_card.md](file:///c:/Users/user/Desktop/BanLegitCite/data/dataset_card.md)",
       "file_type": "document",
       "source_file": "implementation_plan.md",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast",
-      "id": "implementation_plan_new_runner_py_file_c_users_user_desktop_banlegitcite_scripts_evaluation_runner_py",
+      "id": "implementation_plan_new_dataset_card_md_file_c_users_user_desktop_banlegitcite_data_dataset_card_md",
       "community": 12,
       "community_name": "Phase Roadmap for Researcher B",
-      "norm_label": "[new] [runner.py](file:///c:/users/user/desktop/banlegitcite/scripts/evaluation/runner.py)"
+      "norm_label": "[new] [dataset_card.md](file:///c:/users/user/desktop/banlegitcite/data/dataset_card.md)"
     },
     {
-      "label": "Component: Retrieval (Agentic Setting)",
+      "label": "[NEW] [release_package.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/utils/release_package.py)",
       "file_type": "document",
       "source_file": "implementation_plan.md",
       "source_location": "L24",
       "_origin": "ast",
-      "id": "implementation_plan_component_retrieval_agentic_setting",
+      "id": "implementation_plan_new_release_package_py_file_c_users_user_desktop_banlegitcite_scripts_utils_release_package_py",
       "community": 12,
       "community_name": "Phase Roadmap for Researcher B",
-      "norm_label": "component: retrieval (agentic setting)"
+      "norm_label": "[new] [release_package.py](file:///c:/users/user/desktop/banlegitcite/scripts/utils/release_package.py)"
     },
     {
-      "label": "[NEW] [retriever.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/retriever.py)",
+      "label": "Component: Git Workflow",
       "file_type": "document",
       "source_file": "implementation_plan.md",
-      "source_location": "L26",
+      "source_location": "L27",
       "_origin": "ast",
-      "id": "implementation_plan_new_retriever_py_file_c_users_user_desktop_banlegitcite_scripts_evaluation_retriever_py",
+      "id": "implementation_plan_component_git_workflow",
       "community": 12,
       "community_name": "Phase Roadmap for Researcher B",
-      "norm_label": "[new] [retriever.py](file:///c:/users/user/desktop/banlegitcite/scripts/evaluation/retriever.py)"
-    },
-    {
-      "label": "Component: Pipeline Logging & Metrics",
-      "file_type": "document",
-      "source_file": "implementation_plan.md",
-      "source_location": "L29",
-      "_origin": "ast",
-      "id": "implementation_plan_component_pipeline_logging_metrics",
-      "community": 12,
-      "community_name": "Phase Roadmap for Researcher B",
-      "norm_label": "component: pipeline logging & metrics"
-    },
-    {
-      "label": "[NEW] [metrics.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/metrics.py)",
-      "file_type": "document",
-      "source_file": "implementation_plan.md",
-      "source_location": "L31",
-      "_origin": "ast",
-      "id": "implementation_plan_new_metrics_py_file_c_users_user_desktop_banlegitcite_scripts_evaluation_metrics_py",
-      "community": 12,
-      "community_name": "Phase Roadmap for Researcher B",
-      "norm_label": "[new] [metrics.py](file:///c:/users/user/desktop/banlegitcite/scripts/evaluation/metrics.py)"
-    },
-    {
-      "label": "Component: Scaffolding Tests",
-      "file_type": "document",
-      "source_file": "implementation_plan.md",
-      "source_location": "L34",
-      "_origin": "ast",
-      "id": "implementation_plan_component_scaffolding_tests",
-      "community": 12,
-      "community_name": "Phase Roadmap for Researcher B",
-      "norm_label": "component: scaffolding tests"
-    },
-    {
-      "label": "[NEW] [test_harness.py](file:///c:/Users/user/Desktop/BanLegitCite/tests/test_harness.py)",
-      "file_type": "document",
-      "source_file": "implementation_plan.md",
-      "source_location": "L36",
-      "_origin": "ast",
-      "id": "implementation_plan_new_test_harness_py_file_c_users_user_desktop_banlegitcite_tests_test_harness_py",
-      "community": 12,
-      "community_name": "Phase Roadmap for Researcher B",
-      "norm_label": "[new] [test_harness.py](file:///c:/users/user/desktop/banlegitcite/tests/test_harness.py)"
+      "norm_label": "component: git workflow"
     },
     {
       "label": "Verification Plan",
       "file_type": "document",
       "source_file": "implementation_plan.md",
-      "source_location": "L41",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "implementation_plan_verification_plan",
       "community": 12,
@@ -2292,23 +2567,12 @@
       "label": "Automated Tests",
       "file_type": "document",
       "source_file": "implementation_plan.md",
-      "source_location": "L43",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "implementation_plan_automated_tests",
       "community": 12,
       "community_name": "Phase Roadmap for Researcher B",
       "norm_label": "automated tests"
-    },
-    {
-      "label": "Manual Verification",
-      "file_type": "document",
-      "source_file": "implementation_plan.md",
-      "source_location": "L51",
-      "_origin": "ast",
-      "id": "implementation_plan_manual_verification",
-      "community": 12,
-      "community_name": "Phase Roadmap for Researcher B",
-      "norm_label": "manual verification"
     },
     {
       "label": "novelty_report.md",
@@ -2531,59 +2795,59 @@
       "norm_label": "[2026-07-15] joint"
     },
     {
-      "label": "spot_check_report.md",
+      "label": "reviewer_simulation_report.md",
       "file_type": "document",
-      "source_file": "logs/spot_check_report.md",
+      "source_file": "logs/reviewer_simulation_report.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "logs_spot_check_report",
-      "community": 9,
-      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
-      "norm_label": "spot_check_report.md"
+      "id": "logs_reviewer_simulation_report",
+      "community": 25,
+      "community_name": "E2 Reviewer Simulation Report",
+      "norm_label": "reviewer_simulation_report.md"
     },
     {
-      "label": "Spot-Check Quality Report - 5.0% sample size",
+      "label": "E2 Reviewer Simulation Report",
       "file_type": "document",
-      "source_file": "logs/spot_check_report.md",
+      "source_file": "logs/reviewer_simulation_report.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "logs_spot_check_report_spot_check_quality_report_5_0_sample_size",
-      "community": 9,
-      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
-      "norm_label": "spot-check quality report - 5.0% sample size"
+      "id": "logs_reviewer_simulation_report_e2_reviewer_simulation_report",
+      "community": 25,
+      "community_name": "E2 Reviewer Simulation Report",
+      "norm_label": "e2 reviewer simulation report"
     },
     {
-      "label": "Sampled Items for Human Verification",
+      "label": "Numerical Scores (Scale 1-5)",
       "file_type": "document",
-      "source_file": "logs/spot_check_report.md",
-      "source_location": "L5",
+      "source_file": "logs/reviewer_simulation_report.md",
+      "source_location": "L4",
       "_origin": "ast",
-      "id": "logs_spot_check_report_sampled_items_for_human_verification",
-      "community": 9,
-      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
-      "norm_label": "sampled items for human verification"
+      "id": "logs_reviewer_simulation_report_numerical_scores_scale_1_5",
+      "community": 25,
+      "community_name": "E2 Reviewer Simulation Report",
+      "norm_label": "numerical scores (scale 1-5)"
     },
     {
-      "label": "1. Citation: `10 BLC (AD) 55`",
+      "label": "Summary Evaluation",
       "file_type": "document",
-      "source_file": "logs/spot_check_report.md",
-      "source_location": "L7",
+      "source_file": "logs/reviewer_simulation_report.md",
+      "source_location": "L11",
       "_origin": "ast",
-      "id": "logs_spot_check_report_1_citation_10_blc_ad_55",
-      "community": 9,
-      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
-      "norm_label": "1. citation: `10 blc (ad) 55`"
+      "id": "logs_reviewer_simulation_report_summary_evaluation",
+      "community": 25,
+      "community_name": "E2 Reviewer Simulation Report",
+      "norm_label": "summary evaluation"
     },
     {
-      "label": "2. Citation: `10 BLC (AD) 55`",
+      "label": "Actionable Action Items / Fatal Flaw Flags",
       "file_type": "document",
-      "source_file": "logs/spot_check_report.md",
-      "source_location": "L15",
+      "source_file": "logs/reviewer_simulation_report.md",
+      "source_location": "L14",
       "_origin": "ast",
-      "id": "logs_spot_check_report_2_citation_10_blc_ad_55",
-      "community": 9,
-      "community_name": "RESULTS.md \u2014 BanLegit-Cite",
-      "norm_label": "2. citation: `10 blc (ad) 55`"
+      "id": "logs_reviewer_simulation_report_actionable_action_items_fatal_flaw_flags",
+      "community": 25,
+      "community_name": "E2 Reviewer Simulation Report",
+      "norm_label": "actionable action items / fatal flaw flags"
     },
     {
       "label": "citation_taxonomy.md",
@@ -2592,8 +2856,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "taxonomy_citation_taxonomy",
-      "community": 3,
-      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "community": 0,
+      "community_name": "README.md",
       "norm_label": "citation_taxonomy.md"
     },
     {
@@ -2603,8 +2867,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "taxonomy_citation_taxonomy_citation_taxonomy_banlegit_cite",
-      "community": 3,
-      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "community": 0,
+      "community_name": "README.md",
       "norm_label": "citation taxonomy \u2014 banlegit-cite"
     },
     {
@@ -2614,8 +2878,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "taxonomy_citation_taxonomy_taxonomy_draft",
-      "community": 3,
-      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "community": 0,
+      "community_name": "README.md",
       "norm_label": "taxonomy draft"
     },
     {
@@ -2625,8 +2889,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "taxonomy_citation_taxonomy_top_level_categories",
-      "community": 3,
-      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "community": 0,
+      "community_name": "README.md",
       "norm_label": "top-level categories"
     },
     {
@@ -2636,8 +2900,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "taxonomy_citation_taxonomy_subcategories_tbd",
-      "community": 3,
-      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "community": 0,
+      "community_name": "README.md",
       "norm_label": "subcategories (tbd)"
     },
     {
@@ -2647,8 +2911,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "taxonomy_citation_taxonomy_freeze_checklist",
-      "community": 3,
-      "community_name": "Citation Taxonomy \u2014 BanLegit-Cite",
+      "community": 0,
+      "community_name": "README.md",
       "norm_label": "freeze checklist"
     }
   ],
@@ -3404,6 +3668,97 @@
       "_origin": "ast",
       "source": "scripts_evaluation_retriever_rationale_34",
       "target": "scripts_evaluation_retriever_localretriever_retrieve",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L85",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_evaluation_reviewer_sim",
+      "target": "scripts_evaluation_reviewer_sim_compile_reviewer_report",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_evaluation_reviewer_sim",
+      "target": "scripts_evaluation_reviewer_sim_reviewersim",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L87",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_evaluation_reviewer_sim_compile_reviewer_report",
+      "target": "scripts_evaluation_reviewer_sim_reviewersim",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_evaluation_reviewer_sim_reviewersim",
+      "target": "scripts_evaluation_reviewer_sim_reviewersim_init",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_evaluation_reviewer_sim_reviewersim",
+      "target": "scripts_evaluation_reviewer_sim_reviewersim_load_draft",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_evaluation_reviewer_sim_reviewersim",
+      "target": "scripts_evaluation_reviewer_sim_reviewersim_run_review",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_evaluation_reviewer_sim_reviewersim_run_review",
+      "target": "scripts_evaluation_reviewer_sim_reviewersim_load_draft",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/evaluation/reviewer_sim.py",
+      "source_location": "L88",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_evaluation_reviewer_sim_compile_reviewer_report",
+      "target": "scripts_evaluation_reviewer_sim_reviewersim_run_review",
       "confidence_score": 1.0
     },
     {
@@ -4587,6 +4942,119 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_utils_release_package",
+      "target": "scripts_utils_release_package_releasepackager",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_utils_release_package_releasepackager",
+      "target": "scripts_utils_release_package_releasepackager_check_copyright_compliance",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_utils_release_package_releasepackager",
+      "target": "scripts_utils_release_package_releasepackager_compile_release_files",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L83",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_utils_release_package_releasepackager",
+      "target": "scripts_utils_release_package_releasepackager_generate_checksum",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_utils_release_package_releasepackager",
+      "target": "scripts_utils_release_package_releasepackager_init",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_utils_release_package_releasepackager",
+      "target": "scripts_utils_release_package_releasepackager_load_combined_data",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L42",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_utils_release_package_releasepackager_compile_release_files",
+      "target": "scripts_utils_release_package_releasepackager_load_combined_data",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_utils_release_package_rationale_28",
+      "target": "scripts_utils_release_package_releasepackager_check_copyright_compliance",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_utils_release_package_releasepackager_compile_release_files",
+      "target": "scripts_utils_release_package_releasepackager_check_copyright_compliance",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/utils/release_package.py",
+      "source_location": "L79",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "scripts_utils_release_package_releasepackager_compile_release_files",
+      "target": "scripts_utils_release_package_releasepackager_generate_checksum",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "scripts/utils/repro_check.py",
       "source_location": "L25",
       "weight": 1.0,
@@ -5449,6 +5917,138 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "data_dataset_card",
+      "target": "data_dataset_card_dataset_card_for_banlegit_cite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "data_dataset_card_dataset_card_for_banlegit_cite",
+      "target": "data_dataset_card_dataset_description",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "data_dataset_card_dataset_card_for_banlegit_cite",
+      "target": "data_dataset_card_dataset_licensing_copyright",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "data_dataset_card_dataset_card_for_banlegit_cite",
+      "target": "data_dataset_card_dataset_structure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "data_dataset_card_dataset_description",
+      "target": "data_dataset_card_dataset_summary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/dataset_card.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "data_dataset_card_dataset_description",
+      "target": "data_dataset_card_supported_tasks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_draft_placeholder",
+      "target": "docs_draft_placeholder_draft_paper_banlegit_cite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_draft_placeholder_draft_paper_banlegit_cite",
+      "target": "docs_draft_placeholder_abstract",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_draft_placeholder_draft_paper_banlegit_cite",
+      "target": "docs_draft_placeholder_methodology",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_draft_placeholder_draft_paper_banlegit_cite",
+      "target": "docs_draft_placeholder_reproducibility",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_draft_placeholder_draft_paper_banlegit_cite",
+      "target": "docs_draft_placeholder_results",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/draft_placeholder.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_draft_placeholder_draft_paper_banlegit_cite",
+      "target": "docs_draft_placeholder_title",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/eval_protocol.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -5707,17 +6307,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "implementation_plan",
-      "target": "implementation_plan_implementation_plan_phase_3_shadow_work_baseline_evaluation_harness",
+      "target": "implementation_plan_implementation_plan_phase_6_reproducibility_release_reviewer_simulation",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "implementation_plan.md",
-      "source_location": "L13",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "implementation_plan_implementation_plan_phase_3_shadow_work_baseline_evaluation_harness",
+      "source": "implementation_plan_implementation_plan_phase_6_reproducibility_release_reviewer_simulation",
       "target": "implementation_plan_proposed_changes",
       "confidence_score": 1.0
     },
@@ -5728,7 +6328,7 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "implementation_plan_implementation_plan_phase_3_shadow_work_baseline_evaluation_harness",
+      "source": "implementation_plan_implementation_plan_phase_6_reproducibility_release_reviewer_simulation",
       "target": "implementation_plan_user_review_required",
       "confidence_score": 1.0
     },
@@ -5736,11 +6336,44 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "implementation_plan.md",
-      "source_location": "L41",
+      "source_location": "L32",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "implementation_plan_implementation_plan_phase_3_shadow_work_baseline_evaluation_harness",
+      "source": "implementation_plan_implementation_plan_phase_6_reproducibility_release_reviewer_simulation",
       "target": "implementation_plan_verification_plan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "implementation_plan.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "implementation_plan_proposed_changes",
+      "target": "implementation_plan_component_git_workflow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "implementation_plan.md",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "implementation_plan_proposed_changes",
+      "target": "implementation_plan_component_packaging_release_preparation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "implementation_plan.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "implementation_plan_proposed_changes",
+      "target": "implementation_plan_component_reviewer_simulation_e2_agent",
       "confidence_score": 1.0
     },
     {
@@ -5750,19 +6383,19 @@
       "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "implementation_plan_proposed_changes",
-      "target": "implementation_plan_component_evaluation_runner_prompts",
+      "source": "implementation_plan_component_reviewer_simulation_e2_agent",
+      "target": "implementation_plan_new_reviewer_sim_py_file_c_users_user_desktop_banlegitcite_scripts_evaluation_reviewer_sim_py",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "implementation_plan.md",
-      "source_location": "L29",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "implementation_plan_proposed_changes",
-      "target": "implementation_plan_component_pipeline_logging_metrics",
+      "source": "implementation_plan_component_packaging_release_preparation",
+      "target": "implementation_plan_new_dataset_card_md_file_c_users_user_desktop_banlegitcite_data_dataset_card_md",
       "confidence_score": 1.0
     },
     {
@@ -5772,8 +6405,8 @@
       "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "implementation_plan_proposed_changes",
-      "target": "implementation_plan_component_retrieval_agentic_setting",
+      "source": "implementation_plan_component_packaging_release_preparation",
+      "target": "implementation_plan_new_release_package_py_file_c_users_user_desktop_banlegitcite_scripts_utils_release_package_py",
       "confidence_score": 1.0
     },
     {
@@ -5783,85 +6416,8 @@
       "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "implementation_plan_proposed_changes",
-      "target": "implementation_plan_component_scaffolding_tests",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "implementation_plan.md",
-      "source_location": "L19",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "implementation_plan_component_evaluation_runner_prompts",
-      "target": "implementation_plan_new_prompts_py_file_c_users_user_desktop_banlegitcite_scripts_evaluation_prompts_py",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "implementation_plan.md",
-      "source_location": "L21",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "implementation_plan_component_evaluation_runner_prompts",
-      "target": "implementation_plan_new_runner_py_file_c_users_user_desktop_banlegitcite_scripts_evaluation_runner_py",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "implementation_plan.md",
-      "source_location": "L26",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "implementation_plan_component_retrieval_agentic_setting",
-      "target": "implementation_plan_new_retriever_py_file_c_users_user_desktop_banlegitcite_scripts_evaluation_retriever_py",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "implementation_plan.md",
-      "source_location": "L31",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "implementation_plan_component_pipeline_logging_metrics",
-      "target": "implementation_plan_new_metrics_py_file_c_users_user_desktop_banlegitcite_scripts_evaluation_metrics_py",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "implementation_plan.md",
-      "source_location": "L36",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "implementation_plan_component_scaffolding_tests",
-      "target": "implementation_plan_new_test_harness_py_file_c_users_user_desktop_banlegitcite_tests_test_harness_py",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "implementation_plan.md",
-      "source_location": "L43",
-      "weight": 1.0,
-      "_origin": "ast",
       "source": "implementation_plan_verification_plan",
       "target": "implementation_plan_automated_tests",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "implementation_plan.md",
-      "source_location": "L51",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "implementation_plan_verification_plan",
-      "target": "implementation_plan_manual_verification",
       "confidence_score": 1.0
     },
     {
@@ -6043,45 +6599,45 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "logs/spot_check_report.md",
+      "source_file": "logs/reviewer_simulation_report.md",
       "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "logs_spot_check_report",
-      "target": "logs_spot_check_report_spot_check_quality_report_5_0_sample_size",
+      "source": "logs_reviewer_simulation_report",
+      "target": "logs_reviewer_simulation_report_e2_reviewer_simulation_report",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "logs/spot_check_report.md",
-      "source_location": "L5",
+      "source_file": "logs/reviewer_simulation_report.md",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "logs_spot_check_report_spot_check_quality_report_5_0_sample_size",
-      "target": "logs_spot_check_report_sampled_items_for_human_verification",
+      "source": "logs_reviewer_simulation_report_e2_reviewer_simulation_report",
+      "target": "logs_reviewer_simulation_report_actionable_action_items_fatal_flaw_flags",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "logs/spot_check_report.md",
-      "source_location": "L7",
+      "source_file": "logs/reviewer_simulation_report.md",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "logs_spot_check_report_sampled_items_for_human_verification",
-      "target": "logs_spot_check_report_1_citation_10_blc_ad_55",
+      "source": "logs_reviewer_simulation_report_e2_reviewer_simulation_report",
+      "target": "logs_reviewer_simulation_report_numerical_scores_scale_1_5",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "logs/spot_check_report.md",
-      "source_location": "L15",
+      "source_file": "logs/reviewer_simulation_report.md",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "logs_spot_check_report_sampled_items_for_human_verification",
-      "target": "logs_spot_check_report_2_citation_10_blc_ad_55",
+      "source": "logs_reviewer_simulation_report_e2_reviewer_simulation_report",
+      "target": "logs_reviewer_simulation_report_summary_evaluation",
       "confidence_score": 1.0
     },
     {
