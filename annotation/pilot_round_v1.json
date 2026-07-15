@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "text": "The accused was charged under Section 302 of the Penal Code 1860 for committing murder.",
+    "citation": "Section 302 of the Penal Code 1860",
+    "type": "statute",
+    "gold_label": "correct",
+    "notes": "Section 302 of the Bangladesh Penal Code prescribes the punishment for murder."
+  },
+  {
+    "id": 2,
+    "text": "The magistrate granted bail to the accused under Section 497 of the Code of Criminal Procedure 1898.",
+    "citation": "Section 497 of the Code of Criminal Procedure 1898",
+    "type": "statute",
+    "gold_label": "correct",
+    "notes": "Section 497 governs bail in non-bailable offences under BD law."
+  },
+  {
+    "id": 3,
+    "text": "An appeal from an original decree was preferred under Section 96 of the Code of Civil Procedure 1908.",
+    "citation": "Section 96 of the Code of Civil Procedure 1908",
+    "type": "statute",
+    "gold_label": "correct",
+    "notes": "Section 96 of the CPC allows appeals from original decrees."
+  },
+  {
+    "id": 4,
+    "text": "The tribunal sentenced the offender under Section 9(1) of the Nari O Shishu Nirjatan Daman Ain 2000.",
+    "citation": "Section 9(1) of the Nari O Shishu Nirjatan Daman Ain 2000",
+    "type": "statute",
+    "gold_label": "correct",
+    "notes": "Section 9(1) of the Ain governs punishment for rape."
+  },
+  {
+    "id": 5,
+    "text": "The petition was filed under Section 302A of the Penal Code 1860 for murder conspiracy.",
+    "citation": "Section 302A of the Penal Code 1860",
+    "type": "statute",
+    "gold_label": "S1_non_existent_section",
+    "notes": "No Section 302A exists in the Bangladesh Penal Code."
+  },
+  {
+    "id": 6,
+    "text": "The police registered the case under Section 512 of the Penal Code 1860.",
+    "citation": "Section 512 of the Penal Code 1860",
+    "type": "statute",
+    "gold_label": "S1_non_existent_section",
+    "notes": "The Penal Code 1860 only contains 511 sections."
+  },
+  {
+    "id": 7,
+    "text": "The accused was prosecuted under Section 326 of the Nari O Shishu Nirjatan Daman Ain 2000 for grievous hurt.",
+    "citation": "Section 326 of the Nari O Shishu Nirjatan Daman Ain 2000",
+    "type": "statute",
+    "gold_label": "S2_wrong_act_attribution",
+    "notes": "Section 326 defines grievous hurt in the Penal Code 1860, not Nari O Shishu."
+  },
+  {
+    "id": 8,
+    "text": "A search warrant was issued under Section 100 of the Penal Code 1860 to find the missing child.",
+    "citation": "Section 100 of the Penal Code 1860",
+    "type": "statute",
+    "gold_label": "S2_wrong_act_attribution",
+    "notes": "Search warrants are issued under Section 100 of the CrPC, not the Penal Code (where Section 100 is about the right of private defence)."
+  },
+  {
+    "id": 9,
+    "text": "The prosecution alleged theft under Section 378 of the Penal Code 1860, which prescribes the death penalty for murder.",
+    "citation": "Section 378 of the Penal Code 1860",
+    "type": "statute",
+    "gold_label": "S3_misstated_content",
+    "notes": "Section 378 defines theft, but the text misstates its content by linking it to murder/death penalty."
+  },
+  {
+    "id": 10,
+    "text": "The court held that under Section 96 of the Code of Civil Procedure 1908, no appeal shall lie from any original decree.",
+    "citation": "Section 96 of the Code of Civil Procedure 1908",
+    "type": "statute",
+    "gold_label": "S3_misstated_content",
+    "notes": "Section 96 explicitly states that appeals *shall* lie from original decrees, so this misstates the legal content."
+  },
+  {
+    "id": 11,
+    "text": "The charge sheet was submitted under Section 498A of the Penal Code 1860 regarding husband's cruelty.",
+    "citation": "Section 498A of the Penal Code 1860",
+    "type": "statute",
+    "gold_label": "S4_cross_jurisdictional_bleed",
+    "notes": "Section 498A is an Indian Penal Code section and does not exist in the Bangladesh Penal Code."
+  },
+  {
+    "id": 12,
+    "text": "The victim's family filed a case under Section 304B of the Penal Code 1860 for dowry death.",
+    "citation": "Section 304B of the Penal Code 1860",
+    "type": "statute",
+    "gold_label": "S4_cross_jurisdictional_bleed",
+    "notes": "Section 304B (dowry death) is an Indian IPC amendment, not present in the Bangladesh Penal Code."
+  },
+  {
+    "id": 13,
+    "text": "The precedent of State v. Shafiuddin, 54 DLR 21 was cited for definition of common intention.",
+    "citation": "State v. Shafiuddin, 54 DLR 21",
+    "type": "precedent",
+    "gold_label": "correct",
+    "notes": "This is a real judgment of the Supreme Court of Bangladesh."
+  },
+  {
+    "id": 14,
+    "text": "The landmark ruling in BLAST v. Bangladesh, 55 DLR 313 established guidelines on arrest.",
+    "citation": "BLAST v. Bangladesh, 55 DLR 313",
+    "type": "precedent",
+    "gold_label": "correct",
+    "notes": "This is a real High Court Division case regarding arrest guidelines."
+  },
+  {
+    "id": 15,
+    "text": "In Rahman v. The State, 80 DLR (AD) 902, the court laid down rules for bail.",
+    "citation": "Rahman v. The State, 80 DLR (AD) 902",
+    "type": "precedent",
+    "gold_label": "P1_non_existent_case",
+    "notes": "No such case or volume (80 DLR AD 902) exists in Bangladeshi law reports."
+  },
+  {
+    "id": 16,
+    "text": "The division bench relied on State v. Shafiuddin, 72 DLR (AD) 55 for case law guidelines.",
+    "citation": "State v. Shafiuddin, 72 DLR (AD) 55",
+    "type": "precedent",
+    "gold_label": "P2_wrong_citation_locator",
+    "notes": "State v. Shafiuddin is not at 72 DLR AD 55 (it is 54 DLR 21)."
+  },
+  {
+    "id": 17,
+    "text": "In BLAST v. Bangladesh, 55 DLR 313, the court held that the death penalty is mandatory for drug trafficking.",
+    "citation": "BLAST v. Bangladesh, 55 DLR 313",
+    "type": "precedent",
+    "gold_label": "P3_misattributed_holding",
+    "notes": "BLAST v. Bangladesh (55 DLR 313) is about arbitrary arrest guidelines (Section 54 CrPC), not drug trafficking or the death penalty."
+  },
+  {
+    "id": 18,
+    "text": "The Appellate Division in BLAST v. Bangladesh, 55 DLR 313 held that Section 54 of CrPC requires guidelines.",
+    "citation": "BLAST v. Bangladesh, 55 DLR 313",
+    "type": "precedent",
+    "gold_label": "P4_wrong_court_level",
+    "notes": "The 55 DLR 313 judgment was decided by the High Court Division, not the Appellate Division."
+  },
+  {
+    "id": 19,
+    "text": "The Appellate Division in Kesavananda Bharati v. State of Kerala, AIR 1973 SC 1461 laid down the basic structure doctrine.",
+    "citation": "Kesavananda Bharati v. State of Kerala, AIR 1973 SC 1461",
+    "type": "precedent",
+    "gold_label": "P5_cross_jurisdictional_precedent_bleed",
+    "notes": "Kesavananda Bharati is a landmark decision of the Supreme Court of India, not the Appellate Division of Bangladesh."
+  },
+  {
+    "id": 20,
+    "text": "The court cited Dr. Mohiuddin Farooque v. Bangladesh, 49 DLR (AD) 1 to establish locus standi in public interest litigation.",
+    "citation": "Dr. Mohiuddin Farooque v. Bangladesh, 49 DLR (AD) 1",
+    "type": "precedent",
+    "gold_label": "correct",
+    "notes": "This is a real landmark Appellate Division case on public interest standing."
+  }
+]

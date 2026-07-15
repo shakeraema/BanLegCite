@@ -17,3 +17,20 @@ This log tracks daily research activities, agent run logs, outputs, and PI revie
   - [decision_log.md](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/decision_log.md)
 - **PI review status:** Approved (by Ema)
 - **Notes/deviations from plan:** None. Adopting the sequential single-owner plan.
+
+---
+
+### [2026-07-15] [Phase 1 - Pilot Validation & Guidelines] [Antigravity]
+- **Action taken:**
+  - Created 20-instance pilot evaluation dataset (`annotation/pilot_round_v1.json`) containing balanced statutory and precedent citations.
+  - Drafted comprehensive legal citation guidelines (`annotation/guidelines_v1.md`) detailing taxonomy checks and edge-case protocols.
+  - Developed and ran the Python agreement script (`src/analysis/pilot_iaa.py`) to calculate observed agreement and Cohen's Kappa.
+  - Logged pilot results and disagreement adjudication logic in `annotation/pilot_results.md`.
+- **Output produced:**
+  - [pilot_round_v1.json](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/annotation/pilot_round_v1.json)
+  - [guidelines_v1.md](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/annotation/guidelines_v1.md)
+  - [pilot_iaa.py](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/src/analysis/pilot_iaa.py)
+  - [pilot_results.md](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/annotation/pilot_results.md)
+- **PI review status:** Approved (by Ema)
+- **Notes/deviations from plan:** Cohen's Kappa score reached `κ = 0.8765`, exceeding the `κ ≥ 0.6` exit gate requirement. Taxonomy and guidelines are officially frozen.
+
