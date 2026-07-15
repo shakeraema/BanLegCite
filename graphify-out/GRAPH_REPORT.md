@@ -1,11 +1,11 @@
-# Graph Report - BanLegitCite  (2026-07-15)
+# Graph Report - BanLegitCite  (2026-07-16)
 
 ## Corpus Check
-- 39 files · ~16,604 words
+- 43 files · ~17,522 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 240 nodes · 309 edges · 24 communities (19 shown, 5 thin omitted)
+- 264 nodes · 335 edges · 26 communities (19 shown, 7 thin omitted)
 - Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 12 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
@@ -31,6 +31,8 @@
 - compute_metrics
 - repro_check.py
 - run_all_tests
+- ReviewerSim
+- E2 Reviewer Simulation Report
 
 ## God Nodes (most connected - your core abstractions)
 1. `BaselineRunner` - 17 edges
@@ -47,23 +49,23 @@
 ## Surprising Connections (you probably didn't know these)
 - `TestMetrics` --uses--> `LocalRetriever`  [INFERRED]
   tests/test_harness.py → scripts/evaluation/retriever.py
-- `TestMetrics` --uses--> `BaselineRunner`  [INFERRED]
-  tests/test_harness.py → scripts/evaluation/runner.py
 - `TestPrompts` --uses--> `LocalRetriever`  [INFERRED]
   tests/test_harness.py → scripts/evaluation/retriever.py
 - `TestRetriever` --uses--> `LocalRetriever`  [INFERRED]
   tests/test_harness.py → scripts/evaluation/retriever.py
 - `TestRunner` --uses--> `LocalRetriever`  [INFERRED]
   tests/test_harness.py → scripts/evaluation/retriever.py
+- `TestMetrics` --uses--> `BaselineRunner`  [INFERRED]
+  tests/test_harness.py → scripts/evaluation/runner.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (24 total, 5 thin omitted)
+## Communities (26 total, 7 thin omitted)
 
 ### Community 0 - "README.md"
-Cohesion: 0.07
-Nodes (23): Evaluation Protocol — BanLegit-Cite, Freeze Checklist, Pre-registered Statistical Tests, Primary Metrics, Freeze Checklist, Hypotheses, Research Question (RQ), Research Questions & Hypotheses — BanLegit-Cite (+15 more)
+Cohesion: 0.06
+Nodes (28): Evaluation Protocol — BanLegit-Cite, Freeze Checklist, Pre-registered Statistical Tests, Primary Metrics, Freeze Checklist, Hypotheses, Research Question (RQ), Research Questions & Hypotheses — BanLegit-Cite (+20 more)
 
 ### Community 1 - "BanLegit-Cite — Project Instructions for AI Agents"
 Cohesion: 0.20
@@ -72,10 +74,6 @@ Nodes (9): 1. WHAT THIS PROJECT IS, 2. EVIDENCE-LOGGING RULES (mandatory for all
 ### Community 2 - "Annotation Guidelines — BanLegit-Cite"
 Cohesion: 0.22
 Nodes (8): Adjudication Protocol, Annotation Guidelines — BanLegit-Cite, Edge Cases (to be expanded during Phase 1), FABRICATED, Freeze Checklist, Legitimacy Labeling Rules, REAL, Task Definition
-
-### Community 3 - "Citation Taxonomy — BanLegit-Cite"
-Cohesion: 0.33
-Nodes (5): Citation Taxonomy — BanLegit-Cite, Freeze Checklist, Subcategories (TBD), Taxonomy Draft, Top-Level Categories
 
 ### Community 4 - "Evaluation Protocol — BanLegit-Cite"
 Cohesion: 0.12
@@ -98,45 +96,47 @@ Cohesion: 0.50
 Nodes (3): Entries, Fabrication Review Log — BanLegit-Cite, Log Format
 
 ### Community 9 - "RESULTS.md — BanLegit-Cite"
-Cohesion: 0.40
-Nodes (4): 1. Citation: `10 BLC (AD) 55`, 2. Citation: `10 BLC (AD) 55`, Sampled Items for Human Verification, Spot-Check Quality Report - 5.0% sample size
+Cohesion: 0.29
+Nodes (6): Dataset Card for BanLegit-Cite, Dataset Description, Dataset Licensing & Copyright, Dataset Structure, Dataset Summary, Supported Tasks
 
 ### Community 12 - "Phase Roadmap for Researcher B"
-Cohesion: 0.12
-Nodes (15): Automated Tests, Component: Evaluation Runner & Prompts, Component: Pipeline Logging & Metrics, Component: Retrieval (Agentic Setting), Component: Scaffolding Tests, Implementation Plan: Phase 3 Shadow Work (Baseline Evaluation Harness), Manual Verification, [NEW] [metrics.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/metrics.py) (+7 more)
+Cohesion: 0.17
+Nodes (11): Automated Tests, Component: Git Workflow, Component: Packaging & Release Preparation, Component: Reviewer Simulation (E2 Agent), Implementation Plan: Phase 6 (Reproducibility, Release & Reviewer Simulation), [NEW] [dataset_card.md](file:///c:/Users/user/Desktop/BanLegitCite/data/dataset_card.md), [NEW] [release_package.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/utils/release_package.py), [NEW] [reviewer_sim.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/reviewer_sim.py) (+3 more)
 
 ### Community 13 - "Decision Log — BanLegit-Cite"
 Cohesion: 0.17
 Nodes (11): Interpretations, Interpretations, Paper Table → Result Mapping, Performance Metrics, Performance Metrics, Phase 4 Results — 2026-07-15 23:19:50, Phase 4 Results — 2026-07-15 23:42:48, Pre-registered Statistical Tests (+3 more)
 
 ### Community 14 - "wb_config.py"
-Cohesion: 0.10
-Nodes (15): LocalRetriever, Constructs a basic map from citation strings to case metadata and holdings., Looks up the citation in the index and returns verified holding text., BaselineRunner, Queries model or falls back to high-fidelity simulated response., Parses standard formatting from model text output., Evaluates a single citation record., run_evaluation() (+7 more)
+Cohesion: 0.09
+Nodes (18): compute_metrics(), Computes Accuracy, Precision, Recall, F1-score, and per-class breakdown.     Ret, LocalRetriever, Constructs a basic map from citation strings to case metadata and holdings., Looks up the citation in the index and returns verified holding text., BaselineRunner, Queries model or falls back to high-fidelity simulated response., Parses standard formatting from model text output. (+10 more)
 
 ### Community 19 - "compute_metrics"
-Cohesion: 0.12
-Nodes (23): compute_metrics(), log_to_wandb(), print_metrics(), Logs all metrics to an active W&B run., Persists metric JSON alongside the results file., Computes Accuracy, Precision, Recall, F1-score, and per-class breakdown.     Ret, save_metrics(), build_results_table() (+15 more)
+Cohesion: 0.11
+Nodes (28): log_to_wandb(), print_metrics(), Logs all metrics to an active W&B run., Persists metric JSON alongside the results file., save_metrics(), build_results_table(), build_stats_table(), Renders a markdown results table for paper/RESULTS.md. (+20 more)
 
 ### Community 22 - "repro_check.py"
 Cohesion: 0.29
 Nodes (9): check_experiment_files(), check_frozen_docs(), check_requirements_pinned(), check_results_md_entries(), Parses RESULTS.md and extracts all stage-tagged result blocks., Scans results directory and validates metadata headers in each JSON., Verifies requirements.txt exists and all entries are version-pinned., Checks that all key docs have STATUS: FROZEN. (+1 more)
 
 ### Community 23 - "run_all_tests"
-Cohesion: 0.31
-Nodes (8): chi_squared_category_test(), mcnemar_test(), Tests whether accuracy differs significantly across citation taxonomy     catego, Convenience wrapper that runs H1, H2, H3 and returns a unified report dict., Compares binary correct/incorrect vectors for LLM vs human annotator     using M, Tests whether the agentic setting produces significantly higher     confidence s, run_all_tests(), wilcoxon_test()
+Cohesion: 0.29
+Nodes (6): Abstract, Draft Paper: BanLegit-Cite, Methodology, Reproducibility, Results, Title
+
+### Community 25 - "E2 Reviewer Simulation Report"
+Cohesion: 0.40
+Nodes (4): Actionable Action Items / Fatal Flaw Flags, E2 Reviewer Simulation Report, Numerical Scores (Scale 1-5), Summary Evaluation
 
 ## Knowledge Gaps
-- **71 isolated node(s):** `setup_label_studio.sh script`, `graphify`, `Workflow: graphify`, `1. WHAT THIS PROJECT IS`, `2. EVIDENCE-LOGGING RULES (mandatory for all agent outputs)` (+66 more)
+- **79 isolated node(s):** `setup_label_studio.sh script`, `graphify`, `Workflow: graphify`, `1. WHAT THIS PROJECT IS`, `2. EVIDENCE-LOGGING RULES (mandatory for all agent outputs)` (+74 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **7 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `BaselineRunner` connect `wb_config.py` to `compute_metrics`?**
-  _High betweenness centrality (0.034) - this node is a cross-community bridge._
-- **Why does `LocalRetriever` connect `wb_config.py` to `compute_metrics`?**
-  _High betweenness centrality (0.018) - this node is a cross-community bridge._
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
 - **Are the 5 inferred relationships involving `BaselineRunner` (e.g. with `LocalRetriever` and `TestMetrics`) actually correct?**
   _`BaselineRunner` has 5 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 5 inferred relationships involving `LocalRetriever` (e.g. with `BaselineRunner` and `TestMetrics`) actually correct?**
@@ -144,6 +144,8 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 3 inferred relationships involving `BaseScraper` (e.g. with `ALRScraper` and `BLCScraper`) actually correct?**
   _`BaseScraper` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `setup_label_studio.sh script`, `graphify`, `Workflow: graphify` to the rest of the system?**
-  _71 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _79 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `README.md` be split into smaller, more focused modules?**
-  _Cohesion score 0.07142857142857142 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.058823529411764705 - nodes in this community are weakly interconnected._
+- **Should `Evaluation Protocol — BanLegit-Cite` be split into smaller, more focused modules?**
+  _Cohesion score 0.125 - nodes in this community are weakly interconnected._
