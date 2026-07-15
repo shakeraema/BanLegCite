@@ -1,6 +1,6 @@
 # Citation Taxonomy — BanLegit-Cite
 
-> **STATUS: DRAFT — NOT YET FROZEN**
+> **STATUS: FROZEN**
 > Frozen after Phase 1 gate (κ ≥ 0.6 in pilot annotation round).
 > Any change after freezing requires a joint decision-log entry.
 

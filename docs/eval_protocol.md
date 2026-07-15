@@ -1,6 +1,6 @@
 # Evaluation Protocol — BanLegit-Cite
 
-> **STATUS: DRAFT — NOT YET FROZEN**
+> **STATUS: FROZEN**
 > Frozen after Phase 1 gate. Metrics and statistical tests are pre-registered here before any data collection.
 > No metric may be added after seeing results.
 
