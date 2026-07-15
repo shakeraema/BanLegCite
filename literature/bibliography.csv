@@ -1,0 +1,7 @@
+id,title,authors,year,venue,url,pdf_path,citation_count,relevance_tier,competing,novelty_notes,zotero_key,date_added,added_by
+1,LePhantomCite,,,,,,,1,TRUE,,,,
+2,LegalCiteBench,,,,,,,1,TRUE,,,,
+3,SG-LegalCite,,,,,,,1,TRUE,,,,
+4,LeCNet,,,,,,,1,TRUE,,,,
+5,BenHalluEval,,,,,,,1,TRUE,,,,
+6,Dahl et al. 2024,,,,,,,1,TRUE,,,,

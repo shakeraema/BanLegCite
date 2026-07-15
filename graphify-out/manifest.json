@@ -1,0 +1,72 @@
+{
+  ".agents/rules/graphify.md": {
+    "mtime": 1784127290.7965467,
+    "ast_hash": "a0e4d192b9e2e17256124dbfc8e24e6a",
+    "semantic_hash": ""
+  },
+  ".agents/workflows/graphify.md": {
+    "mtime": 1784127290.7985446,
+    "ast_hash": "637776aa6f7496d069afe7520c845c8a",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1784127457.5884929,
+    "ast_hash": "c569cc030df5582500068abfa600f5eb",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1784127466.480278,
+    "ast_hash": "cec88e1db8c517c656f1908e70ca867d",
+    "semantic_hash": ""
+  },
+  "RESULTS.md": {
+    "mtime": 1784127475.3383417,
+    "ast_hash": "50affcd6b73f5fb548b4957762a76eac",
+    "semantic_hash": ""
+  },
+  "annotation/guidelines.md": {
+    "mtime": 1784127580.4619915,
+    "ast_hash": "3a098579599863401cece64d976b71aa",
+    "semantic_hash": ""
+  },
+  "docs/eval_protocol.md": {
+    "mtime": 1784127557.1337323,
+    "ast_hash": "ff816a3b607ceb8b9830ade78f6aaac2",
+    "semantic_hash": ""
+  },
+  "docs/rq_hypotheses.md": {
+    "mtime": 1784127545.8363888,
+    "ast_hash": "00b276148ac59f37777b7b4c0cc137bc",
+    "semantic_hash": ""
+  },
+  "literature/novelty_report.md": {
+    "mtime": 1784127531.5326905,
+    "ast_hash": "2c4eb152c9c78a4ebb1ba341ba404883",
+    "semantic_hash": ""
+  },
+  "logs/decision_log.md": {
+    "mtime": 1784127487.421452,
+    "ast_hash": "c8aa33b2b00531289b4fdd3f1f4e74be",
+    "semantic_hash": ""
+  },
+  "logs/fabrication_review_log.md": {
+    "mtime": 1784127508.623798,
+    "ast_hash": "a5f99aa2179b14103db97c2d8febfffc",
+    "semantic_hash": ""
+  },
+  "logs/research_log.md": {
+    "mtime": 1784127498.4337678,
+    "ast_hash": "a8834d0f6c6483b31bd4dc6221875f34",
+    "semantic_hash": ""
+  },
+  "taxonomy/citation_taxonomy.md": {
+    "mtime": 1784127567.3505943,
+    "ast_hash": "47ceec81f3b4d2492c31162db910ceb9",
+    "semantic_hash": ""
+  },
+  "BanLegit-Cite_Execution_Plan.md.pdf": {
+    "mtime": 1784117118.6790304,
+    "ast_hash": "5c100c7dd1366f64916fadcf943d6f39",
+    "semantic_hash": ""
+  }
+}

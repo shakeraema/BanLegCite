@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+venv/
+.venv/
+
+# Data — tracked by DVC, not git
+data/raw/
+data/annotated/
+data/gold/
+experiments/results/
+
+# DVC cache
+.dvc/cache/
+.dvc/tmp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs (keep the markdown logs, exclude any binary/large logs)
+*.log
