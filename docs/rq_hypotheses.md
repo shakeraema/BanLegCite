@@ -1,7 +1,7 @@
 # Research Questions & Hypotheses — BanLegit-Cite
 
-> **STATUS: DRAFT — NOT YET FROZEN**
-> Frozen after Phase 0 gate. Any change after freezing requires a joint decision-log entry signed by both researchers.
+> **STATUS: FROZEN**
+> Frozen after Phase 1 gate. Any change after freezing requires a joint decision-log entry signed by both researchers.
 
 ---
 

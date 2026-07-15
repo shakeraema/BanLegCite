@@ -1,7 +1,7 @@
-id,title,authors,year,venue,url,pdf_path,citation_count,relevance_tier,competing,novelty_notes,zotero_key,date_added,added_by
-1,LePhantomCite,,,,,,,1,TRUE,,,,
-2,LegalCiteBench,,,,,,,1,TRUE,,,,
-3,SG-LegalCite,,,,,,,1,TRUE,,,,
-4,LeCNet,,,,,,,1,TRUE,,,,
-5,BenHalluEval,,,,,,,1,TRUE,,,,
-6,Dahl et al. 2024,,,,,,,1,TRUE,,,,
+id,title,authors,year,venue,url,pdf_url,citation_count,relevance_tier,competing,novelty_notes,zotero_key,date_added,added_by
+1,"Who Checks the Citations? Benchmarking Legal Hallucination Detection (LePhantomCite)","Patty Liu; Dominik Stammbach; Peter Henderson",2026,arXiv,https://arxiv.org/abs/2606.21155,https://arxiv.org/pdf/2606.21155,,1,TRUE,"1300 US appellate brief excerpts; taxonomy of hallucination types; agentic vs non-agentic eval; US jurisdiction only",,2026-07-15,Joint
+2,"LegalCiteBench: Evaluating Citation Reliability in Legal Language Models","Sijia et al.",2026,arXiv,https://arxiv.org/abs/2605.10186,https://arxiv.org/pdf/2605.10186,,1,TRUE,"24000 instances from 1000 US judicial opinions; 5 citation tasks; closed-book setting; US jurisdiction only",,2026-07-15,Joint
+3,"SG-LegalCite: A Principle-Augmented Benchmark for Legal Citation Retrieval in Singapore Law","Shannon Lee Yueh Ern; Kaidong Feng; Yingpeng Du; Chloe Lee En Jia; Zhu Sun",2026,arXiv,https://arxiv.org/abs/2605.21057,https://arxiv.org/pdf/2605.21057,,1,TRUE,"100890 case-principle pairs; Singapore Supreme Court 2000-2025; retrieval task not detection; Singapore jurisdiction",,2026-07-15,Joint
+4,"LeCNet: A Legal Citation Network Benchmark Dataset","Pooja Harde; Bhavya Jain; Sarika Jain",2025,ACL JUST-NLP Workshop,https://aclanthology.org/2025.justnlp-main.4/,https://aclanthology.org/2025.justnlp-main.4.pdf,,1,TRUE,"26308 nodes; 67108 edges; Indian judiciary; link prediction task not hallucination detection; graph-based",,2026-07-15,Joint
+5,"BenHalluEval: A Multi-Task Hallucination Evaluation Framework for Large Language Models on Bengali","",2026,arXiv,https://arxiv.org/abs/2605.31483,https://arxiv.org/pdf/2605.31483,,1,TRUE,"12000 hallucinated candidates; Bengali language; 4 tasks (GQA/code-mixed/summarization/reasoning); no legal citation focus",,2026-07-15,Joint
+6,"Large Legal Fictions: Profiling Legal Hallucinations in Large Language Models","Matthew Dahl; Varun Magesh; Mirac Suzgun; Daniel E. Ho",2024,Journal of Legal Analysis,https://arxiv.org/abs/2401.01301,https://arxiv.org/pdf/2401.01301,,1,TRUE,"Hallucination typology; GPT-4 58% hallucination rate; US jurisdiction; no Bengali/Bangladeshi coverage; no benchmark dataset released",,2026-07-15,Joint

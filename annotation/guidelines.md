@@ -1,6 +1,6 @@
 # Annotation Guidelines — BanLegit-Cite
 
-> **STATUS: DRAFT — NOT YET FROZEN**
+> **STATUS: FROZEN**
 > Frozen after Phase 1 gate (κ ≥ 0.6 in pilot annotation round).
 > Written by Researcher A. Any change after freezing requires joint decision-log entry.
 

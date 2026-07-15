@@ -1,0 +1,46 @@
+<View>
+  <!-- Display the legal citation and surrounding context -->
+  <Header value="Bangladeshi Legal Citation Verification" />
+  
+  <View style="box-shadow: 2px 2px 5px #ccc; padding: 15px; margin-bottom: 20px; background-color: #f9f9f9; border-radius: 5px;">
+    <Text name="case_context" value="Context Paragraph: $context" />
+  </View>
+  
+  <View style="box-shadow: 2px 2px 5px #ccc; padding: 15px; margin-bottom: 20px; background-color: #fff8eb; border-left: 5px solid #ff9800; border-radius: 5px;">
+    <Text name="citation" value="Citation to Verify: $citation" />
+    <Text name="purported_source" value="Purported Source Document: $source" />
+  </View>
+
+  <!-- Ground Truth Info if available -->
+  <View style="margin-bottom: 20px;">
+    <Collapse>
+      <Panel header="Verification Helper (Source Text / Metadata)">
+        <Text name="helper_text" value="Reference Text / Verification Notes: $helper_notes" />
+      </Panel>
+    </Collapse>
+  </View>
+
+  <!-- Labeling choices -->
+  <Header value="Legitimacy Classification" />
+  <Choices name="legitimacy" toName="citation" choice="single" showInline="true">
+    <Choice value="REAL" background="#2ec4b6" hint="Citation exists, is correct, and matches the source content." />
+    <Choice value="FABRICATED" background="#e71d36" hint="Citation does not exist, point to an incorrect volume/page, or makes false claims about the case." />
+  </Choices>
+
+  <!-- Detailed error taxonomy for fabricated citations -->
+  <View visibleWhen="choice-selected" whenTagName="legitimacy" whenChoiceValue="FABRICATED">
+    <Header value="Fabrication Subcategories" />
+    <Choices name="fabrication_type" toName="citation" choice="multiple">
+      <Choice value="Non-Existent Case" hint="The case title, volume, or page number does not exist." />
+      <Choice value="Misattributed Text" hint="The citation points to a real case but the text/holding is fabricated or misattributed." />
+      <Choice value="Incorrect Volume/Page" hint="The case exists but is located at a different page or volume." />
+      <Choice value="Jurisdiction Mismatch" hint="Citation refers to a court/report that has no authority over the matter (e.g. non-Bangladeshi or incorrect reporter)." />
+    </Choices>
+  </View>
+
+  <Header value="Confidence Score" />
+  <Rating name="confidence" toName="citation" maxRating="5" icon="star" />
+
+  <Header value="Annotator Notes & Comments" />
+  <TextArea name="notes" toName="citation" placeholder="Provide reason for fabrication or notes on verification..." rows="4" />
+</View>
