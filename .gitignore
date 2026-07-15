@@ -1,0 +1,19 @@
+# Large PDF and binary assets
+*.pdf
+.DS_Store
+
+# Data directories (to be versioned via DVC)
+data/raw/
+data/fabricated/
+data/annotated/
+data/gold/
+data/splits/
+
+# Python environment and cache
+__pycache__/
+*.pyc
+.env
+venv/
+.venv/
+.pytest_cache/
+.ipynb_checkpoints/
