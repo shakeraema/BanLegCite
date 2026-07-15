@@ -36,3 +36,11 @@
 **Rationale:** The pilot annotation rounds showed consistent categorization and inter-annotator alignment (target κ ≥ 0.6 met).
 **Impact:** Unblocks Phase 2 data engineering, scraping, and fabrication pipeline construction.
 
+### [2026-07-16] Final Go/No-Go Decision Passed & Submission Tagged
+**Participants:** Joint (AI-assisted)
+**Stage:** Phase 7 — Final Joint Review & Submission
+**Decision:** Merge release branch to main and tag the repository with `iccit-submission-v1` for final submission.
+**Rationale:** All reproducibility gates, reviewer simulation checks (0 fatal flaws), statistical test matrices, and dataset packaging requirements are successfully completed and verified.
+**Impact:** Completes all milestones of the BanLegit-Cite research execution pipeline, readying it for publication review.
+
+
