@@ -36,11 +36,23 @@
 **Rationale:** The pilot annotation rounds showed consistent categorization and inter-annotator alignment (target κ ≥ 0.6 met).
 **Impact:** Unblocks Phase 2 data engineering, scraping, and fabrication pipeline construction.
 
+### [2026-07-15] Adoption of Sequential Single-Owner Execution Plan
+**Participants:** Researcher A (Ema)
+**Stage:** Phase 0 — Foundation
+**Decision:** Adopting the Sequential Single-Owner Execution Plan model for the two-person research team.
+**Rationale:** alternating single-owner phases match skillsets (Ema = Judgment/Narrative, Zahid = Systems/Execution) and limits sync points to fixed handoff gates, allowing higher-focus execution.
+**Impact:** Organizes the 7 phases and coordination flow.
+
+### [2026-07-15] Annotation Strategy Constraint (Lack of External Law Students)
+**Participants:** Researcher A (Ema)
+**Stage:** Phase 2 — Shadow-Work
+**Decision:** Due to lacking external law students at project kickoff, Ema will act as primary validator/annotator and target recruiting a small annotator pool (2 students or junior advocates) during her Phase 2 shadow-work. If recruitment fails, Ema acts as Annotator 1, a peer acts as Annotator 2, and the senior advisor acts as final adjudicator.
+**Rationale:** Maintains the mandatory double-annotation/IAA (`κ ≥ 0.6`) requirement without pausing the project.
+**Impact:** Safely maps annotation resourcing without causing timeline delays.
+
 ### [2026-07-16] Final Go/No-Go Decision Passed & Submission Tagged
 **Participants:** Joint (AI-assisted)
 **Stage:** Phase 7 — Final Joint Review & Submission
 **Decision:** Merge release branch to main and tag the repository with `iccit-submission-v1` for final submission.
 **Rationale:** All reproducibility gates, reviewer simulation checks (0 fatal flaws), statistical test matrices, and dataset packaging requirements are successfully completed and verified.
 **Impact:** Completes all milestones of the BanLegit-Cite research execution pipeline, readying it for publication review.
-
-
