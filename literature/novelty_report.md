@@ -24,6 +24,7 @@ LegalRAG: https://arxiv.org/pdf/2504.16121	2025	Multilingual RAG with relevance 
 JusticeNetBD : 	2025	Women's legal rights RAG assistant	Bangla	Bangladesh (Mixed Law)	N/A (applied RAG)	None	Applied QA assistant, not a benchmark. No evaluation of citation fabrication.
 UKIL-DB-EN : https://arxiv.org/html/2410.17210v1	2024	BD legal assistant	English	Bangladesh (Mixed Law)	N/A (applied RAG)	None	First structured BD legal assistant, but lacks citation-level fabrication auditing and Bangla multilingual support.
 
+---
 
 ## 3. Core Research Questions and Hypotheses
 

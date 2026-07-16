@@ -1,19 +1,41 @@
-# Large PDF and binary assets
-*.pdf
-.DS_Store
-
-# Data directories (to be versioned via DVC)
-data/raw/
-data/fabricated/
-data/annotated/
-data/gold/
-data/splits/
-
-# Python environment and cache
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
 .env
 venv/
 .venv/
 .pytest_cache/
 .ipynb_checkpoints/
+
+# Data — tracked by DVC, not git
+data/raw/
+data/fabricated/
+data/annotated/
+data/gold/
+data/splits/
+data/release/
+experiments/results/
+
+# DVC cache
+.dvc/cache/
+.dvc/tmp/
+
+# OS and large binary assets
+.DS_Store
+Thumbs.db
+*.pdf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs (keep the markdown logs, exclude any binary/large logs)
+*.log
+
+# Graphify caches and backups
+graphify-out/cache/
+graphify-out/202*/
+annotation/label_studio_import.json
+logs/spot_check_report.md
