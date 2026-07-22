@@ -1,0 +1,599 @@
+// Run this script in Google Apps Script (script.google.com) to generate the annotation form.
+function createAnnotationForm() {
+  var form = FormApp.create('BanLegit-Cite Annotation Task');
+  form.setDescription('Please verify the citations in this form. For each task, select if the citation is Correct or Fabricated, provide the specific category if fabricated, and indicate your confidence.\n\nRefer to the annotation guidelines for rules on classification.');
+  
+  // Collect email addresses to track annotators
+  form.setCollectEmail(true);
+
+  var tasks = [
+  {
+    "context": "Applying the rule from Ehsanul Huq v. State, the court clarified that Addresses definition of judicial bias and requirements of natural justice under Administrative Law. The citation 2 ALR (AD) 54 is cited to support this.",
+    "citation": "2 ALR (AD) 54",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Ehsanul%20Huq%20v.%20State | Org ID: ALR_REAL_1",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from Secretary, Ministry of Establishments v. Md. Ruhul Amin, the court clarified that Appellate Division findings on civil service rules, promotion criteria, and seniority lists. The citation 5 ALR (AD) 190 is cited to support this.",
+    "citation": "5 ALR (AD) 190",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Establishments%20v.%20Md.%20Ruhul%20Amin | Org ID: ALR_REAL_2",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from Professor Ghulam Azam v. Bangladesh, the court clarified that Citizenship restoration under the Bangladesh Citizenship (Temporary Provisions) Order 1972. The citation 3 ALR (HCD) 101 is cited to support this.",
+    "citation": "3 ALR (HCD) 101",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Professor%20Ghulam%20Azam%20v.%20Bangladesh | Org ID: ALR_REAL_3",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from State v. Md. Zulfiqar, the court clarified that Examines capital punishment guidelines and sentencing discretion parameters. The citation 4 ALR (AD) 77 is cited to support this.",
+    "citation": "4 ALR (AD) 77",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Md.%20Zulfiqar | Org ID: ALR_REAL_4",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from Bishwajit Halder v. State, the court clarified that Deals with corruption and money laundering trials, defining evidentiary weight under the Anti-Corruption Act. The citation 1 ALR (HCD) 303 is cited to support this.",
+    "citation": "1 ALR (HCD) 303",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bishwajit%20Halder%20v.%20State | Org ID: ALR_REAL_5",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from Ehsanul Huq v. State, the court clarified that Addresses definition of judicial bias and requirements of natural justice under Administrative Law. The citation 2 ALR (AD) 54 is cited to support this.",
+    "citation": "2 ALR (AD) 54",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Ehsanul%20Huq%20v.%20State | Org ID: ALR_REAL_6",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from Secretary, Ministry of Establishments v. Md. Ruhul Amin, the court clarified that Appellate Division findings on civil service rules, promotion criteria, and seniority lists. The citation 5 ALR (AD) 190 is cited to support this.",
+    "citation": "5 ALR (AD) 190",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Establishments%20v.%20Md.%20Ruhul%20Amin | Org ID: ALR_REAL_7",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from Professor Ghulam Azam v. Bangladesh, the court clarified that Citizenship restoration under the Bangladesh Citizenship (Temporary Provisions) Order 1972. The citation 3 ALR (HCD) 101 is cited to support this.",
+    "citation": "3 ALR (HCD) 101",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Professor%20Ghulam%20Azam%20v.%20Bangladesh | Org ID: ALR_REAL_8",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from State v. Md. Zulfiqar, the court clarified that Examines capital punishment guidelines and sentencing discretion parameters. The citation 4 ALR (AD) 77 is cited to support this.",
+    "citation": "4 ALR (AD) 77",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Md.%20Zulfiqar | Org ID: ALR_REAL_9",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from Bishwajit Halder v. State, the court clarified that Deals with corruption and money laundering trials, defining evidentiary weight under the Anti-Corruption Act. The citation 1 ALR (HCD) 303 is cited to support this.",
+    "citation": "1 ALR (HCD) 303",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bishwajit%20Halder%20v.%20State | Org ID: ALR_REAL_10",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from Ehsanul Huq v. State, the court clarified that Addresses definition of judicial bias and requirements of natural justice under Administrative Law. The citation 2 ALR (AD) 54 is cited to support this.",
+    "citation": "2 ALR (AD) 54",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Ehsanul%20Huq%20v.%20State | Org ID: ALR_REAL_11",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from Secretary, Ministry of Establishments v. Md. Ruhul Amin, the court clarified that Appellate Division findings on civil service rules, promotion criteria, and seniority lists. The citation 5 ALR (AD) 190 is cited to support this.",
+    "citation": "5 ALR (AD) 190",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Establishments%20v.%20Md.%20Ruhul%20Amin | Org ID: ALR_REAL_12",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from Professor Ghulam Azam v. Bangladesh, the court clarified that Citizenship restoration under the Bangladesh Citizenship (Temporary Provisions) Order 1972. The citation 3 ALR (HCD) 101 is cited to support this.",
+    "citation": "3 ALR (HCD) 101",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Professor%20Ghulam%20Azam%20v.%20Bangladesh | Org ID: ALR_REAL_13",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from State v. Md. Zulfiqar, the court clarified that Examines capital punishment guidelines and sentencing discretion parameters. The citation 4 ALR (AD) 77 is cited to support this.",
+    "citation": "4 ALR (AD) 77",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Md.%20Zulfiqar | Org ID: ALR_REAL_14",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the rule from Bishwajit Halder v. State, the court clarified that Deals with corruption and money laundering trials, defining evidentiary weight under the Anti-Corruption Act. The citation 1 ALR (HCD) 303 is cited to support this.",
+    "citation": "1 ALR (HCD) 303",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bishwajit%20Halder%20v.%20State | Org ID: ALR_REAL_15",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 2 ALR (AD) 188, the court supposedly held a modified legal principle: Applying the rule from Ehsanul Huq v. State, the court incorrectly stated that Addresses definition of judicial bias and requirements of natural justice under Administrative Law. The citation 2 ALR (AD) 54 is cited to support this.",
+    "citation": "2 ALR (AD) 188",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Ehsanul%20Huq%20v.%20State | Org ID: ALR_FABRICATED_1",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 5 ALR (AD) 368, the court supposedly held a modified legal principle: Applying the rule from Secretary, Ministry of Establishments v. Md. Ruhul Amin, the court incorrectly stated that Appellate Division findings on civil service rules, promotion criteria, and seniority lists. The citation 5 ALR (AD) 190 is cited to support this.",
+    "citation": "5 ALR (AD) 368",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Establishments%20v.%20Md.%20Ruhul%20Amin | Org ID: ALR_FABRICATED_2",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 3 ALR (HCD) 266, the court supposedly held a modified legal principle: Applying the rule from Professor Ghulam Azam v. Bangladesh, the court incorrectly stated that Citizenship restoration under the Bangladesh Citizenship (Temporary Provisions) Order 1972. The citation 3 ALR (HCD) 101 is cited to support this.",
+    "citation": "3 ALR (HCD) 266",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Professor%20Ghulam%20Azam%20v.%20Bangladesh | Org ID: ALR_FABRICATED_3",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 4 ALR (AD) 376, the court supposedly held a modified legal principle: Applying the rule from State v. Md. Zulfiqar, the court incorrectly stated that Examines capital punishment guidelines and sentencing discretion parameters. The citation 4 ALR (AD) 77 is cited to support this.",
+    "citation": "4 ALR (AD) 376",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Md.%20Zulfiqar | Org ID: ALR_FABRICATED_4",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 1 ALR (HCD) 464, the court supposedly held a modified legal principle: Applying the rule from Bishwajit Halder v. State, the court incorrectly stated that Deals with corruption and money laundering trials, defining evidentiary weight under the Anti-Corruption Act. The citation 1 ALR (HCD) 303 is cited to support this.",
+    "citation": "1 ALR (HCD) 464",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bishwajit%20Halder%20v.%20State | Org ID: ALR_FABRICATED_5",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 2 ALR (AD) 225, the court supposedly held a modified legal principle: Applying the rule from Ehsanul Huq v. State, the court incorrectly stated that Addresses definition of judicial bias and requirements of natural justice under Administrative Law. The citation 2 ALR (AD) 54 is cited to support this.",
+    "citation": "2 ALR (AD) 225",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Ehsanul%20Huq%20v.%20State | Org ID: ALR_FABRICATED_6",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 5 ALR (AD) 329, the court supposedly held a modified legal principle: Applying the rule from Secretary, Ministry of Establishments v. Md. Ruhul Amin, the court incorrectly stated that Appellate Division findings on civil service rules, promotion criteria, and seniority lists. The citation 5 ALR (AD) 190 is cited to support this.",
+    "citation": "5 ALR (AD) 329",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Establishments%20v.%20Md.%20Ruhul%20Amin | Org ID: ALR_FABRICATED_7",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 3 ALR (HCD) 232, the court supposedly held a modified legal principle: Applying the rule from Professor Ghulam Azam v. Bangladesh, the court incorrectly stated that Citizenship restoration under the Bangladesh Citizenship (Temporary Provisions) Order 1972. The citation 3 ALR (HCD) 101 is cited to support this.",
+    "citation": "3 ALR (HCD) 232",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Professor%20Ghulam%20Azam%20v.%20Bangladesh | Org ID: ALR_FABRICATED_8",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 4 ALR (AD) 206, the court supposedly held a modified legal principle: Applying the rule from State v. Md. Zulfiqar, the court incorrectly stated that Examines capital punishment guidelines and sentencing discretion parameters. The citation 4 ALR (AD) 77 is cited to support this.",
+    "citation": "4 ALR (AD) 206",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Md.%20Zulfiqar | Org ID: ALR_FABRICATED_9",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 1 ALR (HCD) 498, the court supposedly held a modified legal principle: Applying the rule from Bishwajit Halder v. State, the court incorrectly stated that Deals with corruption and money laundering trials, defining evidentiary weight under the Anti-Corruption Act. The citation 1 ALR (HCD) 303 is cited to support this.",
+    "citation": "1 ALR (HCD) 498",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bishwajit%20Halder%20v.%20State | Org ID: ALR_FABRICATED_10",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 2 ALR (AD) 281, the court supposedly held a modified legal principle: Applying the rule from Ehsanul Huq v. State, the court incorrectly stated that Addresses definition of judicial bias and requirements of natural justice under Administrative Law. The citation 2 ALR (AD) 54 is cited to support this.",
+    "citation": "2 ALR (AD) 281",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Ehsanul%20Huq%20v.%20State | Org ID: ALR_FABRICATED_11",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 5 ALR (AD) 354, the court supposedly held a modified legal principle: Applying the rule from Secretary, Ministry of Establishments v. Md. Ruhul Amin, the court incorrectly stated that Appellate Division findings on civil service rules, promotion criteria, and seniority lists. The citation 5 ALR (AD) 190 is cited to support this.",
+    "citation": "5 ALR (AD) 354",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Establishments%20v.%20Md.%20Ruhul%20Amin | Org ID: ALR_FABRICATED_12",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 3 ALR (HCD) 298, the court supposedly held a modified legal principle: Applying the rule from Professor Ghulam Azam v. Bangladesh, the court incorrectly stated that Citizenship restoration under the Bangladesh Citizenship (Temporary Provisions) Order 1972. The citation 3 ALR (HCD) 101 is cited to support this.",
+    "citation": "3 ALR (HCD) 298",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Professor%20Ghulam%20Azam%20v.%20Bangladesh | Org ID: ALR_FABRICATED_13",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 4 ALR (AD) 348, the court supposedly held a modified legal principle: Applying the rule from State v. Md. Zulfiqar, the court incorrectly stated that Examines capital punishment guidelines and sentencing discretion parameters. The citation 4 ALR (AD) 77 is cited to support this.",
+    "citation": "4 ALR (AD) 348",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Md.%20Zulfiqar | Org ID: ALR_FABRICATED_14",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 1 ALR (HCD) 404, the court supposedly held a modified legal principle: Applying the rule from Bishwajit Halder v. State, the court incorrectly stated that Deals with corruption and money laundering trials, defining evidentiary weight under the Anti-Corruption Act. The citation 1 ALR (HCD) 303 is cited to support this.",
+    "citation": "1 ALR (HCD) 404",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bishwajit%20Halder%20v.%20State | Org ID: ALR_FABRICATED_15",
+    "source_doc": "Apex Law Reports (AD)"
+  },
+  {
+    "context": "In the High Court Division case of Dr. Mohiuddin Farooque v. Bangladesh, it was observed: Public Interest Litigation (PIL) relating to environmental conservation and the Right to Life. The citation 12 BLC (HCD) 34 is key to this holding.",
+    "citation": "12 BLC (HCD) 34",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Dr.%20Mohiuddin%20Farooque%20v.%20Bangladesh | Org ID: BLC_REAL_1",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of M. Salimullah v. State, it was observed: Addresses criminal appeals procedures under Code of Criminal Procedure, Section 497. The citation 8 BLC (AD) 112 is key to this holding.",
+    "citation": "8 BLC (AD) 112",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=M.%20Salimullah%20v.%20State | Org ID: BLC_REAL_2",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of Bangladesh Environmental Lawyers Association (BELA) v. Bangladesh, it was observed: Deals with conservation of wet-lands and urban planning directives in Dhaka. The citation 14 BLC (HCD) 244 is key to this holding.",
+    "citation": "14 BLC (HCD) 244",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20Environmental%20Lawyers%20Association%20%28BELA%29%20v.%20Bangladesh | Org ID: BLC_REAL_3",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of Bangladesh v. Abdul Jalil, it was observed: Concerns administrative law principles and the exercise of discretionary power under statutory rules. The citation 10 BLC (AD) 55 is key to this holding.",
+    "citation": "10 BLC (AD) 55",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20v.%20Abdul%20Jalil | Org ID: BLC_REAL_4",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of State v. Jahangir, it was observed: Highlights parameters of custodial interrogation and confessions admissibility. The citation 15 BLC (HCD) 420 is key to this holding.",
+    "citation": "15 BLC (HCD) 420",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Jahangir | Org ID: BLC_REAL_5",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of Dr. Mohiuddin Farooque v. Bangladesh, it was observed: Public Interest Litigation (PIL) relating to environmental conservation and the Right to Life. The citation 12 BLC (HCD) 34 is key to this holding.",
+    "citation": "12 BLC (HCD) 34",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Dr.%20Mohiuddin%20Farooque%20v.%20Bangladesh | Org ID: BLC_REAL_6",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of M. Salimullah v. State, it was observed: Addresses criminal appeals procedures under Code of Criminal Procedure, Section 497. The citation 8 BLC (AD) 112 is key to this holding.",
+    "citation": "8 BLC (AD) 112",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=M.%20Salimullah%20v.%20State | Org ID: BLC_REAL_7",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of Bangladesh Environmental Lawyers Association (BELA) v. Bangladesh, it was observed: Deals with conservation of wet-lands and urban planning directives in Dhaka. The citation 14 BLC (HCD) 244 is key to this holding.",
+    "citation": "14 BLC (HCD) 244",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20Environmental%20Lawyers%20Association%20%28BELA%29%20v.%20Bangladesh | Org ID: BLC_REAL_8",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of Bangladesh v. Abdul Jalil, it was observed: Concerns administrative law principles and the exercise of discretionary power under statutory rules. The citation 10 BLC (AD) 55 is key to this holding.",
+    "citation": "10 BLC (AD) 55",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20v.%20Abdul%20Jalil | Org ID: BLC_REAL_9",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of State v. Jahangir, it was observed: Highlights parameters of custodial interrogation and confessions admissibility. The citation 15 BLC (HCD) 420 is key to this holding.",
+    "citation": "15 BLC (HCD) 420",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Jahangir | Org ID: BLC_REAL_10",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of Dr. Mohiuddin Farooque v. Bangladesh, it was observed: Public Interest Litigation (PIL) relating to environmental conservation and the Right to Life. The citation 12 BLC (HCD) 34 is key to this holding.",
+    "citation": "12 BLC (HCD) 34",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Dr.%20Mohiuddin%20Farooque%20v.%20Bangladesh | Org ID: BLC_REAL_11",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of M. Salimullah v. State, it was observed: Addresses criminal appeals procedures under Code of Criminal Procedure, Section 497. The citation 8 BLC (AD) 112 is key to this holding.",
+    "citation": "8 BLC (AD) 112",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=M.%20Salimullah%20v.%20State | Org ID: BLC_REAL_12",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of Bangladesh Environmental Lawyers Association (BELA) v. Bangladesh, it was observed: Deals with conservation of wet-lands and urban planning directives in Dhaka. The citation 14 BLC (HCD) 244 is key to this holding.",
+    "citation": "14 BLC (HCD) 244",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20Environmental%20Lawyers%20Association%20%28BELA%29%20v.%20Bangladesh | Org ID: BLC_REAL_13",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of Bangladesh v. Abdul Jalil, it was observed: Concerns administrative law principles and the exercise of discretionary power under statutory rules. The citation 10 BLC (AD) 55 is key to this holding.",
+    "citation": "10 BLC (AD) 55",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20v.%20Abdul%20Jalil | Org ID: BLC_REAL_14",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the High Court Division case of State v. Jahangir, it was observed: Highlights parameters of custodial interrogation and confessions admissibility. The citation 15 BLC (HCD) 420 is key to this holding.",
+    "citation": "15 BLC (HCD) 420",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Jahangir | Org ID: BLC_REAL_15",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 12 BLC (HCD) 151, the court supposedly held a modified legal principle: In the High Court Division case of Dr. Mohiuddin Farooque v. Bangladesh, it was incorrectly observed: Public Interest Litigation (PIL) relating to environmental conservation and the Right to Life. The citation 12 BLC (HCD) 34 is key to this holding.",
+    "citation": "12 BLC (HCD) 151",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Dr.%20Mohiuddin%20Farooque%20v.%20Bangladesh | Org ID: BLC_FABRICATED_1",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 8 BLC (AD) 355, the court supposedly held a modified legal principle: In the High Court Division case of M. Salimullah v. State, it was incorrectly observed: Addresses criminal appeals procedures under Code of Criminal Procedure, Section 497. The citation 8 BLC (AD) 112 is key to this holding.",
+    "citation": "8 BLC (AD) 355",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=M.%20Salimullah%20v.%20State | Org ID: BLC_FABRICATED_2",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 14 BLC (HCD) 394, the court supposedly held a modified legal principle: In the High Court Division case of Bangladesh Environmental Lawyers Association (BELA) v. Bangladesh, it was incorrectly observed: Deals with conservation of wet-lands and urban planning directives in Dhaka. The citation 14 BLC (HCD) 244 is key to this holding.",
+    "citation": "14 BLC (HCD) 394",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20Environmental%20Lawyers%20Association%20%28BELA%29%20v.%20Bangladesh | Org ID: BLC_FABRICATED_3",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 10 BLC (AD) 304, the court supposedly held a modified legal principle: In the High Court Division case of Bangladesh v. Abdul Jalil, it was incorrectly observed: Concerns administrative law principles and the exercise of discretionary power under statutory rules. The citation 10 BLC (AD) 55 is key to this holding.",
+    "citation": "10 BLC (AD) 304",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20v.%20Abdul%20Jalil | Org ID: BLC_FABRICATED_4",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 15 BLC (HCD) 557, the court supposedly held a modified legal principle: In the High Court Division case of State v. Jahangir, it was incorrectly observed: Highlights parameters of custodial interrogation and confessions admissibility. The citation 15 BLC (HCD) 420 is key to this holding.",
+    "citation": "15 BLC (HCD) 557",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Jahangir | Org ID: BLC_FABRICATED_5",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 12 BLC (HCD) 221, the court supposedly held a modified legal principle: In the High Court Division case of Dr. Mohiuddin Farooque v. Bangladesh, it was incorrectly observed: Public Interest Litigation (PIL) relating to environmental conservation and the Right to Life. The citation 12 BLC (HCD) 34 is key to this holding.",
+    "citation": "12 BLC (HCD) 221",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Dr.%20Mohiuddin%20Farooque%20v.%20Bangladesh | Org ID: BLC_FABRICATED_6",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 8 BLC (AD) 215, the court supposedly held a modified legal principle: In the High Court Division case of M. Salimullah v. State, it was incorrectly observed: Addresses criminal appeals procedures under Code of Criminal Procedure, Section 497. The citation 8 BLC (AD) 112 is key to this holding.",
+    "citation": "8 BLC (AD) 215",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=M.%20Salimullah%20v.%20State | Org ID: BLC_FABRICATED_7",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 14 BLC (HCD) 443, the court supposedly held a modified legal principle: In the High Court Division case of Bangladesh Environmental Lawyers Association (BELA) v. Bangladesh, it was incorrectly observed: Deals with conservation of wet-lands and urban planning directives in Dhaka. The citation 14 BLC (HCD) 244 is key to this holding.",
+    "citation": "14 BLC (HCD) 443",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20Environmental%20Lawyers%20Association%20%28BELA%29%20v.%20Bangladesh | Org ID: BLC_FABRICATED_8",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 10 BLC (AD) 194, the court supposedly held a modified legal principle: In the High Court Division case of Bangladesh v. Abdul Jalil, it was incorrectly observed: Concerns administrative law principles and the exercise of discretionary power under statutory rules. The citation 10 BLC (AD) 55 is key to this holding.",
+    "citation": "10 BLC (AD) 194",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20v.%20Abdul%20Jalil | Org ID: BLC_FABRICATED_9",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 15 BLC (HCD) 613, the court supposedly held a modified legal principle: In the High Court Division case of State v. Jahangir, it was incorrectly observed: Highlights parameters of custodial interrogation and confessions admissibility. The citation 15 BLC (HCD) 420 is key to this holding.",
+    "citation": "15 BLC (HCD) 613",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Jahangir | Org ID: BLC_FABRICATED_10",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 12 BLC (HCD) 178, the court supposedly held a modified legal principle: In the High Court Division case of Dr. Mohiuddin Farooque v. Bangladesh, it was incorrectly observed: Public Interest Litigation (PIL) relating to environmental conservation and the Right to Life. The citation 12 BLC (HCD) 34 is key to this holding.",
+    "citation": "12 BLC (HCD) 178",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Dr.%20Mohiuddin%20Farooque%20v.%20Bangladesh | Org ID: BLC_FABRICATED_11",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 8 BLC (AD) 409, the court supposedly held a modified legal principle: In the High Court Division case of M. Salimullah v. State, it was incorrectly observed: Addresses criminal appeals procedures under Code of Criminal Procedure, Section 497. The citation 8 BLC (AD) 112 is key to this holding.",
+    "citation": "8 BLC (AD) 409",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=M.%20Salimullah%20v.%20State | Org ID: BLC_FABRICATED_12",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 14 BLC (HCD) 435, the court supposedly held a modified legal principle: In the High Court Division case of Bangladesh Environmental Lawyers Association (BELA) v. Bangladesh, it was incorrectly observed: Deals with conservation of wet-lands and urban planning directives in Dhaka. The citation 14 BLC (HCD) 244 is key to this holding.",
+    "citation": "14 BLC (HCD) 435",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20Environmental%20Lawyers%20Association%20%28BELA%29%20v.%20Bangladesh | Org ID: BLC_FABRICATED_13",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 10 BLC (AD) 206, the court supposedly held a modified legal principle: In the High Court Division case of Bangladesh v. Abdul Jalil, it was incorrectly observed: Concerns administrative law principles and the exercise of discretionary power under statutory rules. The citation 10 BLC (AD) 55 is key to this holding.",
+    "citation": "10 BLC (AD) 206",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Bangladesh%20v.%20Abdul%20Jalil | Org ID: BLC_FABRICATED_14",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 15 BLC (HCD) 572, the court supposedly held a modified legal principle: In the High Court Division case of State v. Jahangir, it was incorrectly observed: Highlights parameters of custodial interrogation and confessions admissibility. The citation 15 BLC (HCD) 420 is key to this holding.",
+    "citation": "15 BLC (HCD) 572",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Jahangir | Org ID: BLC_FABRICATED_15",
+    "source_doc": "Bangladesh Law Chronicles (HCD)"
+  },
+  {
+    "context": "In the case of Anwar Hossain Chowdhury v. Bangladesh, the Appellate Division held: The historic 8th Amendment case declaring the basic structure doctrine applicable to the Constitution of Bangladesh. Citations to 52 DLR (AD) 12 are frequently referenced in constitutional disputes.",
+    "citation": "52 DLR (AD) 12",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Anwar%20Hossain%20Chowdhury%20v.%20Bangladesh | Org ID: DLR_REAL_1",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of Habiba Mahmud v. Bangladesh, the Appellate Division held: Deals with preventive detention laws and constitutional safeguards under Article 32. Citations to 41 DLR (AD) 165 are frequently referenced in constitutional disputes.",
+    "citation": "41 DLR (AD) 165",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Habiba%20Mahmud%20v.%20Bangladesh | Org ID: DLR_REAL_2",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of Secretary, Ministry of Finance v. Masdar Hossain, the Appellate Division held: The landmark separation of judiciary judgment establishing judicial independence under Article 115 and 116. Citations to 48 DLR (AD) 201 are frequently referenced in constitutional disputes.",
+    "citation": "48 DLR (AD) 201",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Finance%20v.%20Masdar%20Hossain | Org ID: DLR_REAL_3",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of Kazi Mukhlesur Rahman v. Bangladesh, the Appellate Division held: Locus standi expansion regarding boundary agreement disputes. Citations to 55 DLR (AD) 91 are frequently referenced in constitutional disputes.",
+    "citation": "55 DLR (AD) 91",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Kazi%20Mukhlesur%20Rahman%20v.%20Bangladesh | Org ID: DLR_REAL_4",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of State v. Bangladesh Sheikh Mujibur Rahman, the Appellate Division held: Appellate Division review of constitutional protections and special tribunal procedures. Citations to 50 DLR (AD) 84 are frequently referenced in constitutional disputes.",
+    "citation": "50 DLR (AD) 84",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Bangladesh%20Sheikh%20Mujibur%20Rahman | Org ID: DLR_REAL_5",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of Anwar Hossain Chowdhury v. Bangladesh, the Appellate Division held: The historic 8th Amendment case declaring the basic structure doctrine applicable to the Constitution of Bangladesh. Citations to 52 DLR (AD) 12 are frequently referenced in constitutional disputes.",
+    "citation": "52 DLR (AD) 12",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Anwar%20Hossain%20Chowdhury%20v.%20Bangladesh | Org ID: DLR_REAL_6",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of Habiba Mahmud v. Bangladesh, the Appellate Division held: Deals with preventive detention laws and constitutional safeguards under Article 32. Citations to 41 DLR (AD) 165 are frequently referenced in constitutional disputes.",
+    "citation": "41 DLR (AD) 165",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Habiba%20Mahmud%20v.%20Bangladesh | Org ID: DLR_REAL_7",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of Secretary, Ministry of Finance v. Masdar Hossain, the Appellate Division held: The landmark separation of judiciary judgment establishing judicial independence under Article 115 and 116. Citations to 48 DLR (AD) 201 are frequently referenced in constitutional disputes.",
+    "citation": "48 DLR (AD) 201",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Finance%20v.%20Masdar%20Hossain | Org ID: DLR_REAL_8",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of Kazi Mukhlesur Rahman v. Bangladesh, the Appellate Division held: Locus standi expansion regarding boundary agreement disputes. Citations to 55 DLR (AD) 91 are frequently referenced in constitutional disputes.",
+    "citation": "55 DLR (AD) 91",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Kazi%20Mukhlesur%20Rahman%20v.%20Bangladesh | Org ID: DLR_REAL_9",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of State v. Bangladesh Sheikh Mujibur Rahman, the Appellate Division held: Appellate Division review of constitutional protections and special tribunal procedures. Citations to 50 DLR (AD) 84 are frequently referenced in constitutional disputes.",
+    "citation": "50 DLR (AD) 84",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Bangladesh%20Sheikh%20Mujibur%20Rahman | Org ID: DLR_REAL_10",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of Anwar Hossain Chowdhury v. Bangladesh, the Appellate Division held: The historic 8th Amendment case declaring the basic structure doctrine applicable to the Constitution of Bangladesh. Citations to 52 DLR (AD) 12 are frequently referenced in constitutional disputes.",
+    "citation": "52 DLR (AD) 12",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Anwar%20Hossain%20Chowdhury%20v.%20Bangladesh | Org ID: DLR_REAL_11",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of Habiba Mahmud v. Bangladesh, the Appellate Division held: Deals with preventive detention laws and constitutional safeguards under Article 32. Citations to 41 DLR (AD) 165 are frequently referenced in constitutional disputes.",
+    "citation": "41 DLR (AD) 165",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Habiba%20Mahmud%20v.%20Bangladesh | Org ID: DLR_REAL_12",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of Secretary, Ministry of Finance v. Masdar Hossain, the Appellate Division held: The landmark separation of judiciary judgment establishing judicial independence under Article 115 and 116. Citations to 48 DLR (AD) 201 are frequently referenced in constitutional disputes.",
+    "citation": "48 DLR (AD) 201",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Finance%20v.%20Masdar%20Hossain | Org ID: DLR_REAL_13",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of Kazi Mukhlesur Rahman v. Bangladesh, the Appellate Division held: Locus standi expansion regarding boundary agreement disputes. Citations to 55 DLR (AD) 91 are frequently referenced in constitutional disputes.",
+    "citation": "55 DLR (AD) 91",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Kazi%20Mukhlesur%20Rahman%20v.%20Bangladesh | Org ID: DLR_REAL_14",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "In the case of State v. Bangladesh Sheikh Mujibur Rahman, the Appellate Division held: Appellate Division review of constitutional protections and special tribunal procedures. Citations to 50 DLR (AD) 84 are frequently referenced in constitutional disputes.",
+    "citation": "50 DLR (AD) 84",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Bangladesh%20Sheikh%20Mujibur%20Rahman | Org ID: DLR_REAL_15",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 52 DLR (AD) 311, the court supposedly held a modified legal principle: In the case of Anwar Hossain Chowdhury v. Bangladesh, the Appellate Division held (contrary to the actual ruling): The historic 8th Amendment case declaring the basic structure doctrine applicable to the Constitution of Bangladesh. Citations to 52 DLR (AD) 12 are frequently referenced in constitutional disputes.",
+    "citation": "52 DLR (AD) 311",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Anwar%20Hossain%20Chowdhury%20v.%20Bangladesh | Org ID: DLR_FABRICATED_1",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 41 DLR (AD) 317, the court supposedly held a modified legal principle: In the case of Habiba Mahmud v. Bangladesh, the Appellate Division held (contrary to the actual ruling): Deals with preventive detention laws and constitutional safeguards under Article 32. Citations to 41 DLR (AD) 165 are frequently referenced in constitutional disputes.",
+    "citation": "41 DLR (AD) 317",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Habiba%20Mahmud%20v.%20Bangladesh | Org ID: DLR_FABRICATED_2",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 48 DLR (AD) 469, the court supposedly held a modified legal principle: In the case of Secretary, Ministry of Finance v. Masdar Hossain, the Appellate Division held (contrary to the actual ruling): The landmark separation of judiciary judgment establishing judicial independence under Article 115 and 116. Citations to 48 DLR (AD) 201 are frequently referenced in constitutional disputes.",
+    "citation": "48 DLR (AD) 469",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Finance%20v.%20Masdar%20Hossain | Org ID: DLR_FABRICATED_3",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 55 DLR (AD) 311, the court supposedly held a modified legal principle: In the case of Kazi Mukhlesur Rahman v. Bangladesh, the Appellate Division held (contrary to the actual ruling): Locus standi expansion regarding boundary agreement disputes. Citations to 55 DLR (AD) 91 are frequently referenced in constitutional disputes.",
+    "citation": "55 DLR (AD) 311",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Kazi%20Mukhlesur%20Rahman%20v.%20Bangladesh | Org ID: DLR_FABRICATED_4",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 50 DLR (AD) 244, the court supposedly held a modified legal principle: In the case of State v. Bangladesh Sheikh Mujibur Rahman, the Appellate Division held (contrary to the actual ruling): Appellate Division review of constitutional protections and special tribunal procedures. Citations to 50 DLR (AD) 84 are frequently referenced in constitutional disputes.",
+    "citation": "50 DLR (AD) 244",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Bangladesh%20Sheikh%20Mujibur%20Rahman | Org ID: DLR_FABRICATED_5",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 52 DLR (AD) 207, the court supposedly held a modified legal principle: In the case of Anwar Hossain Chowdhury v. Bangladesh, the Appellate Division held (contrary to the actual ruling): The historic 8th Amendment case declaring the basic structure doctrine applicable to the Constitution of Bangladesh. Citations to 52 DLR (AD) 12 are frequently referenced in constitutional disputes.",
+    "citation": "52 DLR (AD) 207",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Anwar%20Hossain%20Chowdhury%20v.%20Bangladesh | Org ID: DLR_FABRICATED_6",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 41 DLR (AD) 359, the court supposedly held a modified legal principle: In the case of Habiba Mahmud v. Bangladesh, the Appellate Division held (contrary to the actual ruling): Deals with preventive detention laws and constitutional safeguards under Article 32. Citations to 41 DLR (AD) 165 are frequently referenced in constitutional disputes.",
+    "citation": "41 DLR (AD) 359",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Habiba%20Mahmud%20v.%20Bangladesh | Org ID: DLR_FABRICATED_7",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 48 DLR (AD) 480, the court supposedly held a modified legal principle: In the case of Secretary, Ministry of Finance v. Masdar Hossain, the Appellate Division held (contrary to the actual ruling): The landmark separation of judiciary judgment establishing judicial independence under Article 115 and 116. Citations to 48 DLR (AD) 201 are frequently referenced in constitutional disputes.",
+    "citation": "48 DLR (AD) 480",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Finance%20v.%20Masdar%20Hossain | Org ID: DLR_FABRICATED_8",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 55 DLR (AD) 225, the court supposedly held a modified legal principle: In the case of Kazi Mukhlesur Rahman v. Bangladesh, the Appellate Division held (contrary to the actual ruling): Locus standi expansion regarding boundary agreement disputes. Citations to 55 DLR (AD) 91 are frequently referenced in constitutional disputes.",
+    "citation": "55 DLR (AD) 225",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Kazi%20Mukhlesur%20Rahman%20v.%20Bangladesh | Org ID: DLR_FABRICATED_9",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 50 DLR (AD) 187, the court supposedly held a modified legal principle: In the case of State v. Bangladesh Sheikh Mujibur Rahman, the Appellate Division held (contrary to the actual ruling): Appellate Division review of constitutional protections and special tribunal procedures. Citations to 50 DLR (AD) 84 are frequently referenced in constitutional disputes.",
+    "citation": "50 DLR (AD) 187",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Bangladesh%20Sheikh%20Mujibur%20Rahman | Org ID: DLR_FABRICATED_10",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 52 DLR (AD) 148, the court supposedly held a modified legal principle: In the case of Anwar Hossain Chowdhury v. Bangladesh, the Appellate Division held (contrary to the actual ruling): The historic 8th Amendment case declaring the basic structure doctrine applicable to the Constitution of Bangladesh. Citations to 52 DLR (AD) 12 are frequently referenced in constitutional disputes.",
+    "citation": "52 DLR (AD) 148",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Anwar%20Hossain%20Chowdhury%20v.%20Bangladesh | Org ID: DLR_FABRICATED_11",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 41 DLR (AD) 421, the court supposedly held a modified legal principle: In the case of Habiba Mahmud v. Bangladesh, the Appellate Division held (contrary to the actual ruling): Deals with preventive detention laws and constitutional safeguards under Article 32. Citations to 41 DLR (AD) 165 are frequently referenced in constitutional disputes.",
+    "citation": "41 DLR (AD) 421",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Habiba%20Mahmud%20v.%20Bangladesh | Org ID: DLR_FABRICATED_12",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 48 DLR (AD) 356, the court supposedly held a modified legal principle: In the case of Secretary, Ministry of Finance v. Masdar Hossain, the Appellate Division held (contrary to the actual ruling): The landmark separation of judiciary judgment establishing judicial independence under Article 115 and 116. Citations to 48 DLR (AD) 201 are frequently referenced in constitutional disputes.",
+    "citation": "48 DLR (AD) 356",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Secretary%2C%20Ministry%20of%20Finance%20v.%20Masdar%20Hossain | Org ID: DLR_FABRICATED_13",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 55 DLR (AD) 362, the court supposedly held a modified legal principle: In the case of Kazi Mukhlesur Rahman v. Bangladesh, the Appellate Division held (contrary to the actual ruling): Locus standi expansion regarding boundary agreement disputes. Citations to 55 DLR (AD) 91 are frequently referenced in constitutional disputes.",
+    "citation": "55 DLR (AD) 362",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=Kazi%20Mukhlesur%20Rahman%20v.%20Bangladesh | Org ID: DLR_FABRICATED_14",
+    "source_doc": "Dhaka Law Reports (AD)"
+  },
+  {
+    "context": "Applying the fabricated rule from 50 DLR (AD) 276, the court supposedly held a modified legal principle: In the case of State v. Bangladesh Sheikh Mujibur Rahman, the Appellate Division held (contrary to the actual ruling): Appellate Division review of constitutional protections and special tribunal procedures. Citations to 50 DLR (AD) 84 are frequently referenced in constitutional disputes.",
+    "citation": "50 DLR (AD) 276",
+    "helper_notes": "Source URL: http://www.supremecourt.gov.bd/web/index.php?case=State%20v.%20Bangladesh%20Sheikh%20Mujibur%20Rahman | Org ID: DLR_FABRICATED_15",
+    "source_doc": "Dhaka Law Reports (AD)"
+  }
+];
+
+  for (var i = 0; i < tasks.length; i++) {
+    var task = tasks[i];
+    
+    // Create a new section (page) for each task to keep it organized
+    form.addPageBreakItem().setTitle('Task ' + (i + 1) + ' of ' + tasks.length);
+    
+    var desc = 'Legal Context:\n' + task.context + '\n\nTarget Citation to Verify:\n' + task.citation + '\n\nPurported Source Document:\n' + task.source_doc + '\n\nVerification Helper (Source URL / Metadata):\n' + task.helper_notes;
+    
+    // Add Context Item
+    form.addSectionHeaderItem().setTitle('Task ' + (i + 1) + ' Context').setHelpText(desc);
+    
+    // Verification Status
+    var statusItem = form.addMultipleChoiceItem();
+    statusItem.setTitle('Task ' + (i + 1) + ' - Step 1: Verification Status')
+              .setChoiceValues(['Correct', 'Fabricated'])
+              .setRequired(true);
+              
+    // Fabrication Category
+    var catItem = form.addMultipleChoiceItem();
+    catItem.setTitle('Task ' + (i + 1) + ' - Step 2: Citation Fabrication Category')
+           .setChoiceValues([
+             'Not Applicable (Citation is Correct)',
+             'S1: Non-Existent Section',
+             'S2: Wrong Act Attribution',
+             'S3: Misstated Content',
+             'S4: Cross-Jurisdictional Statute Bleed',
+             'S5: Repealed/Superseded',
+             'P1: Non-Existent Case',
+             'P2: Wrong Citation Locator',
+             'P3: Misattributed Holding',
+             'P4: Wrong Court Level',
+             'P5: Cross-Jurisdictional Precedent Bleed'
+           ])
+           .setRequired(true);
+           
+    // Confidence Level
+    var confItem = form.addMultipleChoiceItem();
+    confItem.setTitle('Task ' + (i + 1) + ' - Step 3: Confidence Level')
+            .setChoiceValues(['Low', 'Medium', 'High'])
+            .setRequired(true);
+            
+    // Notes
+    var notesItem = form.addParagraphTextItem();
+    notesItem.setTitle('Task ' + (i + 1) + ' - Step 4: Annotation Notes');
+  }
+  
+  Logger.log('Form created successfully! Edit URL: ' + form.getEditUrl());
+}

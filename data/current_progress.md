@@ -20,27 +20,22 @@ Below is the step-by-step action plan to execute Phase 3 annotation milestones.
   - Onboarding Training: [annotator_training.md](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/annotation/annotator_training.md)
   - Annotation Guidelines: [guidelines.md](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/annotation/guidelines.md)
 
-### Step 2: Spin Up Label Studio
-- **Task:** Start the Label Studio server on your local machine:
-- **Terminal Command:**
-  ```bash
-  source venv/bin/activate
-  label-studio start
-  ```
-- **Action:** Open `http://localhost:8080` in your web browser.
+### Step 2: Generate Google Form
+- **Task:** Since Label Studio is cumbersome for external annotators, generate a Google Form using Google Apps Script.
+- **Action:** Open `https://script.google.com/`, create a new project, paste the contents of `scripts/utils/generate_google_form.js`, and click "Run".
+- **Action:** Verify the generated Form in your Google Drive and copy the "Send" link.
 
 ### Step 3: Project Configuration
 - **Task:** Configure the project interface and tasks:
-  1. Create a new project in Label Studio.
-  2. Select **Settings** -> **Labeling Interface** -> **Custom Template**.
-  3. Paste the contents of [config.xml](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/annotation/config.xml).
-  4. Select **Import** and upload the generated tasks in [label_studio_import.json](file:///Users/shakera/Downloads/Study/Researches/ICCIT/BanLegit-Cite/annotation/label_studio_import.json).
+  1. Go to the Settings of the generated Google Form.
+  2. Ensure "Collect email addresses" is turned on.
+  3. Ensure "Limit to 1 response" is turned OFF so multiple students can participate if needed (or keep it strictly assigned).
 
 ### Step 4: Perform Double Annotation
-- **Task:** Have both Annotator 1 and Annotator 2 verify the 150 citation tasks.
+- **Task:** Send the Google Form link to Annotator 1 and Annotator 2. Have them both complete the 90 citation tasks.
 
 ### Step 5: Export & Calculate Agreement (IAA)
-- **Task:** When annotation completes, export the project annotations in JSON format from Label Studio and save the file to `annotation/project_export.json`.
+- **Task:** When annotation completes, go to the Google Form "Responses" tab, click "Link to Sheets", and download the responses as a CSV or JSON file to `annotation/project_export.json` (you may need a simple script to map the CSV headers to the original JSON format).
 - **Task:** Execute the Kappa calculation script to get overall agreement and generate the disagreement review sheet:
 - **Terminal Command:**
   ```bash

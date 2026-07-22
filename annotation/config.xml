@@ -6,14 +6,16 @@
     
     <Header value="Target Citation to Verify" style="font-size: 14px; color: #555; margin-top: 15px; margin-bottom: 5px;"/>
     <Text name="target_citation" value="$citation" style="font-weight: bold; font-size: 16px; color: #1a73e8; background: #e8f0fe; padding: 6px 12px; border-radius: 4px; display: inline-block;"/>
-    <Text name="purported_source" value="Purported Source Document: $source" style="font-size: 14px; color: #555; margin-top: 5px;"/>
+    <Header value="Purported Source Document:" style="font-size: 14px; color: #555; margin-top: 5px;"/>
+    <Text name="purported_source" value="$source_doc" style="font-size: 14px; color: #333; margin-top: 2px;"/>
   </View>
 
   <!-- Ground Truth Info if available -->
   <View style="margin-bottom: 20px;">
     <Collapse>
       <Panel header="Verification Helper (Source URL / Metadata)">
-        <Text name="helper_text" value="Reference Notes: $helper_notes" />
+        <Header value="Reference Notes:" style="font-size: 14px; color: #555;"/>
+        <Text name="helper_text" value="$helper_notes" style="font-size: 14px; color: #333;"/>
       </Panel>
     </Collapse>
   </View>
