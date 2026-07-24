@@ -73,8 +73,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "scripts_evaluation_metrics_compute_metrics",
-      "community": 14,
-      "community_name": "wb_config.py",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": "compute_metrics()"
     },
     {
@@ -111,15 +111,15 @@
       "norm_label": "save_metrics()"
     },
     {
-      "label": "Computes Accuracy, Precision, Recall, F1-score, and per-class breakdown.     Ret",
+      "label": "Computes Accuracy, Precision, Recall, F1-score, and per-class breakdown.     Re",
       "file_type": "rationale",
       "source_file": "scripts/evaluation/metrics.py",
       "source_location": "L9",
       "_origin": "ast",
       "id": "scripts_evaluation_metrics_rationale_9",
-      "community": 14,
-      "community_name": "wb_config.py",
-      "norm_label": "computes accuracy, precision, recall, f1-score, and per-class breakdown.     ret"
+      "community": 19,
+      "community_name": "compute_metrics",
+      "norm_label": "computes accuracy, precision, recall, f1-score, and per-class breakdown.     re"
     },
     {
       "label": "Logs all metrics to an active W&B run.",
@@ -650,7 +650,7 @@
       "norm_label": "run_all_tests()"
     },
     {
-      "label": "Compares binary correct/incorrect vectors for LLM vs human annotator     using M",
+      "label": "Compares binary correct/incorrect vectors for LLM vs human annotator     using",
       "file_type": "rationale",
       "source_file": "scripts/evaluation/stats.py",
       "source_location": "L27",
@@ -658,10 +658,10 @@
       "id": "scripts_evaluation_stats_rationale_27",
       "community": 19,
       "community_name": "compute_metrics",
-      "norm_label": "compares binary correct/incorrect vectors for llm vs human annotator     using m"
+      "norm_label": "compares binary correct/incorrect vectors for llm vs human annotator     using"
     },
     {
-      "label": "Tests whether the agentic setting produces significantly higher     confidence s",
+      "label": "Tests whether the agentic setting produces significantly higher     confidence",
       "file_type": "rationale",
       "source_file": "scripts/evaluation/stats.py",
       "source_location": "L70",
@@ -669,10 +669,10 @@
       "id": "scripts_evaluation_stats_rationale_70",
       "community": 19,
       "community_name": "compute_metrics",
-      "norm_label": "tests whether the agentic setting produces significantly higher     confidence s"
+      "norm_label": "tests whether the agentic setting produces significantly higher     confidence"
     },
     {
-      "label": "Tests whether accuracy differs significantly across citation taxonomy     catego",
+      "label": "Tests whether accuracy differs significantly across citation taxonomy     categ",
       "file_type": "rationale",
       "source_file": "scripts/evaluation/stats.py",
       "source_location": "L117",
@@ -680,7 +680,7 @@
       "id": "scripts_evaluation_stats_rationale_117",
       "community": 19,
       "community_name": "compute_metrics",
-      "norm_label": "tests whether accuracy differs significantly across citation taxonomy     catego"
+      "norm_label": "tests whether accuracy differs significantly across citation taxonomy     categ"
     },
     {
       "label": "Convenience wrapper that runs H1, H2, H3 and returns a unified report dict.",
@@ -1459,8 +1459,8 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "tests_test_harness_testmetrics",
-      "community": 14,
-      "community_name": "wb_config.py",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": "testmetrics"
     },
     {
@@ -1470,8 +1470,8 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "tests_test_harness_testmetrics_test_overall_accuracy",
-      "community": 14,
-      "community_name": "wb_config.py",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": ".test_overall_accuracy()"
     },
     {
@@ -1481,8 +1481,8 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "tests_test_harness_testmetrics_test_precision_recall_f1_computed",
-      "community": 14,
-      "community_name": "wb_config.py",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": ".test_precision_recall_f1_computed()"
     },
     {
@@ -1492,8 +1492,8 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "tests_test_harness_testmetrics_test_perfect_predictions",
-      "community": 14,
-      "community_name": "wb_config.py",
+      "community": 19,
+      "community_name": "compute_metrics",
       "norm_label": ".test_perfect_predictions()"
     },
     {
@@ -2694,6 +2694,17 @@
       "community": 0,
       "community_name": "README.md",
       "norm_label": "[2026-07-15] phase 1 gate passed & foundation documents frozen"
+    },
+    {
+      "label": "[2026-07-16] Final Go/No-Go Decision Passed & Submission Tagged",
+      "file_type": "document",
+      "source_file": "logs/decision_log.md",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "logs_decision_log_2026_07_16_final_go_no_go_decision_passed_submission_tagged",
+      "community": 0,
+      "community_name": "README.md",
+      "norm_label": "[2026-07-16] final go/no-go decision passed & submission tagged"
     },
     {
       "label": "fabrication_review_log.md",
@@ -6517,6 +6528,17 @@
       "_origin": "ast",
       "source": "logs_decision_log_entries",
       "target": "logs_decision_log_2026_07_15_project_scaffold_created",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "logs/decision_log.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "logs_decision_log_entries",
+      "target": "logs_decision_log_2026_07_16_final_go_no_go_decision_passed_submission_tagged",
       "confidence_score": 1.0
     },
     {

@@ -1,11 +1,11 @@
 # Graph Report - BanLegitCite  (2026-07-16)
 
 ## Corpus Check
-- 43 files · ~17,522 words
+- 42 files · ~11,496 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 264 nodes · 335 edges · 26 communities (19 shown, 7 thin omitted)
+- 265 nodes · 336 edges · 26 communities (19 shown, 7 thin omitted)
 - Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 12 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
@@ -49,14 +49,14 @@
 ## Surprising Connections (you probably didn't know these)
 - `TestMetrics` --uses--> `LocalRetriever`  [INFERRED]
   tests/test_harness.py → scripts/evaluation/retriever.py
+- `TestMetrics` --uses--> `BaselineRunner`  [INFERRED]
+  tests/test_harness.py → scripts/evaluation/runner.py
 - `TestPrompts` --uses--> `LocalRetriever`  [INFERRED]
   tests/test_harness.py → scripts/evaluation/retriever.py
 - `TestRetriever` --uses--> `LocalRetriever`  [INFERRED]
   tests/test_harness.py → scripts/evaluation/retriever.py
 - `TestRunner` --uses--> `LocalRetriever`  [INFERRED]
   tests/test_harness.py → scripts/evaluation/retriever.py
-- `TestMetrics` --uses--> `BaselineRunner`  [INFERRED]
-  tests/test_harness.py → scripts/evaluation/runner.py
 
 ## Import Cycles
 - None detected.
@@ -65,7 +65,7 @@
 
 ### Community 0 - "README.md"
 Cohesion: 0.06
-Nodes (28): Evaluation Protocol — BanLegit-Cite, Freeze Checklist, Pre-registered Statistical Tests, Primary Metrics, Freeze Checklist, Hypotheses, Research Question (RQ), Research Questions & Hypotheses — BanLegit-Cite (+20 more)
+Nodes (29): Evaluation Protocol — BanLegit-Cite, Freeze Checklist, Pre-registered Statistical Tests, Primary Metrics, Freeze Checklist, Hypotheses, Research Question (RQ), Research Questions & Hypotheses — BanLegit-Cite (+21 more)
 
 ### Community 1 - "BanLegit-Cite — Project Instructions for AI Agents"
 Cohesion: 0.20
@@ -108,12 +108,12 @@ Cohesion: 0.17
 Nodes (11): Interpretations, Interpretations, Paper Table → Result Mapping, Performance Metrics, Performance Metrics, Phase 4 Results — 2026-07-15 23:19:50, Phase 4 Results — 2026-07-15 23:42:48, Pre-registered Statistical Tests (+3 more)
 
 ### Community 14 - "wb_config.py"
-Cohesion: 0.09
-Nodes (18): compute_metrics(), Computes Accuracy, Precision, Recall, F1-score, and per-class breakdown.     Ret, LocalRetriever, Constructs a basic map from citation strings to case metadata and holdings., Looks up the citation in the index and returns verified holding text., BaselineRunner, Queries model or falls back to high-fidelity simulated response., Parses standard formatting from model text output. (+10 more)
+Cohesion: 0.10
+Nodes (15): LocalRetriever, Constructs a basic map from citation strings to case metadata and holdings., Looks up the citation in the index and returns verified holding text., BaselineRunner, Queries model or falls back to high-fidelity simulated response., Parses standard formatting from model text output., Evaluates a single citation record., run_evaluation() (+7 more)
 
 ### Community 19 - "compute_metrics"
-Cohesion: 0.11
-Nodes (28): log_to_wandb(), print_metrics(), Logs all metrics to an active W&B run., Persists metric JSON alongside the results file., save_metrics(), build_results_table(), build_stats_table(), Renders a markdown results table for paper/RESULTS.md. (+20 more)
+Cohesion: 0.09
+Nodes (31): compute_metrics(), log_to_wandb(), print_metrics(), Logs all metrics to an active W&B run., Persists metric JSON alongside the results file., Computes Accuracy, Precision, Recall, F1-score, and per-class breakdown.     Re, save_metrics(), build_results_table() (+23 more)
 
 ### Community 22 - "repro_check.py"
 Cohesion: 0.29
@@ -128,7 +128,7 @@ Cohesion: 0.40
 Nodes (4): Actionable Action Items / Fatal Flaw Flags, E2 Reviewer Simulation Report, Numerical Scores (Scale 1-5), Summary Evaluation
 
 ## Knowledge Gaps
-- **79 isolated node(s):** `setup_label_studio.sh script`, `graphify`, `Workflow: graphify`, `1. WHAT THIS PROJECT IS`, `2. EVIDENCE-LOGGING RULES (mandatory for all agent outputs)` (+74 more)
+- **80 isolated node(s):** `setup_label_studio.sh script`, `graphify`, `Workflow: graphify`, `1. WHAT THIS PROJECT IS`, `2. EVIDENCE-LOGGING RULES (mandatory for all agent outputs)` (+75 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **7 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -137,6 +137,8 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `BaselineRunner` connect `wb_config.py` to `compute_metrics`?**
   _High betweenness centrality (0.028) - this node is a cross-community bridge._
+- **Why does `LocalRetriever` connect `wb_config.py` to `compute_metrics`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Are the 5 inferred relationships involving `BaselineRunner` (e.g. with `LocalRetriever` and `TestMetrics`) actually correct?**
   _`BaselineRunner` has 5 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 5 inferred relationships involving `LocalRetriever` (e.g. with `BaselineRunner` and `TestMetrics`) actually correct?**
@@ -144,8 +146,6 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 3 inferred relationships involving `BaseScraper` (e.g. with `ALRScraper` and `BLCScraper`) actually correct?**
   _`BaseScraper` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `setup_label_studio.sh script`, `graphify`, `Workflow: graphify` to the rest of the system?**
-  _79 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _80 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `README.md` be split into smaller, more focused modules?**
-  _Cohesion score 0.058823529411764705 - nodes in this community are weakly interconnected._
-- **Should `Evaluation Protocol — BanLegit-Cite` be split into smaller, more focused modules?**
-  _Cohesion score 0.125 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05714285714285714 - nodes in this community are weakly interconnected._
