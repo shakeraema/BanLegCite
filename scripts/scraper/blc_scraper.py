@@ -39,7 +39,7 @@ class BLCScraper(BaseScraper):
                     "citation": vol_page,
                     "context": f"In the High Court Division case of {case_name}, it was observed: {ruling} The citation {vol_page} is key to this holding.",
                     "source": "Bangladesh Law Chronicles (HCD)",
-                    "extracted_url": f"{self.portal_url}?case={urllib.parse.quote(case_name)}",
+                    "extracted_url": "http://www.supremecourt.gov.bd/web/index.php?page=case_search.php",
                     "verification_status": "unverified"
                 })
                 count += 1

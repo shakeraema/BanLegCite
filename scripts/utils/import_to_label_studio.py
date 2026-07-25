@@ -3,8 +3,8 @@ import glob
 import json
 from datetime import datetime
 
-def format_for_label_studio(input_dir: str = "data/annotated", output_file: str = "annotation/label_studio_import.json"):
-    print("=== Generating Label Studio Import File ===")
+def format_for_label_studio(input_dir: str = "data/annotated"):
+    print("=== Generating Label Studio Import Files ===")
     
     annotated_files = glob.glob(os.path.join(input_dir, "*_annotated.json"))
     tasks = []
@@ -16,21 +16,19 @@ def format_for_label_studio(input_dir: str = "data/annotated", output_file: str 
             
         data = file_data.get("data", [])
         for item in data:
-            # Reformat to Label Studio import task format
+            # Reformat to flat task format (no 'data' wrapper, source_doc key)
             tasks.append({
-                "data": {
-                    "context": item["context"],
-                    "citation": item["citation"],
-                    "source": item["source"],
-                    "helper_notes": f"Source URL: {item['extracted_url']} | Org ID: {item['citation_id']}"
-                }
+                "context": item["context"],
+                "citation": item["citation"],
+                "source_doc": item["source"],
+                "helper_notes": f"Source URL: {item['extracted_url']} | Org ID: {item['citation_id']}"
             })
             
-    with open(output_file, "w", encoding="utf-8") as f:
-        json.dump(tasks, f, indent=2, ensure_ascii=False)
-        
-    print(f"Formatted and saved {len(tasks)} tasks to {output_file}")
-    print("You can now import this file directly into your Label Studio project.")
+    # Save to both fixed and flat paths
+    for output_file in ["annotation/label_studio_import_fixed.json", "annotation/label_studio_import_flat.json"]:
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(tasks, f, indent=2, ensure_ascii=False)
+        print(f"Formatted and saved {len(tasks)} tasks to {output_file}")
 
 if __name__ == "__main__":
     format_for_label_studio()

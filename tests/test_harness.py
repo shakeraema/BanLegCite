@@ -50,7 +50,7 @@ class TestRetriever:
     def test_retrieve_known_citation_returns_info(self):
         r = LocalRetriever(raw_data_dir="data/raw")
         # At least one DLR citation must be indexable
-        result = r.retrieve("52 DLR (AD) 12")
+        result = r.retrieve("41 DLR (AD) 165")
         assert isinstance(result, str)
         assert len(result) > 0
 

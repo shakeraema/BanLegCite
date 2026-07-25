@@ -38,8 +38,8 @@ class ALRScraper(BaseScraper):
                     "citation_id": f"ALR_REAL_{count+1}",
                     "citation": vol_page,
                     "context": f"Applying the rule from {case_name}, the court clarified that {ruling} The citation {vol_page} is cited to support this.",
-                    "source": "Apex Law Reports (AD)",
-                    "extracted_url": f"{self.portal_url}?case={urllib.parse.quote(case_name)}",
+                    "source": "Law Referee (ALR)",
+                    "extracted_url": "http://www.supremecourt.gov.bd/web/index.php?page=case_search.php",
                     "verification_status": "unverified"
                 })
                 count += 1

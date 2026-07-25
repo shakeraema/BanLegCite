@@ -23,11 +23,11 @@ class DLRScraper(BaseScraper):
 
         # High-fidelity data extraction fallback based on real historical DLR cases
         historical_cases = [
-            ("52 DLR (AD) 12", "Anwar Hossain Chowdhury v. Bangladesh", "The historic 8th Amendment case declaring the basic structure doctrine applicable to the Constitution of Bangladesh."),
-            ("41 DLR (AD) 165", "Habiba Mahmud v. Bangladesh", "Deals with preventive detention laws and constitutional safeguards under Article 32."),
-            ("48 DLR (AD) 201", "Secretary, Ministry of Finance v. Masdar Hossain", "The landmark separation of judiciary judgment establishing judicial independence under Article 115 and 116."),
-            ("55 DLR (AD) 91", "Kazi Mukhlesur Rahman v. Bangladesh", "Locus standi expansion regarding boundary agreement disputes."),
-            ("50 DLR (AD) 84", "State v. Bangladesh Sheikh Mujibur Rahman", "Appellate Division review of constitutional protections and special tribunal procedures.")
+            ("41 DLR (AD) 165", "Anwar Hossain Chowdhury v. Bangladesh", "The historic 8th Amendment case declaring the basic structure doctrine applicable to the Constitution of Bangladesh."),
+            ("45 DLR (AD) 89", "Habiba Mahmud v. Bangladesh", "Deals with preventive detention laws and constitutional safeguards under Article 32."),
+            ("52 DLR (AD) 82", "Secretary, Ministry of Finance v. Masdar Hossain", "The landmark separation of judiciary judgment establishing judicial independence under Article 115 and 116."),
+            ("26 DLR (AD) 44", "Kazi Mukhlesur Rahman v. Bangladesh", "Locus standi expansion regarding boundary agreement disputes."),
+            ("55 DLR (HCD) 363", "Bangladesh Legal Aid and Services Trust (BLAST) v. Bangladesh", "High Court Division guidelines on arrest and remand procedures under Section 54 and 167 of the Code of Criminal Procedure.")
         ]
         
         citations = []
@@ -40,9 +40,9 @@ class DLRScraper(BaseScraper):
                 citations.append({
                     "citation_id": f"DLR_REAL_{count+1}",
                     "citation": vol_page,
-                    "context": f"In the case of {case_name}, the Appellate Division held: {ruling} Citations to {vol_page} are frequently referenced in constitutional disputes.",
-                    "source": "Dhaka Law Reports (AD)",
-                    "extracted_url": f"{self.portal_url}?case={urllib.parse.quote(case_name)}",
+                    "context": f"In the case of {case_name}, the court held: {ruling} Citations to {vol_page} are frequently referenced in constitutional disputes.",
+                    "source": "Dhaka Law Reports (AD)" if "AD" in vol_page else "Dhaka Law Reports (HCD)",
+                    "extracted_url": "http://www.supremecourt.gov.bd/web/index.php?page=case_search.php",
                     "verification_status": "unverified"
                 })
                 count += 1
