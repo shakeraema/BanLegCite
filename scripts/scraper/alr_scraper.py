@@ -25,7 +25,7 @@ class ALRScraper(BaseScraper):
             ("44 DLR (AD) 111", "Mujibur Rahman (Md) v. Government of Bangladesh and others", "Appellate Division findings on civil service seniority disputes between promotees and direct recruits.", "administrative law"),
             ("46 DLR (AD) 192", "Professor Ghulam Azam v. Bangladesh", "Citizenship restoration under the Bangladesh Citizenship (Temporary Provisions) Order 1972.", "constitutional"),
             ("67 DLR (AD) 185", "State v. Sukur Ali", "Mandatory death penalty provisions under the Nari O Shishu Nirjatan Daman Ain declared unconstitutional; sentencing discretion restored to courts.", "criminal law"),
-            ("66 DLR (AD) 185", "Anti-Corruption Commission v. Iqbal Hasan Mahmood", "Evidentiary weight of property valuation assessments under Section 27 of the Anti-Corruption Commission Act.", "anti-corruption")
+            ("70 DLR (AD) 109", "Anti-Corruption Commission v. Iqbal Hasan Mahmood", "Evidentiary weight of property valuation assessments under Section 27 of the Anti-Corruption Commission Act.", "anti-corruption")
         ]
         
         citations = []
