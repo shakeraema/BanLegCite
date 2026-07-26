@@ -3,8 +3,21 @@ function createAnnotationForm() {
   var form = FormApp.create('BanLegit-Cite Annotation Task');
   form.setDescription('Please verify the citations in this form. For each task, select if the citation is Correct or Fabricated, provide the specific category if fabricated, and indicate your confidence.\n\nRefer to the annotation guidelines for rules on classification.');
   
-  // Collect email addresses to track annotators
-  form.setCollectEmail(true);
+  // Disable email collection to allow open participation
+  form.setCollectEmail(false);
+
+  // Add Annotator Metadata Questions at the beginning
+  var nameItem = form.addTextItem();
+  nameItem.setTitle('Student Name')
+          .setRequired(true);
+          
+  var deptItem = form.addTextItem();
+  deptItem.setTitle('Department')
+          .setRequired(true);
+          
+  var univItem = form.addTextItem();
+  univItem.setTitle('University')
+          .setRequired(true);
 
   var tasks = [
   {

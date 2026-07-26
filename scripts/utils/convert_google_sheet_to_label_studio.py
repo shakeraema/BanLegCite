@@ -18,21 +18,21 @@ def convert_csv_to_label_studio(csv_path, original_json_path, output_json_path):
         sys.exit(1)
         
     # We expect each row in CSV to represent one annotator's responses for all tasks.
-    # Group responses by email/annotator
-    annotators = list(set(r.get("Email Address", "").strip() for r in responses if r.get("Email Address")))
+    # Group responses by Student Name
+    annotators = list(set(r.get("Student Name", "").strip() for r in responses if r.get("Student Name")))
     
     if len(annotators) < 2:
-        print(f"Error: Could not find at least 2 distinct annotator email addresses in CSV. Found: {annotators}")
+        print(f"Error: Could not find at least 2 distinct annotator names in CSV. Found: {annotators}")
         sys.exit(1)
         
     print(f"Processing annotations for: {annotators[:2]}")
     
     # Map the first two annotators
-    ann1_email = annotators[0]
-    ann2_email = annotators[1]
+    ann1_name = annotators[0]
+    ann2_name = annotators[1]
     
-    ann1_row = next(r for r in responses if r.get("Email Address", "").strip() == ann1_email)
-    ann2_row = next(r for r in responses if r.get("Email Address", "").strip() == ann2_email)
+    ann1_row = next(r for r in responses if r.get("Student Name", "").strip() == ann1_name)
+    ann2_row = next(r for r in responses if r.get("Student Name", "").strip() == ann2_name)
     
     converted_tasks = []
     
@@ -42,7 +42,7 @@ def convert_csv_to_label_studio(csv_path, original_json_path, output_json_path):
         # Build annotations array in Label Studio structure
         annotations = []
         
-        for email, row, completed_by in [(ann1_email, ann1_row, 1), (ann2_email, ann2_row, 2)]:
+        for name, row, completed_by in [(ann1_name, ann1_row, 1), (ann2_name, ann2_row, 2)]:
             # Construct keys as defined in generate_google_form.js
             status_key = f"Task {task_num} - Step 1: Verification Status"
             category_key = f"Task {task_num} - Step 2: Citation Fabrication Category"
@@ -82,7 +82,7 @@ def convert_csv_to_label_studio(csv_path, original_json_path, output_json_path):
             
             annotations.append({
                 "completed_by": completed_by,
-                "email": email,
+                "student_name": name,
                 "result": results
             })
             
