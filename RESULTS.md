@@ -175,3 +175,34 @@ _To be filled as results are produced. Each paper table/figure must map to a spe
 - **H1:** H1 SUPPORTED (Ï‡Â²=10.5625, p=0.005086, Î±=0.05). LLM significantly worse than human annotators.
 - **H2:** No differences between settings â€” cannot distinguish.
 - **H3:** Insufficient categories for chi-squared test.
+
+---
+
+## Phase 4 Results — 2026-07-26 14:04:47
+
+> produced_by: results_reporter.py  
+> stage: Phase 4 — Experimentation & Statistical Validation  
+> reviewed_by: pending  
+
+### Performance Metrics
+
+| Setting  | Accuracy | REAL P | REAL R | REAL F1 | FAB P | FAB R | FAB F1 |
+|----------|----------|--------|--------|---------|-------|-------|--------|
+| Standard | 0.4667   | 0.4800 | 0.8000 | 0.6000   | 0.4000 | 0.1333 | 0.2000   |
+| Agentic  | 0.9000   | 1.0000 | 0.8000 | 0.8889   | 0.8333 | 1.0000 | 0.9091   |
+
+
+### Pre-registered Statistical Tests
+
+| Hypothesis | Test | Statistic | p-value | Significant (α=0.05) |
+|------------|------|-----------|---------|----------------------|
+| H1 | McNemar | 13.0667 | 0.001454 | ✅ Yes |
+| H2 | Wilcoxon | 0.0000 | 1.000000 | ❌ No |
+| H3 | Chi-squared | 0.0000 | 1.000000 | ❌ No |
+
+
+### Interpretations
+
+- **H1:** H1 SUPPORTED (Ï‡Â²=13.0667, p=0.001454, Î±=0.05). LLM significantly worse than human annotators.
+- **H2:** No differences between settings â€” cannot distinguish.
+- **H3:** Insufficient categories for chi-squared test.

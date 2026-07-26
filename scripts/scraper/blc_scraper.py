@@ -24,7 +24,7 @@ class BLCScraper(BaseScraper):
             ("1 BLC (HCD) 483", "Dr. Mohiuddin Farooque v. Bangladesh", "Public Interest Litigation (PIL) expanding standing under Right to Life to challenge flood action plans."),
             ("17 BLC (AD) 177", "Majed Hossain v. The State", "Commercial bank prosecution rights under the Negotiable Instruments Act for security cheque dishonour."),
             ("14 BLC (HCD) 694", "Bangladesh National Women Lawyers Association (BNWLA) v. Bangladesh", "Landmark High Court Division guidelines to prevent sexual harassment in educational institutions and workplaces."),
-            ("19 BLC (HCD) 358", "Aberchai Mog v. Joint District Judge, Khagrachari", "Recognition and application of customary inheritance laws for the Marma community in Chittagong Hill Tracts."),
+            ("19 BLC (HCD) 358", "Aberchai Mog v. Joint District Judge, Khagrachari", "Chittagong Hill Tracts land-dispute forum jurisdiction under the Chittagong Hill Tracts Regulation 1900 and Adivasi rights statutes."),
             ("21 BLC (HCD) 162", "Jamal Uddin Sikder v. Government of Bangladesh", "Application of public administration fairness, reasonableness, and the doctrine of legitimate expectations.")
         ]
         
