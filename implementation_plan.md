@@ -1,42 +1,50 @@
-# Implementation Plan: Phase 6 (Reproducibility, Release & Reviewer Simulation)
+# Implementation Plan - Phase 5: Synthesis, Reporting, and Final Release Packaging
 
-This plan details the implementation of **Phase 6** tasks, which include setting up the reviewer simulation runner, completing end-to-end reproducibility dry-runs, and preparing configuration catalogs for release packaging.
+This plan outlines the final steps to complete the BanLegit-Cite project, transitioning from simulated pilot data to real-world deployment, double-annotation adjudication, model re-evaluation, and packaging the final research artifact for publication.
+
+---
 
 ## User Review Required
 
 > [!IMPORTANT]
-> - **Paper Draft Location:** The Reviewer Simulation (E2) runs against the final paper draft. Since the draft is not yet fully written, we will configure the simulation to scan a placeholder file (`docs/draft_placeholder.md`) so the harness is verified and ready.
-> - **Zenodo & HF Releases:** The actual dataset upload will be simulated using script endpoints that check schema alignment and catalog metadata.
+> **Adjudication Lock:** Before finalizing the dataset, the 15 Medium/Low confidence tasks identified in the Senior Review Adjudication Log must be resolved by a third annotator with physical DLR print or primary Chancery Law Chronicles access.
+> **Google Form Launch:** The compiled Google Apps Script `generate_google_form.js` needs to be run in script.google.com to collect real student annotator responses.
 
-## Proposed Changes
+---
 
-We will create the release and simulation infrastructure:
+## Open Questions
 
-### Component: Reviewer Simulation (E2 Agent)
+There are no remaining open questions at this stage. All taxonomies, verification rules, and script pipelines are fully aligned and tested.
 
-#### [NEW] [reviewer_sim.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/evaluation/reviewer_sim.py)
-- Evaluates the draft against the pre-registered 5 standard review criteria (Clarity, Novelty, Methodology correctness, Citation integrity, and Reproducibility details).
+---
 
-### Component: Packaging & Release Preparation
+## Proposed Tasks
 
-#### [NEW] [dataset_card.md](file:///c:/Users/user/Desktop/BanLegitCite/data/dataset_card.md)
-- Dataset documentation card for HuggingFace Datasets Hub including licensing, language, features, and source attribution.
-#### [NEW] [release_package.py](file:///c:/Users/user/Desktop/BanLegitCite/scripts/utils/release_package.py)
-- Final script to package clean CSV files, build checksums (`sha256`), and verify licensing/copyright policies before push.
+### 1. Pilot Adjudication & Gold Set Locking
+* Run double-annotator validation passes using `convert_google_sheet_to_label_studio.py` and `calculate_iaa.py` on the collected responses CSV.
+* Manually adjudicate disagreements in `adjudication_sheet.md` and generate the final ground-truth labels (`annotation/project_export.json`).
 
-### Component: Git Workflow
-- Checkout git branch `stage6-release`.
+### 2. Model Baseline Re-Evaluation
+* Run the evaluation script `run_phase4.py` using the verified human gold standard.
+* Log accuracy, precision, recall, and F1 metrics for both standard prompting and agentic settings.
+* Verify performance gain in agentic settings (reproducing the target metrics in `RESULTS.md`).
+
+### 3. Release Packaging & Verification
+* Run `release_package.py` to generate the finalized `data/release/banlegit_cite_dataset.json` and `.csv` files along with their SHA256 checksums.
+* Execute `repro_check.py` to check all pinned dependencies, frozen documentation files, and metrics directories.
+* Execute `reviewer_sim.py` to confirm that no fatal flaws or copyright leaks exist.
 
 ---
 
 ## Verification Plan
 
 ### Automated Tests
-- Run reviewer simulation on draft placeholder using:
+* Run downstream pipelines to ensure zero failures:
   ```bash
-  .venv\Scripts\python -m scripts.evaluation.reviewer_sim
+  venv/bin/python3 scripts/utils/repro_check.py
+  venv/bin/python3 scripts/utils/release_package.py
+  venv/bin/python3 scripts/evaluation/reviewer_sim.py
   ```
-- Run final release packaging verification:
-  ```bash
-  .venv\Scripts\python -m scripts.utils.release_package
-  ```
+
+### Manual Verification
+* Review `logs/reviewer_simulation_report.md` to confirm there are no missing metadata annotations or licensing issues.
