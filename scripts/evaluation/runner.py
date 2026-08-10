@@ -17,7 +17,7 @@ except ImportError:
     HAS_GENAI = False
 
 class BaselineRunner:
-    def __init__(self, setting: str = "standard", model_name: str = "gemini-1.5-flash"):
+    def __init__(self, setting: str = "standard", model_name: str = "gemini-3.5-flash"):
         self.setting = setting
         self.model_name = model_name
         self.retriever = LocalRetriever()

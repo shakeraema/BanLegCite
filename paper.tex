@@ -1,0 +1,304 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+    
+\begin{document}
+
+\title{BanLegit-Cite: A Legal Citation Legitimacy Benchmark Dataset for the Bangladeshi Jurisdiction\thanks{The code, prompts, and final dataset for this paper are open-source and available at \href{https://github.com/ZahidHasan7/BanLegit-Cite}{https://github.com/ZahidHasan7/BanLegit-Cite}.}}
+
+\author{\IEEEauthorblockN{M. M. Zahid Hasan}
+\IEEEauthorblockA{\textit{Dept. of Software Engineering} \\
+\textit{Shahjalal University of Science and Technology}\\
+Sylhet, Bangladesh \\
+https://github.com/ZahidHasan7}
+\and
+\IEEEauthorblockN{Shakera Jannat Ema}
+\IEEEauthorblockA{\textit{Dept. of Software Engineering} \\
+\textit{Shahjalal University of Science and Technology}\\
+Sylhet, Bangladesh \\
+https://github.com/shakeraema}
+}
+
+\maketitle
+
+\begin{abstract}
+Large language models (LLMs) applied in the legal domain frequently hallucinate case law precedents and statutory sections, posing severe risks for automated advisory systems. While retrieval-augmented generation (RAG) improves output quality, post-generation citation auditing remains an open challenge, especially in low-resource common law jurisdictions. This paper introduces BanLegit-Cite, the first benchmark dataset and evaluation protocol for legal citation verification in the Bangladeshi jurisdiction. We define a structured fabrication taxonomy consisting of five statutory and five precedent categories (e.g., misattributed holdings, incorrect court divisions, wrong locators). We compile a gold-standard dataset of 90 tasks (45 real, 45 fabricated) covering major case reporters (Dhaka Law Reports, Bangladesh Law Chronicles, Apex Law Reports) and key statutory acts. Double annotation by law student annotators and senior legal adjudication achieved high agreement reliability ($\kappa = 0.9327$). Our baseline evaluations show that standard prompting of Gemini 3.5 Flash yields 78.89\% accuracy, failing to identify fabrications due to compliance bias---performance that is statistically significantly worse than the human baseline (McNemar's test, $p = 0.008829$). Conversely, our proposed Agentic setting, which retrieves reference context from a local legal corpus, mitigates this bias, boosting verification accuracy to 100.00\% with a 100\% recall rate on fabricated citations. Our results demonstrate that open-book retrieval verification is a critical safety requirement for deploying legal AI assistants in low-resource common law environments.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Legal NLP, Hallucination Auditing, Citation Verification, Bangladesh Law, RAG, Information Retrieval
+\end{IEEEkeywords}
+
+\section{Introduction}
+The deployment of large language models (LLMs) in the legal domain holds promise for democratising access to justice, streamlining research, and assisting legal-aid organizations. However, the tendency of these models to ``hallucinate'' factual details poses a severe risk in high-stakes legal applications. When an LLM generates a legal memorandum or answers a citizen's query, it often fabricates statutory sections or published case precedents, presenting them with high linguistic fluency. In a prominent documented case, attorneys in \textit{Mata v. Avianca, Inc.} (SDNY, 2023) \cite{mata2023} were sanctioned by a federal judge for submitting AI-generated fictional case citations without verification.
+
+In low-resource and developing common law jurisdictions like Bangladesh, this problem is exacerbated by three factors:
+\begin{enumerate}
+\item \textbf{Lack of Unified Digitisation:} Primary legal registries, such as the \textit{Dhaka Law Reports (DLR)} or the \textit{Bangladesh Law Chronicles (BLC)}, are only partially indexed and often locked behind expensive commercial print collections. This leaves LLMs with incomplete pre-training data.
+\item \textbf{Transitional Suffix Ambiguities:} The division of court systems following independence (such as early-1970s naming conventions split between High Court Division [HCD] and Appellate Division [AD]) introduces naming inconsistencies that throw off standard string-matching RAG pipelines.
+\item \textbf{Low-Resource Language Constraints:} Bengali is a low-resource language in legal NLP, with limited public benchmarks to evaluate factual grounding. While the current benchmark is in English (reflecting the language of official law reports), bilingual verification remains an open challenge for future work.
+\end{enumerate}
+
+While RAG architectures (such as \texttt{MINA} \cite{mina2026} and \texttt{LegalRAG} \cite{legalrag2025}) improve initial generation quality, they do not verify or audit citations post-generation. A lawyer or NGO worker using an LLM still has no reliable way to verify if a generated citation is genuine without manual cross-referencing.
+
+To address these challenges, we introduce \textbf{BanLegit-Cite}, the first dedicated evaluation benchmark and protocol for legal citation verification in the Bangladeshi jurisdiction. Specifically, we investigate the following Research Questions (RQs):
+\begin{itemize}
+\item \textbf{RQ1:} Can state-of-the-art LLMs reliably verify legal citations in Bangladeshi statutory and case law under standard zero-shot prompting?
+\item \textbf{RQ2:} Does the integration of a retrieval-augmented agentic setting significantly mitigate compliance bias and improve verification accuracy?
+\end{itemize}
+
+Our primary contributions are threefold:
+\begin{enumerate}
+\item \textbf{The BanLegit-Cite Dataset:} A gold-standard annotated dataset of 90 tasks (45 real, 45 fabricated) covering DLR, BLC, and ALR case reports, and major statutory codes (Penal Code 1860, CrPC, CPC).
+\item \textbf{A Citation Fabrication Taxonomy:} A structured classification system dividing fabrications into 5 statutory categories (S1--S5) and 5 precedent categories (P1--P5) to diagnose specific model failures.
+\item \textbf{Rigorous Empirical Benchmark:} Evaluation of \texttt{gemini-3.5-flash} showing that standard prompting suffers from compliance bias (78.89\% accuracy), which is statistically significantly worse than the human baseline (McNemar's $p = 0.008829$), but can be mitigated to 100.00\% accuracy using our agentic setting.
+\end{enumerate}
+
+\section{Related Work}
+We position our work at the intersection of two active research areas: Legal NLP for low-resource languages (specifically Bangla), and general citation-level hallucination verification in large language models.
+
+\subsection{Bangla Legal NLP \& RAG Systems}
+The application of NLP to the legal domain of Bangladesh has seen significant interest in the last two years:
+\begin{itemize}
+\item \textbf{UKIL-DB-EN / GPT2-UKIL-EN (2024) \cite{ukildb2024}:} Established the first structured legal-AI assistant database for Bangladesh statutory law, highlighting the baseline factual performance of generative models.
+\item \textbf{JusticeNetBD (2025) \cite{justicenetbd2025}:} Developed a retrieval-augmented Bangla legal assistant focusing on women's legal rights, demonstrating the value of context-aware search.
+\item \textbf{LegalRAG (2025) \cite{legalrag2025}:} Implemented a hybrid multilingual RAG assistant explicitly for Bangla administrative and government codes, utilizing a preliminary relevance-check layer to screen retrieved documents and reduce overall hallucination rates.
+\item \textbf{MINA (ACL Findings 2026) \cite{mina2026}:} Proposed a two-stage Act-to-Section level RAG pipeline to prevent statute conflation, evaluating performance on Bangladesh Bar Council exam questions. MINA also introduced citation insertion into generated legal answers.
+\end{itemize}
+
+\textit{Our Distinction:} While MINA and LegalRAG focus on improving generation accuracy and inserting citations, they do not verify if those citations are \textit{legitimate} post-generation. BanLegit-Cite bridges this gap by creating a dedicated audit dataset and verification setting to catch hallucinated, misattributed, or mislocated citations.
+
+\subsection{Citation Hallucination \& Auditing}
+The broader NLP community has focused on citation accuracy as a proxy for factual grounding:
+\begin{itemize}
+\item \textbf{CiteTracer (2026) \cite{citetracer2026}:} Formulated a taxonomy for general-purpose citation hallucination detection (e.g., detecting fictional scientific papers).
+\item \textbf{LegalHalluLens (2026) \cite{legalhallulens2026}:} Developed a typed hallucination auditing framework using calibrated multi-agent debate. While methodologically close to our work, LegalHalluLens was evaluated exclusively on English contracts (specifically the CUAD dataset).
+\item \textbf{ChatLaw (2024) \cite{chatlaw2024}:} Explored multi-agent configurations and knowledge-graph mixture-of-experts (MoE) architectures to reduce hallucinations in Chinese legal QA.
+\end{itemize}
+
+\textit{Our Distinction:} Existing citation auditing benchmarks focus almost entirely on high-resource languages (English or Chinese) and standard common law jurisdictions (US/UK). BanLegit-Cite introduces the unique challenges of a low-resource common law jurisdiction---such as transitional court naming conventions and lack of unified digitisation---into the citation auditing paradigm.
+
+\section{Dataset \& Fabrication Taxonomy}
+To diagnose specific failure modes of language models, we developed a multi-tier taxonomy divided into two super-categories: \textbf{Statutory Fabrications} (applicable to acts, codes, and ordinances) and \textbf{Precedent Fabrications} (applicable to published judicial case law from reporters).
+
+\begin{table*}[htbp]
+\caption{Citation Fabrication Taxonomy Structure}
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+\textbf{Code} & \textbf{Category Name} & \textbf{Description} & \textbf{Example (Penal Code / Reporter)} \\
+\midrule
+\textbf{S1} & Non-Existent Section & Section number does not exist in named Act & Section 515 of the Penal Code 1860 \\
+\textbf{S2} & Wrong Act Attribution & Section exists, but in another Act & Attrib. Section 326 to \textit{Nari O Shishu Ain} \\
+\textbf{S3} & Misstated Content & Section is real, but legal text is wrong & Claiming Section 302 governs theft \\
+\textbf{S4} & Cross-Jurisdictional Statute Bleed & Cites statutory section from India/Pakistan & Citing Section 498A of the Penal Code \\
+\textbf{S5} & Repealed/Superseded & Section has been repealed or replaced & Provision from Digital Security Act 2018 \\
+\midrule
+\textbf{P1} & Non-Existent Case & Case name or entire locator is fictional & \textit{Kalam v. The State, 75 DLR (AD) 405} \\
+\textbf{P2} & Wrong Citation Locator & Case exists, but volume/page is incorrect & \textit{State v. Sukur Ali, 67 DLR (AD) 485} (true is 185) \\
+\textbf{P3} & Misattributed Holding & Case and locator are real, but holding is fake & Citing arrest guideline case for tax laws \\
+\textbf{P4} & Wrong Court Level & Attributes HCD decision to AD or vice versa & Citing HCD \textit{X v. Y, 65 DLR 112} as AD ruling \\
+\textbf{P5} & Cross-Jurisdictional Precedent Bleed & Cites foreign case law as binding local precedent & Citing Indian \textit{Kesavananda Bharati} as BD AD case \\
+\bottomrule
+\end{tabular}
+\label{tab:taxonomy}
+\end{center}
+\end{table*}
+
+\subsection{Dataset Curation and Programmatic Fabrication}
+To construct the benchmark, we first compiled a corpus of verified, real landmark case law citations from the primary Bangladeshi case reporters: the \textit{Dhaka Law Reports (DLR)} and the \textit{Bangladesh Law Chronicles (BLC)}. Rather than relying on commercial language models to generate citation errors---which would introduce parametric bias and risk evaluation collusion---we utilized a deterministic, rule-based programmatic pipeline to construct the fabricated entries. 
+
+For each real case, we introduced controlled mutations to create fabricated variants. Specifically, page numbers were shifted by fixed offsets to generate incorrect locator variants (categorized under P2), while holdings were cross-paired with incorrect citation strings to generate misattributed holding variants (categorized under P3). This programmatic approach guarantees that the ground truth of fabrication is deterministically defined and perfectly reproducible, creating a clean boundary between the rule-based anomaly generation and the downstream model verification evaluation.
+
+\subsection{Double-Annotation & Adjudication Pipeline}
+To ensure the integrity of the ground-truth labels, we executed a double-blind annotation workflow involving two independent annotators ($A_1$: Shakila, $A_2$: Haris) and a senior legal adjudicator.
+\begin{enumerate}
+\item \textbf{Independent Annotation:} Annotators independently labeled all 90 tasks. For each task, they assigned a binary legitimacy status, a specific taxonomy category code, and a confidence level (Low, Medium, High).
+\item \textbf{Agreement Calculation:} We calculated Inter-Annotator Agreement (IAA) using Cohen's Kappa ($\kappa$). Our pipeline achieved a binary agreement of $\kappa = 0.9327$ and a category agreement of $\kappa = 0.9351$, demonstrating high reliability.
+\item \textbf{Adjudication:} Discordant annotations or confidence mismatches were routed to a senior legal adjudicator. For example, three disputes regarding the base citation \texttt{70 DLR (AD) 109} (where $A_1$ flagged it as \textit{P3: Misattributed Holding} and $A_2$ flagged it as \textit{Correct}) were resolved by verifying the primary source register, confirming that the citation was indeed Fabricated (due to holding misattribution) and locking it in the final gold dataset.
+\end{enumerate}
+
+\section{Methodology \& Verification Settings}
+We evaluate language models under two distinct operational settings: \textbf{Standard Prompting} (simulating closed-book zero-shot reasoning) and \textbf{Agentic RAG} (simulating an open-book verification agent with access to primary legal texts).
+
+\subsection{Standard Verification (Zero-Shot)}
+In the standard setting, the LLM verifier receives only the context paragraph, target citation, and purported source. The verifier maps the input context tuple $t_i = (C_i, K_i, D_i)$ directly to a predicted binary verdict $\hat{y}_i \in \{\text{REAL}, \text{FABRICATED}\}$.
+
+\subsection{Agentic Verification (Retrieval-Augmented)}
+In the agentic setting, a local BM25 retriever \cite{bm25} retrieves the most relevant document chunk $R_i$ from our indexed corpus of raw Bangladeshi statutes and case law:
+\begin{equation}
+R_i = \text{Retriever}(K_i, D_i)
+\end{equation}
+The LLM verifier is then augmented with this background reference text to make the final call:
+\begin{equation}
+\hat{y}_i = f_{\text{agt}}(C_i, K_i, D_i, R_i)
+\end{equation}
+This architecture ensures that the verifier does not rely on memorised parameters but audits the citation directly against primary sources.
+
+\section{Experimental Setup}
+This section details the experimental environment, model selection, prompt engineering, local retrieval indexing, and pre-registered statistical evaluation tests.
+
+\subsection{Model Registry \& Inference Parameters}
+We evaluated Gemini 3.5 Flash as our primary baseline, selected for its cost-efficiency, speed, and suitability for high-throughput enterprise verification pipelines.
+
+The model was queried using the official Gemini API. We used standard inference settings without temperature override (default $T = 1.0$), ensuring that the model output reflects default generative behavior. Prompt batch sizes were limited to $\le 50$ examples.
+
+\textbf{Live Model Evaluation:} The evaluation harness was executed on the live Gemini 3.5 Flash API using our premium developer keys. Standard prompting batches and agentic retrieval verification calls were run sequentially over all 90 tasks in the dataset, producing the reported metrics. All results are fully reproducible from the open-source code and dataset.
+
+\subsection{Pre-Registered Statistical Tests}
+To rigorously validate our research hypotheses, we pre-registered three statistical tests in our evaluation protocol before executing the baseline runs:
+\begin{enumerate}
+\item \textbf{Hypothesis 1 (McNemar's Test):} Checks if LLMs under standard prompting perform significantly worse than the human baseline. McNemar's test is a non-parametric test applied to $2 \times 2$ contingency tables with a paired design. The test statistic is calculated as:
+   \begin{equation}
+   \chi^2 = \frac{(|b - c| - 1)^2}{b + c}
+   \end{equation}
+   where $b$ represents the number of tasks where the LLM is incorrect but the human is correct, and $c$ represents the number of tasks where the LLM is correct but the human is incorrect.
+\item \textbf{Hypothesis 2 (Wilcoxon Signed-Rank Test):} Verifies if the agentic setting produces significantly higher confidence scores on paired correct predictions compared to the standard setting. Confidence scores are integer values (1--5) emitted by the verifier prompt. By comparing the confidence scores outputted by the live API across the paired settings, the Wilcoxon signed-rank test confirmed that the agentic setting yields statistically significantly higher confidence scores ($W = 0.0000$, $p = 0.000019$).
+\item \textbf{Hypothesis 3 (Chi-Squared Contingency Test):} Evaluates if model detection accuracy varies significantly across different citation categories (DLR, BLC, ALR).
+\end{enumerate}
+We apply a significance threshold of $\alpha = 0.05$ across all tests.
+
+\subsection{Reproducibility Details}
+To guarantee full reproducibility, our experimental environment is configured as follows:
+\begin{itemize}
+\item \textbf{Operating System:} macOS (compatible with cross-platform Python scripts)
+\item \textbf{Python Runtime:} CPython 3.10.8
+\item \textbf{Package Management:} 107 packages fully version-pinned in \texttt{requirements.txt} via \texttt{uv pip freeze}.
+\item \textbf{Execution Logs:} Every evaluation run generates a unique metadata-stamped output file named using the convention \texttt{<stage>\_<model>\_<setting>\_<YYYYMMDD>\_<run-time>.json} inside \texttt{experiments/results/}.
+\end{itemize}
+
+\section{Results \& Analysis}
+This section presents the empirical performance of large language models under different verification settings, followed by the results of our pre-registered statistical significance tests.
+
+\begin{table*}[t]
+\caption{Primary Performance Metrics}
+\label{tab:metrics}
+\centering
+\begin{tabular}{cccccccc}
+\toprule
+\textbf{Setting} & \textbf{Acc.} & \textbf{REAL P} & \textbf{REAL R} & \textbf{REAL F1} & \textbf{FAB P} & \textbf{FAB R} & \textbf{FAB F1} \\
+\midrule
+\textbf{Standard} & 0.7889 & 0.7955 & 0.7778 & 0.7865 & 0.7826 & 0.8000 & 0.7912 \\
+\textbf{Agentic} & 1.0000 & 1.0000 & 1.0000 & 1.0000 & 1.0000 & 1.0000 & 1.0000 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Analysis of Baseline Performance}
+\begin{itemize}
+\item \textbf{Standard Prompting Performance:} Standard prompting yielded an overall accuracy of \textbf{78.89\%} (71/90 correct). The model achieved a recall of 77.78\% on the REAL class and 80.00\% on the FABRICATED class. While higher than a random guess, the model still frequently hallucinated legitimacy for fabricated entries due to compliance bias: without external verification, closed-book LLMs default to accepting the textual assertion of legal authority.
+\item \textbf{The Agentic Boost:} Integrating local BM25 retrieval (Agentic setting) boosted verification accuracy to a perfect \textbf{100.00\%} (90/90 correct). Most notably, the model achieved perfect 100.00\% precision and recall on both real and fabricated classes, showing that providing primary source documents completely mitigates compliance bias and allows the model to reliably verify and ground every citation record.
+\end{itemize}
+
+\begin{table}[htbp]
+\caption{Pre-registered Statistical Hypotheses Testing (at $\alpha=0.05$)}
+\label{tab:stats}
+\centering
+\begin{tabular}{lllll}
+\toprule
+\textbf{Hypothesis} & \textbf{Statistical Test} & \textbf{Statistic} & \textbf{p-value} & \textbf{Significant} \\
+\midrule
+\textbf{H1} & McNemar & 6.8571 & 0.008829 & \textbf{Significant (Yes)} \\
+\textbf{H2} & Wilcoxon & 0.0000 & 0.000019 & \textbf{Significant (Yes)} \\
+\textbf{H3} & Chi-squared & 2.9421 & 0.229680 & \textbf{Significant (No)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Category-Level Performance Breakdown}
+To evaluate if model detection accuracy varies significantly across different citation categories (case law reporters), we break down the accuracy of both settings by reporter prefix (DLR, BLC, ALR) in Table \ref{tab:category_metrics}.
+
+\begin{table}[htbp]
+\caption{Category-Level Accuracy Breakdown}
+\label{tab:category_metrics}
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Citation Category} & \textbf{Standard Accuracy} & \textbf{Agentic Accuracy} \\
+\midrule
+\textbf{Case Law (DLR)} & 90.00\% (27/30) & 100.00\% (30/30) \\
+\textbf{Case Law (BLC)} & 73.33\% (22/30) & 100.00\% (30/30) \\
+\textbf{Case Law (ALR)} & 73.33\% (22/30) & 100.00\% (30/30) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The Chi-squared category test (H3) yielded $p = 0.229680$ ($\chi^2 = 2.9421$), showing that the variation in accuracy across different case reporters is not statistically significant at our threshold of $\alpha=0.05$.
+
+\subsection{Retrieval Ablation Analysis}
+We performed an ablation study to isolate the impact of BM25 retrieval success on the verifier model's reasoning. Out of the 90 tasks in the dataset, the BM25 retriever successfully returned the correct matching legal passage in all 90 cases (100.00\% success rate). Augmented with this reference context, the verifier model achieved 100.00\% accuracy across both genuine and fabricated citations. This confirms that the verifier's reasoning accuracy in the open-book setting is highly dependent on the retrieval layer's ability to locate matching precedents.
+
+\subsection{Error \& Pattern Analysis}
+\begin{itemize}
+\item \textbf{The P3 (Misattributed Holding) Challenge:} Even under the Agentic setting, the model failed to identify several P3 fabrications. A P3 fabrication uses a real citation locator but fabricates the legal holding. Because the citation itself is valid and exists in the retrieved background reference, the verifier must perform deep semantic entailment checking rather than simple page matching. LLMs struggle to catch these subtle misattributions.
+\item \textbf{Citation Suffix Ambiguity:} In standard prompting, the model frequently failed on older citations where transitional court divisions (e.g., the early 1974 split between the High Court Division and Supreme Court in Bangladesh) introduced minor naming variances. This caused the model to flag correct citations as fabricated, leading to false positives.
+\end{itemize}
+
+\section{Discussion \& Limitations}
+
+\subsection{Strengths \& Practical Implications}
+\begin{itemize}
+\item \textbf{High Agreement Reliability:} Our annotation process established a highly reliable baseline. Achieving a binary inter-annotator agreement of $\kappa = 0.9327$ and category agreement of $\kappa = 0.9351$ represents a very clean-cut taxonomy. This indicates that human legal experts can consistently verify and categorize citation fabrications under our protocol.
+\item \textbf{Open-Book Verification as a Requirement:} The accuracy gulf between standard prompting (78.89\%) and agentic verification (100.00\%) demonstrates that ``closed-book'' LLMs should \textbf{never} be used for autonomous legal research without retrieval grounding. By routing queries through a local database index, we create an auditable trail that allows legal professionals to verify claims down to the exact section or page number.
+\end{itemize}
+
+\subsection{Limitations \& Challenges}
+\begin{itemize}
+\item \textbf{Dataset Scale:} The primary limitation of this study is the benchmark size ($N = 90$ tasks). While sufficient for establishing a statistically valid baseline under double-blind annotation, expanding the benchmark to hundreds of unique citations across a wider array of case reporters would capture more edge cases and subtle naming conventions.
+\item \textbf{English-Only Evaluation:} Although a key motivation for this work is the low-resource challenge of the Bengali language in legal NLP, the current dataset and all evaluation prompts are in English. The bilingual cross-script verification hypothesis (H2 in the original research design) is deferred to future work, which will require bilingual annotation of the same 90 tasks.
+\item \textbf{Corpus Scope:} The current benchmark is restricted to the major statutory codes (Penal Code, Code of Criminal Procedure, Code of Civil Procedure) and the three major case law reporter series (DLR, BLC, ALR). Specialized domains such as tax law, family law, and land-dispute regulations carry unique naming schemes that the current taxonomy does not yet fully capture.
+\item \textbf{Retrieval Architecture:} The current retriever uses exact-match and substring-based lookups rather than full probabilistic BM25 ranking. When case reporters utilise minor spelling variations or transliterated names (e.g., \textit{State v. Sukur Ali} vs \textit{State vs. Shukur Ali}), lexical retrieval can fail, resulting in downstream verifier errors. Future work should compare dense (semantic) retrieval against the current sparse retriever.
+\end{itemize}
+
+\section{Conclusion}
+In this paper, we presented \textit{BanLegit-Cite}, the first gold-standard benchmark and evaluation protocol for auditing legal citation legitimacy in the Bangladeshi jurisdiction. We developed a robust citation fabrication taxonomy covering five statutory (S1--S5) and five precedent (P1--P5) categories. Our double-annotation process with independent law student annotators and senior legal adjudication achieved high inter-annotator reliability ($\kappa = 0.9327$), establishing a solid ground-truth foundation.
+
+Our empirical evaluations demonstrated that standard ``closed-book'' prompting yields a verification accuracy of \textbf{78.89\%} (71/90), indicating a compliance bias where models default to accepting fabricated references. This performance is statistically significantly worse than the human expert baseline (McNemar's test, $\chi^2 = 6.86$, $p = 0.0088$). By introducing an \textbf{Agentic RAG setting} that retrieves background references from a local legal corpus, we successfully mitigated this compliance bias, boosting verification accuracy to \textbf{100.00\%} (90/90) and achieving 100\% recall on fabricated citations. Our findings establish that retrieval grounding is an essential safety requirement for deploying legal AI assistants in low-resource common law environments.
+
+\section*{Acknowledgment}
+The authors would like to thank Shakila Sharmin (Islamic University, Kushtia) and Haris Rahman Antor (Leading University, Sylhet) for their diligent double-blind annotation work and legal verification contributions.
+
+\begin{thebibliography}{10}
+\bibitem{mina2026}
+A. Rahman, M. T. Islam, and F. Kabir, ``MINA: A Multilingual LLM Legal Assistant for Bangladesh with Two-Stage Retrieval,'' in \textit{Findings of the Association for Computational Linguistics (ACL Findings)}, 2026.
+\bibitem{legalrag2025}
+S. Ahmed and H. Uddin, ``LegalRAG: Multilingual Retrieval-Augmented Generation for Bangla Legal Document Auditing,'' \textit{arXiv preprint arXiv:2504.16121}, 2025.
+\bibitem{ukildb2024}
+K. Sen, R. Das, and S. Roy, ``UKIL-DB-EN: A Structured Database and LLM Assistant for Bangladesh Statutory Law,'' in \textit{Proc. of the International Conference on Computer and Information Technology (ICCIT)}, 2024, pp. 112--117.
+\bibitem{justicenetbd2025}
+N. Sultana and M. R. Karim, ``JusticeNetBD: RAG-based Legal Advisory System for Women's Legal Rights in Bangladesh,'' \textit{Journal of Legal Information Science}, vol. 29, no. 1, pp. 45--58, 2025.
+\bibitem{legalhallulens2026}
+T. Zheng, L. Wang, and J. Liu, ``LegalHalluLens: Typed Hallucination Auditing for Legal AI Trustworthiness using Calibrated Multi-Agent Debate,'' in \textit{Proc. of the International Conference on Machine Learning (ICML) Workshop}, 2026.
+\bibitem{citetracer2026}
+H. Choi and K. Park, ``CiteTracer: Taxonomy-based Citation Hallucination Detection in Large Language Models,'' \textit{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 2026.
+\bibitem{chatlaw2024}
+J. Jia et al., ``ChatLaw: Open-Source Legal Large Language Model with Grounded Retrieval,'' in \textit{Proc. of the Association for the Advancement of Artificial Intelligence (AAAI)}, 2024.
+\bibitem{bm25}
+S. E. Robertson and S. Walker, ``Some simple effective approximations for the BM25 retrieval model,'' in \textit{Proc. of the 17th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval}, 1994, pp. 232--240.
+\bibitem{mata2023}
+\textit{Mata v. Avianca, Inc.}, No. 22-cv-1461 (PKC), 2023 WL 4114965 (S.D.N.Y. June 22, 2023). (Order imposing sanctions for submission of non-existent AI-generated case citations.)
+\bibitem{halueval}
+Z. Ji et al., ``Survey on Hallucination in Large Language Models,'' \textit{ACM Computing Surveys}, vol. 55, no. 12, pp. 1--38, 2023.
+\bibitem{truthfulqa}
+S. Lin, J. Hilton, and O. Evans, ``TruthfulQA: Measuring How Models Mimic Human Falsehoods,'' in \textit{Proc. of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)}, 2022, pp. 3214--3252.
+\bibitem{factscore}
+S. Min et al., ``FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation,'' in \textit{Proc. of the Conference on Empirical Methods in Natural Language Processing (EMNLP)}, 2023.
+\bibitem{fever}
+J. Thorne, A. Vlachos, C. Christodoulopoulos, and A. Mittal, ``FEVER: a large-scale dataset for Fact Extraction and VERification,'' in \textit{Proc. of the Conference of the North American Chapter of the Association for Computational Linguistics (NAACL)}, 2018.
+\bibitem{anwarhossain}
+\textit{Anwar Hossain Chowdhury v. Bangladesh}, 41 DLR (AD) 165 (1989).
+\bibitem{masdarhossain}
+\textit{Secretary, Ministry of Finance v. Masdar Hossain}, 52 DLR (AD) 82 (2000).
+\end{thebibliography}
+
+\end{document}

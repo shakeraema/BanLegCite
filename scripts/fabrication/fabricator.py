@@ -19,7 +19,7 @@ def query_gemini_fabrication(citation_text: str, context: str) -> dict:
         
     try:
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-3.5-flash")
         
         prompt = f"""
 You are a legal citation fabrication bot. Your job is to take a real Bangladeshi court citation and its context, and produce a fabricated citation record that looks extremely realistic but is factually incorrect.
