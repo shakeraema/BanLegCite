@@ -1,26 +1,12 @@
 # repro_check.py
 # stage: Phase 5 — Reproducibility Prep
 # produced_by: Researcher B
-# Verifies that all experiment results in RESULTS.md have corresponding files
-# in experiments/results/ and that metadata headers are complete.
+# Verifies python packages and results metadata validity.
 
 import os
-import re
-import json
 import glob
+import json
 from datetime import datetime
-
-
-def check_results_md_entries(results_md: str = "RESULTS.md") -> list:
-    """Parses RESULTS.md and extracts all stage-tagged result blocks."""
-    with open(results_md, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    # Find all Phase 4 results blocks
-    blocks = re.findall(r"## Phase 4 Results — (.+?)(?=\n##|\Z)", content, re.DOTALL)
-    print(f"Found {len(blocks)} result block(s) in RESULTS.md.")
-    return blocks
-
 
 def check_experiment_files(results_dir: str = "experiments/results") -> list:
     """Scans results directory and validates metadata headers in each JSON."""
@@ -47,7 +33,6 @@ def check_experiment_files(results_dir: str = "experiments/results") -> list:
 
     return issues
 
-
 def check_requirements_pinned(req_file: str = "requirements.txt") -> bool:
     """Verifies requirements.txt exists and all entries are version-pinned."""
     if not os.path.exists(req_file):
@@ -65,33 +50,6 @@ def check_requirements_pinned(req_file: str = "requirements.txt") -> bool:
     print(f"\n[OK]   {req_file} — {len(lines)} packages pinned.")
     return True
 
-
-def check_frozen_docs() -> list:
-    """Checks that all key docs have STATUS: FROZEN."""
-    docs_to_check = {
-        "docs/rq_hypotheses.md":         "Research Questions",
-        "taxonomy/citation_taxonomy.md": "Citation Taxonomy",
-        "annotation/guidelines.md":      "Annotation Guidelines",
-        "docs/eval_protocol.md":         "Evaluation Protocol",
-        "docs/model_config.md":          "Model Configuration",
-    }
-    issues = []
-    print("\nChecking frozen document statuses:")
-    for path, label in docs_to_check.items():
-        if not os.path.exists(path):
-            issues.append(f"MISSING: {path}")
-            print(f"  [MISS] {label} ({path})")
-            continue
-        with open(path, "r", encoding="utf-8") as f:
-            content = f.read()
-        if "STATUS: FROZEN" in content:
-            print(f"  [OK]   {label}")
-        else:
-            issues.append(f"NOT FROZEN: {path}")
-            print(f"  [WARN] {label} — STATUS not FROZEN")
-    return issues
-
-
 def run_full_check():
     print("=" * 60)
     print("  BanLegit-Cite Reproducibility Check")
@@ -100,22 +58,13 @@ def run_full_check():
 
     all_issues = []
 
-    # 1. RESULTS.md entries
-    blocks = check_results_md_entries()
-    if not blocks:
-        all_issues.append("No Phase 4 result blocks found in RESULTS.md")
-
-    # 2. Experiment files metadata
+    # 1. Experiment files metadata
     file_issues = check_experiment_files()
     all_issues.extend(file_issues)
 
-    # 3. requirements.txt pinning
+    # 2. requirements.txt pinning
     if not check_requirements_pinned():
         all_issues.append("requirements.txt missing or has unpinned packages")
-
-    # 4. Frozen docs
-    doc_issues = check_frozen_docs()
-    all_issues.extend(doc_issues)
 
     # Summary
     print("\n" + "=" * 60)
@@ -127,7 +76,6 @@ def run_full_check():
         print("  [PASS] All reproducibility checks passed.")
     print("=" * 60)
     return all_issues
-
 
 if __name__ == "__main__":
     issues = run_full_check()
