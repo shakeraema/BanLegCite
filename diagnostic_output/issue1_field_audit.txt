@@ -1,0 +1,26 @@
+============================================================
+  BanLegit-Cite Annotation Blinding - Field Audit Report
+============================================================
+Total tasks: 90 (Real: 45, Fabricated: 45)
+
+--- Ordering Analysis ---
+Real task indices range: 0 to 74
+Fabricated task indices range: 15 to 89
+Are classes strictly separated in ordering? False
+No strict ordering separation detected.
+
+--- Statistical Comparison of Continuous Features (t-test) ---
+context_len          | Real Mean:  255.47 | Fab Mean:  386.07 | t-stat: -21.892 | p-val: 0.00000 | status: LEAK SUSPECTED (p < 0.05)
+citation_len         | Real Mean:   15.00 | Fab Mean:   15.27 | t-stat:  -2.072 | p-val: 0.04184 | status: LEAK SUSPECTED (p < 0.05)
+source_len           | Real Mean:   25.00 | Fab Mean:   25.00 | t-stat:   0.000 | p-val: 1.00000 | status: clean
+context_commas       | Real Mean:    1.33 | Fab Mean:    2.33 | t-stat:  -7.866 | p-val: 0.00000 | status: LEAK SUSPECTED (p < 0.05)
+context_colons       | Real Mean:    1.00 | Fab Mean:    2.00 | t-stat:    -inf | p-val: 0.00000 | status: LEAK SUSPECTED (p < 0.05)
+context_parentheses  | Real Mean:    2.67 | Fab Mean:    6.00 | t-stat: -14.015 | p-val: 0.00000 | status: LEAK SUSPECTED (p < 0.05)
+
+--- Substring Leak Analysis ---
+has_contrary         | Real count:   0 / 45 | Fab count:  30 / 45 | chi2 p-val: 0.00000 | status: LEAK SUSPECTED (p < 0.05)
+has_fabricated_rule  | Real count:   0 / 45 | Fab count:  45 / 45 | chi2 p-val: 0.00000 | status: LEAK SUSPECTED (p < 0.05)
+
+--- Summary Conclusion ---
+ALERT: Potential leakage patterns detected in: context_len, citation_len, context_commas, context_colons, context_parentheses, has_contrary, has_fabricated_rule.
+============================================================

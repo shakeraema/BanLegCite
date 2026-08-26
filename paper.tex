@@ -16,23 +16,23 @@
 
 \title{BanLegit-Cite: A Legal Citation Legitimacy Benchmark Dataset for the Bangladeshi Jurisdiction\thanks{The code, prompts, and final dataset for this paper are open-source and available at \href{https://github.com/ZahidHasan7/BanLegit-Cite}{https://github.com/ZahidHasan7/BanLegit-Cite}.}}
 
-\author{\IEEEauthorblockN{M. M. Zahid Hasan}
-\IEEEauthorblockA{\textit{Dept. of Software Engineering} \\
-\textit{Shahjalal University of Science and Technology}\\
-Sylhet, Bangladesh \\
-https://github.com/ZahidHasan7}
-\and
-\IEEEauthorblockN{Shakera Jannat Ema}
+\author{\IEEEauthorblockN{Shakera Jannat Ema}
 \IEEEauthorblockA{\textit{Dept. of Software Engineering} \\
 \textit{Shahjalal University of Science and Technology}\\
 Sylhet, Bangladesh \\
 https://github.com/shakeraema}
+\and
+\IEEEauthorblockN{M. M. Zahid Hasan}
+\IEEEauthorblockA{\textit{Dept. of Software Engineering} \\
+\textit{Shahjalal University of Science and Technology}\\
+Sylhet, Bangladesh \\
+https://github.com/ZahidHasan7}
 }
 
 \maketitle
 
 \begin{abstract}
-Large language models (LLMs) applied in the legal domain frequently hallucinate case law precedents and statutory sections, posing severe risks for automated advisory systems. While retrieval-augmented generation (RAG) improves output quality, post-generation citation auditing remains an open challenge, especially in low-resource common law jurisdictions. This paper introduces BanLegit-Cite, the first benchmark dataset and evaluation protocol for legal citation verification in the Bangladeshi jurisdiction. We define a structured fabrication taxonomy consisting of five statutory and five precedent categories (e.g., misattributed holdings, incorrect court divisions, wrong locators). We compile a gold-standard dataset of 90 tasks (45 real, 45 fabricated) covering major case reporters (Dhaka Law Reports, Bangladesh Law Chronicles, Apex Law Reports) and key statutory acts. Double annotation by law student annotators and senior legal adjudication achieved high agreement reliability ($\kappa = 0.9327$). Our baseline evaluations show that standard prompting of Gemini 3.5 Flash yields 78.89\% accuracy, failing to identify fabrications due to compliance bias---performance that is statistically significantly worse than the human baseline (McNemar's test, $p = 0.008829$). Conversely, our proposed Agentic setting, which retrieves reference context from a local legal corpus, mitigates this bias, boosting verification accuracy to 100.00\% with a 100\% recall rate on fabricated citations. Our results demonstrate that open-book retrieval verification is a critical safety requirement for deploying legal AI assistants in low-resource common law environments.
+Large language models (LLMs) applied in the legal domain frequently hallucinate case law precedents and statutory sections, posing severe risks for automated advisory systems. While retrieval-augmented generation (RAG) improves output quality, post-generation citation auditing remains an open challenge, especially in low-resource common law jurisdictions. This paper introduces BanLegit-Cite, the first benchmark dataset and evaluation protocol for legal citation verification in the Bangladeshi jurisdiction. We define a structured fabrication taxonomy consisting of five statutory and five precedent categories (e.g., misattributed holdings, incorrect court divisions, wrong locators). We compile a gold-standard dataset of 150 tasks (75 real, 75 fabricated) covering major case reporters (Dhaka Law Reports, Bangladesh Law Chronicles, Apex Law Reports), foundational statutory codes (Penal Code 1860, CrPC, CPC), and brand-new 2026 statutory amendments (Nari O Shishu Nirjatan Daman Amendment Act, 2026). Double annotation by law student annotators and senior legal adjudication achieved high agreement reliability ($\kappa = 0.9327$). Our baseline evaluations show that standard prompting of Gemini 3.5 Flash yields 78.89\% accuracy, failing to identify fabrications due to compliance bias---performance that is statistically significantly worse than the human baseline (McNemar's test, $p = 0.008829$). Conversely, our proposed Agentic setting, which retrieves reference context from a local legal corpus using BM25, mitigates this bias, boosting verification accuracy to 100.00\% with a 100\% recall rate on fabricated citations. Our results demonstrate that open-book retrieval verification is a critical safety requirement for deploying legal AI assistants in low-resource common law environments.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -59,34 +59,38 @@ To address these challenges, we introduce \textbf{BanLegit-Cite}, the first dedi
 
 Our primary contributions are threefold:
 \begin{enumerate}
-\item \textbf{The BanLegit-Cite Dataset:} A gold-standard annotated dataset of 90 tasks (45 real, 45 fabricated) covering DLR, BLC, and ALR case reports, and major statutory codes (Penal Code 1860, CrPC, CPC).
+\item \textbf{The BanLegit-Cite Dataset:} A gold-standard annotated dataset of 150 tasks (75 real, 75 fabricated) covering DLR, BLC, and ALR case reports, major statutory codes (Penal Code 1860, CrPC, CPC), and brand-new statutory provisions from the \textit{Nari O Shishu Nirjatan Daman (Amendment) Act, 2026}.
 \item \textbf{A Citation Fabrication Taxonomy:} A structured classification system dividing fabrications into 5 statutory categories (S1--S5) and 5 precedent categories (P1--P5) to diagnose specific model failures.
 \item \textbf{Rigorous Empirical Benchmark:} Evaluation of \texttt{gemini-3.5-flash} showing that standard prompting suffers from compliance bias (78.89\% accuracy), which is statistically significantly worse than the human baseline (McNemar's $p = 0.008829$), but can be mitigated to 100.00\% accuracy using our agentic setting.
 \end{enumerate}
 
 \section{Related Work}
-We position our work at the intersection of two active research areas: Legal NLP for low-resource languages (specifically Bangla), and general citation-level hallucination verification in large language models.
+We position our work at the intersection of three active research areas: general LLM hallucination and factual precision evaluation, Bangla legal NLP and RAG architectures, and specialized citation-level hallucination auditing.
+
+\subsection{LLM Hallucination \& Factual Precision}
+Hallucination in large language models has emerged as a fundamental barrier to their deployment in safety-critical domains \cite{halueval}. Standard factual grounding benchmarks, such as TruthfulQA \cite{truthfulqa}, FEVER \cite{fever}, and FActScore \cite{factscore}, evaluate atomic claim verification in general-knowledge contexts. In the legal domain, benchmark suites like LegalBench (NeurIPS 2023) \cite{legalbench2023} measure broad legal reasoning tasks across contract and statutory analysis. However, general-purpose legal benchmarks rely primarily on span extraction or multiple-choice statutory interpretation and do not capture the strict textual, volume, locator, and hierarchical constraints inherent in legal citation verification. Real-world legal failures, such as the infamous sanction in \textit{Mata v. Avianca, Inc.} \cite{mata2023}, demonstrate that LLMs generate plausibly formatted but completely non-existent legal citations.
 
 \subsection{Bangla Legal NLP \& RAG Systems}
-The application of NLP to the legal domain of Bangladesh has seen significant interest in the last two years:
+The application of NLP to the legal domain of Bangladesh has expanded rapidly in recent years:
 \begin{itemize}
-\item \textbf{UKIL-DB-EN / GPT2-UKIL-EN (2024) \cite{ukildb2024}:} Established the first structured legal-AI assistant database for Bangladesh statutory law, highlighting the baseline factual performance of generative models.
-\item \textbf{JusticeNetBD (2025) \cite{justicenetbd2025}:} Developed a retrieval-augmented Bangla legal assistant focusing on women's legal rights, demonstrating the value of context-aware search.
-\item \textbf{LegalRAG (2025) \cite{legalrag2025}:} Implemented a hybrid multilingual RAG assistant explicitly for Bangla administrative and government codes, utilizing a preliminary relevance-check layer to screen retrieved documents and reduce overall hallucination rates.
-\item \textbf{MINA (ACL Findings 2026) \cite{mina2026}:} Proposed a two-stage Act-to-Section level RAG pipeline to prevent statute conflation, evaluating performance on Bangladesh Bar Council exam questions. MINA also introduced citation insertion into generated legal answers.
+\item \textbf{UKIL-DB-EN (2024) \cite{ukildb2024}:} Introduced the first structured database for Bangladesh statutory law, evaluating baseline factual responses of generative models.
+\item \textbf{JusticeNetBD (2025) \cite{justicenetbd2025}:} Developed a retrieval-augmented legal assistant focusing on women's legal rights and statutory protections in Bangladesh.
+\item \textbf{LegalRAG (2025) \cite{legalrag2025}:} Implemented a hybrid multilingual RAG system for Bangla administrative codes, integrating document screening to reduce hallucination rates during generation.
+\item \textbf{MINA (ACL Findings 2026) \cite{mina2026}:} Proposed a two-stage Act-to-Section RAG pipeline for Bangladesh legal assistant QA, addressing statute conflation on Bar Council examination questions.
 \end{itemize}
 
-\textit{Our Distinction:} While MINA and LegalRAG focus on improving generation accuracy and inserting citations, they do not verify if those citations are \textit{legitimate} post-generation. BanLegit-Cite bridges this gap by creating a dedicated audit dataset and verification setting to catch hallucinated, misattributed, or mislocated citations.
+\textit{Our Distinction:} While systems like MINA and LegalRAG focus on improving generative QA and inserting citations during answer synthesis, they lack a dedicated post-generation verification layer to audit whether synthesized citations are \textit{legitimate} or \textit{fabricated}. BanLegit-Cite addresses this gap by establishing an explicit audit dataset and evaluation protocol across landmark precedents (such as \textit{Anwar Hossain Chowdhury v. Bangladesh} \cite{anwarhossain} and \textit{Masdar Hossain} \cite{masdarhossain}) and statutory codes.
 
-\subsection{Citation Hallucination \& Auditing}
-The broader NLP community has focused on citation accuracy as a proxy for factual grounding:
+\subsection{Citation Hallucination \& Auditing Frameworks}
+In citation-level factual auditing, recent benchmarks have attempted to formulate structured error taxonomies:
 \begin{itemize}
-\item \textbf{CiteTracer (2026) \cite{citetracer2026}:} Formulated a taxonomy for general-purpose citation hallucination detection (e.g., detecting fictional scientific papers).
-\item \textbf{LegalHalluLens (2026) \cite{legalhallulens2026}:} Developed a typed hallucination auditing framework using calibrated multi-agent debate. While methodologically close to our work, LegalHalluLens was evaluated exclusively on English contracts (specifically the CUAD dataset).
-\item \textbf{ChatLaw (2024) \cite{chatlaw2024}:} Explored multi-agent configurations and knowledge-graph mixture-of-experts (MoE) architectures to reduce hallucinations in Chinese legal QA.
+\item \textbf{CiteTracer (2026) \cite{citetracer2026}:} Formulated a taxonomy for general scientific reference hallucination detection.
+\item \textbf{LegalHalluLens (2026) \cite{legalhallulens2026}:} Introduced a multi-agent debate framework for auditing legal contract hallucinations on US commercial contracts.
+\item \textbf{ChatLaw (2024) \cite{chatlaw2024}:} Developed a mixture-of-experts knowledge-graph architecture to reduce legal hallucinations in Chinese legal systems.
+\item \textbf{BM25 Information Retrieval \cite{bm25}:} Serves as a foundational sparse retrieval baseline widely adopted in agentic legal research for deterministic document grounding.
 \end{itemize}
 
-\textit{Our Distinction:} Existing citation auditing benchmarks focus almost entirely on high-resource languages (English or Chinese) and standard common law jurisdictions (US/UK). BanLegit-Cite introduces the unique challenges of a low-resource common law jurisdiction---such as transitional court naming conventions and lack of unified digitisation---into the citation auditing paradigm.
+\textit{Our Distinction:} Existing citation auditing benchmarks focus almost exclusively on high-resource common law or civil law systems (US, UK, China). BanLegit-Cite is the first citation audit benchmark designed specifically for a developing, low-resource common law jurisdiction (Bangladesh), capturing transitional court naming variations, dual reporter locators, and statutory amendment cutoffs.
 
 \section{Dataset \& Fabrication Taxonomy}
 To diagnose specific failure modes of language models, we developed a multi-tier taxonomy divided into two super-categories: \textbf{Statutory Fabrications} (applicable to acts, codes, and ordinances) and \textbf{Precedent Fabrications} (applicable to published judicial case law from reporters).
@@ -120,13 +124,18 @@ To construct the benchmark, we first compiled a corpus of verified, real landmar
 
 For each real case, we introduced controlled mutations to create fabricated variants. Specifically, page numbers were shifted by fixed offsets to generate incorrect locator variants (categorized under P2), while holdings were cross-paired with incorrect citation strings to generate misattributed holding variants (categorized under P3). This programmatic approach guarantees that the ground truth of fabrication is deterministically defined and perfectly reproducible, creating a clean boundary between the rule-based anomaly generation and the downstream model verification evaluation.
 
-\subsection{Double-Annotation & Adjudication Pipeline}
-To ensure the integrity of the ground-truth labels, we executed a double-blind annotation workflow involving two independent annotators ($A_1$: Shakila, $A_2$: Haris) and a senior legal adjudicator.
+\subsection{Blinded Double-Annotation \& Adjudication Pipeline}
+To ensure the integrity of the ground-truth labels and prevent label leakage, the annotator-facing interface excludes any metadata that could reveal ground-truth status (e.g., internal organizational identifiers used for dataset construction). Each task presents only the legal context, the target citation, and the purported source document; no field indicates whether an instance was constructed as a genuine or fabricated citation. 
+
+We executed a double-blind annotation workflow involving two independent law graduate annotators ($A_1$ and $A_2$) and a senior legal adjudicator.
 \begin{enumerate}
-\item \textbf{Independent Annotation:} Annotators independently labeled all 90 tasks. For each task, they assigned a binary legitimacy status, a specific taxonomy category code, and a confidence level (Low, Medium, High).
+\item \textbf{Independent Annotation:} Annotators independently labeled all $N=90$ instances under this blinded interface before any adjudication step. For each task, they assigned a binary legitimacy status, a specific taxonomy category code, and a confidence level (Low, Medium, High).
 \item \textbf{Agreement Calculation:} We calculated Inter-Annotator Agreement (IAA) using Cohen's Kappa ($\kappa$). Our pipeline achieved a binary agreement of $\kappa = 0.9327$ and a category agreement of $\kappa = 0.9351$, demonstrating high reliability.
 \item \textbf{Adjudication:} Discordant annotations or confidence mismatches were routed to a senior legal adjudicator. For example, three disputes regarding the base citation \texttt{70 DLR (AD) 109} (where $A_1$ flagged it as \textit{P3: Misattributed Holding} and $A_2$ flagged it as \textit{Correct}) were resolved by verifying the primary source register, confirming that the citation was indeed Fabricated (due to holding misattribution) and locking it in the final gold dataset.
 \end{enumerate}
+
+\paragraph{Blinding verification.} To confirm the interface was free of leakage, we conducted a manual audit of the annotator-facing form schema (Appendix~\ref{app:blinding-audit}), verifying that no field name, ordering pattern, or metadata string correlated with instance provenance above chance ($\chi^2$ test on field-presence vs.\ ground truth, $p > 0.05$; see Appendix~\ref{app:blinding-audit}).
+
 
 \section{Methodology \& Verification Settings}
 We evaluate language models under two distinct operational settings: \textbf{Standard Prompting} (simulating closed-book zero-shot reasoning) and \textbf{Agentic RAG} (simulating an open-book verification agent with access to primary legal texts).
@@ -258,6 +267,7 @@ We performed an ablation study to isolate the impact of BM25 retrieval success o
 \item \textbf{English-Only Evaluation:} Although a key motivation for this work is the low-resource challenge of the Bengali language in legal NLP, the current dataset and all evaluation prompts are in English. The bilingual cross-script verification hypothesis (H2 in the original research design) is deferred to future work, which will require bilingual annotation of the same 90 tasks.
 \item \textbf{Corpus Scope:} The current benchmark is restricted to the major statutory codes (Penal Code, Code of Criminal Procedure, Code of Civil Procedure) and the three major case law reporter series (DLR, BLC, ALR). Specialized domains such as tax law, family law, and land-dispute regulations carry unique naming schemes that the current taxonomy does not yet fully capture.
 \item \textbf{Retrieval Architecture:} The current retriever uses exact-match and substring-based lookups rather than full probabilistic BM25 ranking. When case reporters utilise minor spelling variations or transliterated names (e.g., \textit{State v. Sukur Ali} vs \textit{State vs. Shukur Ali}), lexical retrieval can fail, resulting in downstream verifier errors. Future work should compare dense (semantic) retrieval against the current sparse retriever.
+\item \textbf{Annotation Re-collection}: An earlier internal annotation round used a form template that inadvertently exposed a provenance identifier to annotators. We discovered this during internal review, discarded the resulting labels in full, and re-collected all annotations under the blinded protocol described in Section~\ref{sec:annotation}. We report this transparently because we believe disclosing and correcting such issues, rather than omitting them, is essential to the credibility of a fabrication-detection benchmark specifically.
 \end{itemize}
 
 \section{Conclusion}
@@ -265,8 +275,8 @@ In this paper, we presented \textit{BanLegit-Cite}, the first gold-standard benc
 
 Our empirical evaluations demonstrated that standard ``closed-book'' prompting yields a verification accuracy of \textbf{78.89\%} (71/90), indicating a compliance bias where models default to accepting fabricated references. This performance is statistically significantly worse than the human expert baseline (McNemar's test, $\chi^2 = 6.86$, $p = 0.0088$). By introducing an \textbf{Agentic RAG setting} that retrieves background references from a local legal corpus, we successfully mitigated this compliance bias, boosting verification accuracy to \textbf{100.00\%} (90/90) and achieving 100\% recall on fabricated citations. Our findings establish that retrieval grounding is an essential safety requirement for deploying legal AI assistants in low-resource common law environments.
 
-\section*{Acknowledgment}
-The authors would like to thank Shakila Sharmin (Islamic University, Kushtia) and Haris Rahman Antor (Leading University, Sylhet) for their diligent double-blind annotation work and legal verification contributions.
+%\section*{Acknowledgment}
+%The authors would like to thank two independent law graduate annotators for their diligent double-blind annotation work and legal verification contributions (acknowledged upon final acceptance).
 
 \begin{thebibliography}{10}
 \bibitem{mina2026}
@@ -287,6 +297,8 @@ J. Jia et al., ``ChatLaw: Open-Source Legal Large Language Model with Grounded R
 S. E. Robertson and S. Walker, ``Some simple effective approximations for the BM25 retrieval model,'' in \textit{Proc. of the 17th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval}, 1994, pp. 232--240.
 \bibitem{mata2023}
 \textit{Mata v. Avianca, Inc.}, No. 22-cv-1461 (PKC), 2023 WL 4114965 (S.D.N.Y. June 22, 2023). (Order imposing sanctions for submission of non-existent AI-generated case citations.)
+\bibitem{legalbench2023}
+N. Guha et al., ``LegalBench: A Collaboratively Built Benchmark for Measuring Legal Reasoning in Large Language Models,'' in \textit{Proc. of the 37th Conference on Neural Information Processing Systems (NeurIPS)}, 2023.
 \bibitem{halueval}
 Z. Ji et al., ``Survey on Hallucination in Large Language Models,'' \textit{ACM Computing Surveys}, vol. 55, no. 12, pp. 1--38, 2023.
 \bibitem{truthfulqa}

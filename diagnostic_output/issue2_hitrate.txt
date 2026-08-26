@@ -1,0 +1,4 @@
+=== Retrieval Hit Rate by Ground Truth ===
+ground_truth  hit_rate
+  FABRICATED  0.044444
+        REAL  1.000000

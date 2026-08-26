@@ -81,6 +81,20 @@ class BaselineRunner:
             retrieved_info = self.retriever.retrieve(citation)
             prompt = AGENTIC_PROMPT.format(retrieved_info=retrieved_info, context=context, citation=citation, source=source)
             
+            # Instrument retrieval logging
+            citation_key = citation.strip().lower()
+            hit = (citation_key in self.retriever.index) or any(key in citation_key or citation_key in key for key in self.retriever.index)
+            num_hits = 1 if hit else 0
+            is_fabricated_gt = 1 if item.get("label", "REAL") == "FABRICATED" else 0
+            
+            os.makedirs("experiments/results", exist_ok=True)
+            log_path = "experiments/results/retrieval_hitrate_log.csv"
+            write_header = not os.path.exists(log_path) or os.path.getsize(log_path) == 0
+            with open(log_path, "a", encoding="utf-8") as f:
+                if write_header:
+                    f.write("task_id,ground_truth_fabricated,num_hits,top_hit_score,top_hit_locator,queried_locator\n")
+                f.write(f"{item.get('citation_id', 'UNKNOWN')},{is_fabricated_gt},{num_hits},{1.0 if hit else 0.0},{citation if hit else ''},{citation}\n")
+            
         result = self.query_model(prompt, citation)
         return {
             "citation_id": item.get("citation_id", "UNKNOWN"),

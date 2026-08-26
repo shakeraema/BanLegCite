@@ -1,0 +1,17 @@
+============================================================
+  BanLegit-Cite Inter-Annotator Agreement (IAA) Comparison
+============================================================
+Old Leaked Binary Kappa:   0.9327
+Old Leaked Category Kappa: 0.9351
+
+New Blinded Binary Kappa:   0.9327
+New Blinded Category Kappa: 0.9351
+
+--- Agreement Between Leaked and Blind Labels ---
+Annotator 1 (Shakila) Binary Agreement:   100.00%
+Annotator 1 (Shakila) Category Agreement: 100.00%
+Annotator 2 (Maksudul vs Haris) Binary Agreement:   100.00%
+Annotator 2 (Maksudul vs Haris) Category Agreement: 100.00%
+
+No changes in Annotator 1's labels between leaked and blind rounds.
+============================================================

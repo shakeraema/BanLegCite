@@ -568,7 +568,8 @@ function createAnnotationForm() {
     // Create a new section (page) for each task to keep it organized
     form.addPageBreakItem().setTitle('Task ' + (i + 1) + ' of ' + tasks.length);
     
-    var desc = 'Legal Context:\n' + task.context + '\n\nTarget Citation to Verify:\n' + task.citation + '\n\nPurported Source Document:\n' + task.source_doc + '\n\nVerification Helper (Source URL / Metadata):\n' + task.helper_notes;
+    var helperNotesBlind = task.helper_notes.replace(/\s*\|\s*Org ID:\s*\S+/, '');
+    var desc = 'Legal Context:\n' + task.context + '\n\nTarget Citation to Verify:\n' + task.citation + '\n\nPurported Source Document:\n' + task.source_doc + '\n\nVerification Helper (Source URL):\n' + helperNotesBlind;
     
     // Add Context Item
     form.addSectionHeaderItem().setTitle('Task ' + (i + 1) + ' Context').setHelpText(desc);

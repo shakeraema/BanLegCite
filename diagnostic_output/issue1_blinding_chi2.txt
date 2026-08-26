@@ -1,0 +1,5 @@
+=== Blinding Audit Chi2 Tests ===
+context: chi2=90.000, p=0.0000 [LEAK SUSPECTED]
+citation: chi2=0.000, p=1.0000 [clean]
+source_doc: chi2=0.000, p=1.0000 [clean]
+helper_notes_blind: chi2=0.000, p=1.0000 [clean]
