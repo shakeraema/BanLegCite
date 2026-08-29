@@ -1,0 +1,3 @@
+Kappa_A1_A2: 0.9733
+Kappa_A1_Gold: 1.0000
+Kappa_A2_Gold: 0.9733

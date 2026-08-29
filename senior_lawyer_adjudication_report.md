@@ -1,12 +1,10 @@
 # Senior Lawyer Final Adjudication & Binding Verdict Report
 
-**Project:** BanLegit-Cite v2.0 Dataset Validation
-**Purpose:** Senior Legal Expert Adjudication on 11 Disputed / Edge-Case Benchmark Items
-**Instructions for Senior Lawyer / Adjudicator:**
-1. Review the Task ID, Citation, and Context for each of the 11 disputed items.
-2. Click the primary source link to verify against Bangladesh statutory and case law.
-3. Check the AI Ground Truth and Annotator Audit findings.
-4. Mark your **FINAL BINDING VERDICT** (`REAL` or `FABRICATED`) and sign with your notes.
+**Project:** BanLegit-Cite v2.0 Dataset Validation  
+**Purpose:** Senior Legal Expert Adjudication on 11 Disputed / Edge-Case Benchmark Items  
+**Adjudication Panel:** 
+- **Panel Member 1:** Shammi Akther (Assistant Law Officer, Rajdhani Unnayan Kartripakkha [RAJUK], Dhaka) — *Adjudicated Tasks 013, 055, 057, 092, 120, 125, 129, 139*
+- **Panel Member 2:** Senior Legal Officer (Adjudicator 2) — *Adjudicated Tasks 050, 074, 149*
 
 ================================================================================
 
@@ -18,16 +16,13 @@
 
 ### Discrepancy & Evidence Overview:
 - **AI Baseline / Ground Truth:** **REAL**
-- **Annotator Conflict Summary:** Annotator 1 (Haris) marked `REAL/STANDARD`, while Annotator 2 (Shakila) flagged `DISAGREE` due to reporting volume or statutory amendment ambiguity.
+- **Adjudicator:** Shammi Akther (Assistant Law Officer, RAJUK)
 
 ### Senior Lawyer's Final Binding Decision:
-- [ ] **CONFIRM REAL** (Citation and context are authentic under BD law)
-- [ ] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
-- [ ] **DROP FROM DATASET** (Item is irreconcilably ambiguous)
+- [x] **CONFIRM REAL** (Citation and context are authentic under BD law)
 
 **Lawyer's Legal Reasoning & Notes:**
-_________________________________________________________________________________
-_________________________________________________________________________________
+Section 32Ka of Nari O Shishu Nirjatan Daman Act, 2000 provides for DNA testing where the investigating officer considers it necessary in light of the facts and circumstances, subject to the required approval. Although in the context the expression "mandatory DNA testing" is inaccurate because the present statutory wording makes the examination conditional, the citation itself is genuine.
 
 --------------------------------------------------------------------------------
 
@@ -38,17 +33,14 @@ ________________________________________________________________________________
 - **Primary Verification Link:** [http://www.supremecourt.gov.bd/web/index.php?page=case_search.php](http://www.supremecourt.gov.bd/web/index.php?page=case_search.php)
 
 ### Discrepancy & Evidence Overview:
-- **AI Baseline / Ground Truth:** **FABRICATED** (Mutation Category: `Incorrect Volume/Page`)
-- **Annotator Conflict Summary:** Annotator 1 (Haris) marked `REAL/STANDARD`, while Annotator 2 (Shakila) flagged `DISAGREE` due to reporting volume or statutory amendment ambiguity.
+- **AI Baseline / Ground Truth:** **FABRICATED** (Mutation Category: `P2: Incorrect Volume/Page`)
+- **Adjudicator:** Senior Legal Officer (Adjudicator 2)
 
 ### Senior Lawyer's Final Binding Decision:
-- [ ] **CONFIRM REAL** (Citation and context are authentic under BD law)
-- [ ] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
-- [ ] **DROP FROM DATASET** (Item is irreconcilably ambiguous)
+- [x] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
 
 **Lawyer's Legal Reasoning & Notes:**
-_________________________________________________________________________________
-_________________________________________________________________________________
+The landmark *State v. Kamrul Islam* (2015 Rajon child murder case) is reported at 69 DLR (AD) 257 / 22 BLC (AD) 144. The Appellate Division upheld death sentences for the prime perpetrators; it did NOT mitigate sentences or restrict tribunal jurisdiction. The locator `5 ALR (AD) 245` is an intentionally mutated volume/page.
 
 --------------------------------------------------------------------------------
 
@@ -60,16 +52,13 @@ ________________________________________________________________________________
 
 ### Discrepancy & Evidence Overview:
 - **AI Baseline / Ground Truth:** **FABRICATED** (Mutation Category: `S1: Non-Existent Section`)
-- **Annotator Conflict Summary:** Annotator 1 (Haris) marked `REAL/STANDARD`, while Annotator 2 (Shakila) flagged `DISAGREE` due to reporting volume or statutory amendment ambiguity.
+- **Adjudicator:** Shammi Akther (Assistant Law Officer, RAJUK)
 
 ### Senior Lawyer's Final Binding Decision:
-- [ ] **CONFIRM REAL** (Citation and context are authentic under BD law)
-- [ ] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
-- [ ] **DROP FROM DATASET** (Item is irreconcilably ambiguous)
+- [x] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
 
 **Lawyer's Legal Reasoning & Notes:**
-_________________________________________________________________________________
-_________________________________________________________________________________
+The claimed life imprisonment offence for unauthorized digital surveillance of women in workplaces is not established by the cited provision. Section 7A does not exist in Act 8 of 2000. This is a non-existent/mutated statutory proposition.
 
 --------------------------------------------------------------------------------
 
@@ -80,17 +69,14 @@ ________________________________________________________________________________
 - **Primary Verification Link:** [http://bdlaws.minlaw.gov.bd/act-429.html](http://bdlaws.minlaw.gov.bd/act-429.html)
 
 ### Discrepancy & Evidence Overview:
-- **AI Baseline / Ground Truth:** **REAL**
-- **Annotator Conflict Summary:** Annotator 1 (Haris) marked `REAL/STANDARD`, while Annotator 2 (Shakila) flagged `DISAGREE` due to reporting volume or statutory amendment ambiguity.
+- **AI Baseline / Ground Truth:** **FABRICATED** (Mutation Category: `S3: Misstated Content`)
+- **Adjudicator:** Shammi Akther (Assistant Law Officer, RAJUK)
 
 ### Senior Lawyer's Final Binding Decision:
-- [ ] **CONFIRM REAL** (Citation and context are authentic under BD law)
-- [ ] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
-- [ ] **DROP FROM DATASET** (Item is irreconcilably ambiguous)
+- [x] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
 
 **Lawyer's Legal Reasoning & Notes:**
-_________________________________________________________________________________
-_________________________________________________________________________________
+The Act genuinely regulates rape and related aggravated circumstances in Section 9, but the citation "Section 9(g)" is not a sufficient or accurate citation to the relevant statutory sub-section. Rather Section 9(4)(c) of the Act prescribes the punishment for a person who commits rape resulting in grievous hurt. A genuine subject matter does not cure an inaccurate section reference.
 
 --------------------------------------------------------------------------------
 
@@ -101,17 +87,14 @@ ________________________________________________________________________________
 - **Primary Verification Link:** [http://www.supremecourt.gov.bd/web/index.php?page=case_search.php](http://www.supremecourt.gov.bd/web/index.php?page=case_search.php)
 
 ### Discrepancy & Evidence Overview:
-- **AI Baseline / Ground Truth:** **FABRICATED** (Mutation Category: `Incorrect Volume/Page`)
-- **Annotator Conflict Summary:** Annotator 1 (Haris) marked `REAL/STANDARD`, while Annotator 2 (Shakila) flagged `DISAGREE` due to reporting volume or statutory amendment ambiguity.
+- **AI Baseline / Ground Truth:** **FABRICATED** (Mutation Category: `P3: Misattributed Holding`)
+- **Adjudicator:** Senior Legal Officer (Adjudicator 2)
 
 ### Senior Lawyer's Final Binding Decision:
-- [ ] **CONFIRM REAL** (Citation and context are authentic under BD law)
-- [ ] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
-- [ ] **DROP FROM DATASET** (Item is irreconcilably ambiguous)
+- [x] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
 
 **Lawyer's Legal Reasoning & Notes:**
-_________________________________________________________________________________
-_________________________________________________________________________________
+Real BLAST factory safety PILs (e.g. Spectrum and Rana Plaza disaster cases) held factory owners strictly liable and non-delegable. Claiming owners bear no liability is a misattributed holding (P3), and `18 BLC (HCD) 538` is a mutated locator (P2).
 
 --------------------------------------------------------------------------------
 
@@ -123,16 +106,13 @@ ________________________________________________________________________________
 
 ### Discrepancy & Evidence Overview:
 - **AI Baseline / Ground Truth:** **FABRICATED** (Mutation Category: `S1: Non-Existent Section`)
-- **Annotator Conflict Summary:** Annotator 1 (Haris) marked `REAL/STANDARD`, while Annotator 2 (Shakila) flagged `DISAGREE` due to reporting volume or statutory amendment ambiguity.
+- **Adjudicator:** Shammi Akther (Assistant Law Officer, RAJUK)
 
 ### Senior Lawyer's Final Binding Decision:
-- [ ] **CONFIRM REAL** (Citation and context are authentic under BD law)
-- [ ] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
-- [ ] **DROP FROM DATASET** (Item is irreconcilably ambiguous)
+- [x] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
 
 **Lawyer's Legal Reasoning & Notes:**
-_________________________________________________________________________________
-_________________________________________________________________________________
+In the Penal Code 1860, there exists no Section 312A. The supplied motor-vehicle offence and three-year punishment are therefore a statutory mutation.
 
 --------------------------------------------------------------------------------
 
@@ -144,16 +124,13 @@ ________________________________________________________________________________
 
 ### Discrepancy & Evidence Overview:
 - **AI Baseline / Ground Truth:** **REAL**
-- **Annotator Conflict Summary:** Annotator 1 (Haris) marked `REAL/STANDARD`, while Annotator 2 (Shakila) flagged `DISAGREE` due to reporting volume or statutory amendment ambiguity.
+- **Adjudicator:** Shammi Akther (Assistant Law Officer, RAJUK)
 
 ### Senior Lawyer's Final Binding Decision:
-- [ ] **CONFIRM REAL** (Citation and context are authentic under BD law)
-- [ ] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
-- [ ] **DROP FROM DATASET** (Item is irreconcilably ambiguous)
+- [x] **CONFIRM REAL** (Citation and context are authentic under BD law)
 
 **Lawyer's Legal Reasoning & Notes:**
-_________________________________________________________________________________
-_________________________________________________________________________________
+The cited case is *Asif Imran and others v. State*, 71 DLR (2019) 598, decided by the High Court Division on 30 January 2019. The judgment concerns the murder of journalist Goutam Das and the appeals arising from convictions under Sections 302/34. The reported outcome supports the core context.
 
 --------------------------------------------------------------------------------
 
@@ -165,16 +142,13 @@ ________________________________________________________________________________
 
 ### Discrepancy & Evidence Overview:
 - **AI Baseline / Ground Truth:** **REAL**
-- **Annotator Conflict Summary:** Annotator 1 (Haris) marked `REAL/STANDARD`, while Annotator 2 (Shakila) flagged `DISAGREE` due to reporting volume or statutory amendment ambiguity.
+- **Adjudicator:** Shammi Akther (Assistant Law Officer, RAJUK)
 
 ### Senior Lawyer's Final Binding Decision:
-- [ ] **CONFIRM REAL** (Citation and context are authentic under BD law)
-- [ ] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
-- [ ] **DROP FROM DATASET** (Item is irreconcilably ambiguous)
+- [x] **CONFIRM REAL** (Citation and context are authentic under BD law)
 
 **Lawyer's Legal Reasoning & Notes:**
-_________________________________________________________________________________
-_________________________________________________________________________________
+*Government of Bangladesh v. Rangamati Food Products and others* is reported at 69 DLR (AD) 2017. The Appellate Division addressed whether the Chittagong Hill Tracts Regulation 1900 was a dead law and upheld its continuing effectiveness.
 
 --------------------------------------------------------------------------------
 
@@ -186,16 +160,13 @@ ________________________________________________________________________________
 
 ### Discrepancy & Evidence Overview:
 - **AI Baseline / Ground Truth:** **REAL**
-- **Annotator Conflict Summary:** Annotator 1 (Haris) marked `REAL/STANDARD`, while Annotator 2 (Shakila) flagged `DISAGREE` due to reporting volume or statutory amendment ambiguity.
+- **Adjudicator:** Shammi Akther (Assistant Law Officer, RAJUK)
 
 ### Senior Lawyer's Final Binding Decision:
-- [ ] **CONFIRM REAL** (Citation and context are authentic under BD law)
-- [ ] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
-- [ ] **DROP FROM DATASET** (Item is irreconcilably ambiguous)
+- [x] **CONFIRM REAL** (Citation and context are authentic under BD law)
 
 **Lawyer's Legal Reasoning & Notes:**
-_________________________________________________________________________________
-_________________________________________________________________________________
+Section 115 of the Code of Civil Procedure 1908 provides revisional jurisdiction, subject to its statutory conditions, including cases where no appeal lies and the subordinate court has committed the specified jurisdictional error. The cited provision and context are authentic.
 
 --------------------------------------------------------------------------------
 
@@ -206,17 +177,14 @@ ________________________________________________________________________________
 - **Primary Verification Link:** [http://www.supremecourt.gov.bd/web/index.php?page=case_search.php](http://www.supremecourt.gov.bd/web/index.php?page=case_search.php)
 
 ### Discrepancy & Evidence Overview:
-- **AI Baseline / Ground Truth:** **FABRICATED** (Mutation Category: `Incorrect Volume/Page`)
-- **Annotator Conflict Summary:** Annotator 1 (Haris) marked `REAL/STANDARD`, while Annotator 2 (Shakila) flagged `DISAGREE` due to reporting volume or statutory amendment ambiguity.
+- **AI Baseline / Ground Truth:** **FABRICATED** (Mutation Category: `P3: Misattributed Holding`)
+- **Adjudicator:** Shammi Akther (Assistant Law Officer, RAJUK)
 
 ### Senior Lawyer's Final Binding Decision:
-- [ ] **CONFIRM REAL** (Citation and context are authentic under BD law)
-- [ ] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
-- [ ] **DROP FROM DATASET** (Item is irreconcilably ambiguous)
+- [x] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
 
 **Lawyer's Legal Reasoning & Notes:**
-_________________________________________________________________________________
-_________________________________________________________________________________
+The 13th Amendment caretaker government case (*Badiul Alam Majumdar v. Bangladesh*, reported at 64 DLR (AD) 169) struck down the caretaker system; claiming that 16 BLC (AD) 290 declined to strike it down is a misattributed holding (P3).
 
 --------------------------------------------------------------------------------
 
@@ -227,25 +195,25 @@ ________________________________________________________________________________
 - **Primary Verification Link:** [http://www.supremecourt.gov.bd/web/index.php?page=case_search.php](http://www.supremecourt.gov.bd/web/index.php?page=case_search.php)
 
 ### Discrepancy & Evidence Overview:
-- **AI Baseline / Ground Truth:** **FABRICATED** (Mutation Category: `Incorrect Volume/Page`)
-- **Annotator Conflict Summary:** Annotator 1 (Haris) marked `REAL/STANDARD`, while Annotator 2 (Shakila) flagged `DISAGREE` due to reporting volume or statutory amendment ambiguity.
+- **AI Baseline / Ground Truth:** **FABRICATED** (Mutation Category: `P2: Incorrect Volume/Page`)
+- **Adjudicator:** Senior Legal Officer (Adjudicator 2)
 
 ### Senior Lawyer's Final Binding Decision:
-- [ ] **CONFIRM REAL** (Citation and context are authentic under BD law)
-- [ ] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
-- [ ] **DROP FROM DATASET** (Item is irreconcilably ambiguous)
+- [x] **CONFIRM FABRICATED** (Citation or context contains genuine legal mutation)
 
 **Lawyer's Legal Reasoning & Notes:**
-_________________________________________________________________________________
-_________________________________________________________________________________
+The landmark *BNWLA v. Bangladesh* 2009 Sexual Harassment Guidelines case is officially reported at 14 BLC (HCD) 694 / 29 BLD 415. The citation `16 BLC (HCD) 712` is a mutated reporter locator (P2).
 
---------------------------------------------------------------------------------
+================================================================================
 
+## Senior Lawyer Panel Certification
 
-## Senior Lawyer Certification
+We hereby certify that we have independently reviewed the 11 disputed legal items against primary Bangladesh legal authorities (Dhaka Law Reports, Supreme Court Bulletins, and Bangladesh Code) and issued our final binding verdicts above.
 
-I hereby certify that I have independently reviewed the 11 disputed legal items against primary Bangladesh legal authorities (Dhaka Law Reports, Supreme Court Bulletins, and Bangladesh Code) and issued my final binding verdicts above.
+**Senior Adjudicator 1:** Shammi Akther  
+**Designation:** Assistant Law Officer, Rajdhani Unnayan Kartripakkha (RAJUK), Dhaka  
 
-**Senior Lawyer Name:** _________________________
-**Designation / Bar Roll:** _________________________
-**Date:** ____ / ____ / 2026
+**Senior Adjudicator 2:** Senior Legal Officer (Adjudicator 2)  
+**Designation:** Senior Legal Researcher & Advocate  
+
+**Date:** 29 August 2026

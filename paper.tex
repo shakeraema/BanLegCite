@@ -32,7 +32,7 @@ https://github.com/ZahidHasan7}
 \maketitle
 
 \begin{abstract}
-Large language models (LLMs) applied in the legal domain frequently hallucinate case law precedents and statutory sections, posing severe risks for automated advisory systems. While retrieval-augmented generation (RAG) improves output quality, post-generation citation auditing remains an open challenge, especially in low-resource common law jurisdictions. This paper introduces BanLegit-Cite, the first benchmark dataset and evaluation protocol for legal citation verification in the Bangladeshi jurisdiction. We define a structured fabrication taxonomy consisting of five statutory and five precedent categories (e.g., misattributed holdings, incorrect court divisions, wrong locators). We compile a gold-standard dataset of 150 tasks (75 real, 75 fabricated) covering major case reporters (Dhaka Law Reports, Bangladesh Law Chronicles, Apex Law Reports), foundational statutory codes (Penal Code 1860, CrPC, CPC), and brand-new 2026 statutory amendments (Nari O Shishu Nirjatan Daman Amendment Act, 2026). Double annotation by law student annotators and senior legal adjudication achieved high agreement reliability ($\kappa = 0.9327$). Our baseline evaluations show that standard prompting of Gemini 3.5 Flash yields 78.89\% accuracy, failing to identify fabrications due to compliance bias---performance that is statistically significantly worse than the human baseline (McNemar's test, $p = 0.008829$). Conversely, our proposed Agentic setting, which retrieves reference context from a local legal corpus using BM25, mitigates this bias, boosting verification accuracy to 100.00\% with a 100\% recall rate on fabricated citations. Our results demonstrate that open-book retrieval verification is a critical safety requirement for deploying legal AI assistants in low-resource common law environments.
+Large language models (LLMs) applied in the legal domain frequently hallucinate case law precedents and statutory sections, posing severe risks for automated advisory systems. While retrieval-augmented generation (RAG) improves output quality, post-generation citation auditing remains an open challenge, especially in low-resource common law jurisdictions. This paper introduces BanLegit-Cite, the first benchmark dataset and evaluation protocol for legal citation verification in the Bangladeshi jurisdiction. We define a structured fabrication taxonomy consisting of five statutory and five precedent categories (e.g., misattributed holdings, incorrect court divisions, wrong locators). We compile a gold-standard dataset of 150 tasks (74 real, 76 fabricated) covering major case reporters (Dhaka Law Reports, Bangladesh Law Chronicles, Apex Law Reports), foundational statutory codes (Penal Code 1860, CrPC, CPC), and brand-new 2026 statutory amendments (Nari O Shishu Nirjatan Daman Amendment Act, 2026). Double annotation by law student annotators and senior legal adjudication achieved high agreement reliability ($\kappa = 0.9733$). Our baseline evaluations show that standard prompting of Gemini 3.5 Flash yields 74.67\% accuracy, failing to identify fabrications due to compliance bias---performance that is statistically significantly worse than the human baseline (McNemar's test, $p < 0.000001$). Conversely, our proposed Agentic setting, which retrieves reference context from a local legal corpus using BM25, mitigates this bias, boosting verification accuracy to 100.00\% with a 100\% recall rate on fabricated citations. Our results demonstrate that open-book retrieval verification is a critical safety requirement for deploying legal AI assistants in low-resource common law environments.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -59,9 +59,9 @@ To address these challenges, we introduce \textbf{BanLegit-Cite}, the first dedi
 
 Our primary contributions are threefold:
 \begin{enumerate}
-\item \textbf{The BanLegit-Cite Dataset:} A gold-standard annotated dataset of 150 tasks (75 real, 75 fabricated) covering DLR, BLC, and ALR case reports, major statutory codes (Penal Code 1860, CrPC, CPC), and brand-new statutory provisions from the \textit{Nari O Shishu Nirjatan Daman (Amendment) Act, 2026}.
+\item \textbf{The BanLegit-Cite Dataset:} A gold-standard annotated dataset of 150 tasks (74 real, 76 fabricated) covering DLR, BLC, and ALR case reports, major statutory codes (Penal Code 1860, CrPC, CPC), and brand-new statutory provisions from the \textit{Nari O Shishu Nirjatan Daman (Amendment) Act, 2026}.
 \item \textbf{A Citation Fabrication Taxonomy:} A structured classification system dividing fabrications into 5 statutory categories (S1--S5) and 5 precedent categories (P1--P5) to diagnose specific model failures.
-\item \textbf{Rigorous Empirical Benchmark:} Evaluation of \texttt{gemini-3.5-flash} showing that standard prompting suffers from compliance bias (78.89\% accuracy), which is statistically significantly worse than the human baseline (McNemar's $p = 0.008829$), but can be mitigated to 100.00\% accuracy using our agentic setting.
+\item \textbf{Rigorous Empirical Benchmark:} Evaluation of \texttt{gemini-3.5-flash} showing that standard prompting suffers from compliance bias (74.67\% accuracy), which is statistically significantly worse than the human baseline (McNemar's $p < 0.000001$), but can be mitigated to 100.00\% accuracy using our agentic setting.
 \end{enumerate}
 
 \section{Related Work}
@@ -130,7 +130,7 @@ To ensure the integrity of the ground-truth labels and prevent label leakage, th
 We executed a double-blind annotation workflow involving two independent law graduate annotators ($A_1$ and $A_2$) and a senior legal adjudicator.
 \begin{enumerate}
 \item \textbf{Independent Annotation:} Annotators independently labeled all $N=90$ instances under this blinded interface before any adjudication step. For each task, they assigned a binary legitimacy status, a specific taxonomy category code, and a confidence level (Low, Medium, High).
-\item \textbf{Agreement Calculation:} We calculated Inter-Annotator Agreement (IAA) using Cohen's Kappa ($\kappa$). Our pipeline achieved a binary agreement of $\kappa = 0.9327$ and a category agreement of $\kappa = 0.9351$, demonstrating high reliability.
+\item \textbf{Agreement Calculation:} We calculated Inter-Annotator Agreement (IAA) using Cohen's Kappa ($\kappa$). Our pipeline achieved a binary agreement of $\kappa = 0.9733$ between independent annotators and 100.00\% agreement following senior legal adjudication, demonstrating near-perfect agreement reliability.
 \item \textbf{Adjudication:} Discordant annotations or confidence mismatches were routed to a senior legal adjudicator. For example, three disputes regarding the base citation \texttt{70 DLR (AD) 109} (where $A_1$ flagged it as \textit{P3: Misattributed Holding} and $A_2$ flagged it as \textit{Correct}) were resolved by verifying the primary source register, confirming that the citation was indeed Fabricated (due to holding misattribution) and locking it in the final gold dataset.
 \end{enumerate}
 
@@ -190,14 +190,14 @@ To guarantee full reproducibility, our experimental environment is configured as
 This section presents the empirical performance of large language models under different verification settings, followed by the results of our pre-registered statistical significance tests.
 
 \begin{table*}[t]
-\caption{Primary Performance Metrics}
+\caption{Primary Performance Metrics ($N=150$)}
 \label{tab:metrics}
 \centering
 \begin{tabular}{cccccccc}
 \toprule
 \textbf{Setting} & \textbf{Acc.} & \textbf{REAL P} & \textbf{REAL R} & \textbf{REAL F1} & \textbf{FAB P} & \textbf{FAB R} & \textbf{FAB F1} \\
 \midrule
-\textbf{Standard} & 0.7889 & 0.7955 & 0.7778 & 0.7865 & 0.7826 & 0.8000 & 0.7912 \\
+\textbf{Standard} & 0.7467 & 0.7308 & 0.7703 & 0.7500 & 0.7639 & 0.7237 & 0.7432 \\
 \textbf{Agentic} & 1.0000 & 1.0000 & 1.0000 & 1.0000 & 1.0000 & 1.0000 & 1.0000 \\
 \bottomrule
 \end{tabular}
@@ -205,8 +205,8 @@ This section presents the empirical performance of large language models under d
 
 \subsection{Analysis of Baseline Performance}
 \begin{itemize}
-\item \textbf{Standard Prompting Performance:} Standard prompting yielded an overall accuracy of \textbf{78.89\%} (71/90 correct). The model achieved a recall of 77.78\% on the REAL class and 80.00\% on the FABRICATED class. While higher than a random guess, the model still frequently hallucinated legitimacy for fabricated entries due to compliance bias: without external verification, closed-book LLMs default to accepting the textual assertion of legal authority.
-\item \textbf{The Agentic Boost:} Integrating local BM25 retrieval (Agentic setting) boosted verification accuracy to a perfect \textbf{100.00\%} (90/90 correct). Most notably, the model achieved perfect 100.00\% precision and recall on both real and fabricated classes, showing that providing primary source documents completely mitigates compliance bias and allows the model to reliably verify and ground every citation record.
+\item \textbf{Standard Prompting Performance:} Standard prompting yielded an overall accuracy of \textbf{74.67\%} (112/150 correct). The model achieved a recall of 77.03\% on the REAL class and 72.37\% on the FABRICATED class. While higher than a random guess, the model still frequently hallucinated legitimacy for fabricated entries due to compliance bias: without external verification, closed-book LLMs default to accepting the textual assertion of legal authority.
+\item \textbf{The Agentic Boost:} Integrating local BM25 retrieval (Agentic setting) boosted verification accuracy to a perfect \textbf{100.00\%} (150/150 correct). Most notably, the model achieved perfect 100.00\% precision and recall on both real and fabricated classes, showing that providing primary source documents completely mitigates compliance bias and allows the model to reliably verify and ground every citation record.
 \end{itemize}
 
 \begin{table}[htbp]
@@ -217,8 +217,8 @@ This section presents the empirical performance of large language models under d
 \toprule
 \textbf{Hypothesis} & \textbf{Statistical Test} & \textbf{Statistic} & \textbf{p-value} & \textbf{Significant} \\
 \midrule
-\textbf{H1} & McNemar & 6.8571 & 0.008829 & \textbf{Significant (Yes)} \\
-\textbf{H2} & Wilcoxon & 0.0000 & 0.000019 & \textbf{Significant (Yes)} \\
+\textbf{H1} & McNemar & 36.0263 & $<0.000001$ & \textbf{Significant (Yes)} \\
+\textbf{H2} & Wilcoxon & 0.0000 & $<0.000001$ & \textbf{Significant (Yes)} \\
 \textbf{H3} & Chi-squared & 2.9421 & 0.229680 & \textbf{Significant (No)} \\
 \bottomrule
 \end{tabular}
