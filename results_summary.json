@@ -9,170 +9,238 @@
   "verifier_results": {
     "google/gemini-2.5-flash-lite": {
       "Standard": {
-        "Accuracy": 0.76,
-        "REAL_Precision": 0.7021276595744681,
+        "Accuracy": 0.7666666666666667,
+        "REAL_Precision": 0.7096774193548387,
         "REAL_Recall": 0.8918918918918919,
-        "REAL_F1": 0.7857142857142857,
-        "FAB_Precision": 0.8571428571428571,
-        "FAB_Recall": 0.631578947368421,
-        "FAB_F1": 0.7272727272727273
+        "REAL_F1": 0.7904191616766467,
+        "FAB_Precision": 0.8596491228070176,
+        "FAB_Recall": 0.6447368421052632,
+        "FAB_F1": 0.7368421052631579
       },
       "Agentic_RAG": {
-        "Accuracy": 0.8066666666666666,
-        "REAL_Precision": 0.7586206896551724,
-        "REAL_Recall": 0.8918918918918919,
-        "REAL_F1": 0.8198757763975155,
-        "FAB_Precision": 0.873015873015873,
+        "Accuracy": 0.8133333333333334,
+        "REAL_Precision": 0.7613636363636364,
+        "REAL_Recall": 0.9054054054054054,
+        "REAL_F1": 0.8271604938271605,
+        "FAB_Precision": 0.8870967741935484,
         "FAB_Recall": 0.7236842105263158,
-        "FAB_F1": 0.7913669064748201
+        "FAB_F1": 0.7971014492753623
       },
       "McNemar": {
-        "Statistic": 1.7142857142857142,
-        "p_value": 0.19043026382552042
+        "Statistic": 1.565217391304348,
+        "p_value": 0.21090292605660677
       },
+      "Conditional_Retrieval_Acc": 0.8133333333333334,
       "Category_Breakdown": {
         "DLR": {
-          "Standard_Acc": 0.76,
-          "Agentic_Acc": 0.8066666666666666
+          "count": 47,
+          "Standard_Acc": 0.7659574468085106,
+          "Agentic_Acc": 0.6808510638297872
         },
         "BLC": {
-          "Standard_Acc": 0.76,
-          "Agentic_Acc": 0.8066666666666666
+          "count": 16,
+          "Standard_Acc": 0.3125,
+          "Agentic_Acc": 0.8125
         },
         "ALR": {
-          "Standard_Acc": 0.76,
-          "Agentic_Acc": 0.8066666666666666
+          "count": 15,
+          "Standard_Acc": 0.9333333333333333,
+          "Agentic_Acc": 1.0
+        },
+        "STATUTE_OR_OTHER": {
+          "count": 72,
+          "Standard_Acc": 0.8333333333333334,
+          "Agentic_Acc": 0.8611111111111112
         }
-      },
-      "NearMiss_HardAnomaly_Acc": 0.76
+      }
     },
     "openai/gpt-4o-mini": {
       "Standard": {
-        "Accuracy": 0.7933333333333333,
-        "REAL_Precision": 0.7415730337078652,
-        "REAL_Recall": 0.8918918918918919,
-        "REAL_F1": 0.8098159509202454,
-        "FAB_Precision": 0.8688524590163934,
+        "Accuracy": 0.7866666666666666,
+        "REAL_Precision": 0.7386363636363636,
+        "REAL_Recall": 0.8783783783783784,
+        "REAL_F1": 0.8024691358024691,
+        "FAB_Precision": 0.8548387096774194,
         "FAB_Recall": 0.6973684210526315,
-        "FAB_F1": 0.7737226277372263
+        "FAB_F1": 0.7681159420289855
       },
       "Agentic_RAG": {
-        "Accuracy": 0.7,
-        "REAL_Precision": 0.6260869565217392,
-        "REAL_Recall": 0.972972972972973,
-        "REAL_F1": 0.7619047619047619,
-        "FAB_Precision": 0.9428571428571428,
+        "Accuracy": 0.6933333333333334,
+        "REAL_Precision": 0.6228070175438597,
+        "REAL_Recall": 0.9594594594594594,
+        "REAL_F1": 0.7553191489361702,
+        "FAB_Precision": 0.9166666666666666,
         "FAB_Recall": 0.4342105263157895,
-        "FAB_F1": 0.5945945945945946
+        "FAB_F1": 0.5892857142857143
       },
       "McNemar": {
-        "Statistic": 6.5,
-        "p_value": 0.010787449254670362
+        "Statistic": 6.035714285714286,
+        "p_value": 0.014019277113959954
       },
+      "Conditional_Retrieval_Acc": 0.6933333333333334,
       "Category_Breakdown": {
         "DLR": {
-          "Standard_Acc": 0.7933333333333333,
-          "Agentic_Acc": 0.7
+          "count": 47,
+          "Standard_Acc": 0.7872340425531915,
+          "Agentic_Acc": 0.7021276595744681
         },
         "BLC": {
-          "Standard_Acc": 0.7933333333333333,
-          "Agentic_Acc": 0.7
+          "count": 16,
+          "Standard_Acc": 0.375,
+          "Agentic_Acc": 0.1875
         },
         "ALR": {
-          "Standard_Acc": 0.7933333333333333,
-          "Agentic_Acc": 0.7
+          "count": 15,
+          "Standard_Acc": 0.9333333333333333,
+          "Agentic_Acc": 0.4666666666666667
+        },
+        "STATUTE_OR_OTHER": {
+          "count": 72,
+          "Standard_Acc": 0.8472222222222222,
+          "Agentic_Acc": 0.8472222222222222
         }
-      },
-      "NearMiss_HardAnomaly_Acc": 0.7933333333333333
+      }
     },
     "deepseek/deepseek-chat": {
       "Standard": {
-        "Accuracy": 0.7466666666666667,
-        "REAL_Precision": 0.7142857142857143,
-        "REAL_Recall": 0.8108108108108109,
-        "REAL_F1": 0.759493670886076,
-        "FAB_Precision": 0.7878787878787878,
-        "FAB_Recall": 0.6842105263157895,
-        "FAB_F1": 0.7323943661971831
+        "Accuracy": 0.76,
+        "REAL_Precision": 0.6862745098039216,
+        "REAL_Recall": 0.9459459459459459,
+        "REAL_F1": 0.7954545454545454,
+        "FAB_Precision": 0.9166666666666666,
+        "FAB_Recall": 0.5789473684210527,
+        "FAB_F1": 0.7096774193548387
       },
       "Agentic_RAG": {
-        "Accuracy": 0.7866666666666666,
-        "REAL_Precision": 0.7441860465116279,
-        "REAL_Recall": 0.8648648648648649,
-        "REAL_F1": 0.8,
-        "FAB_Precision": 0.84375,
-        "FAB_Recall": 0.7105263157894737,
-        "FAB_F1": 0.7714285714285715
+        "Accuracy": 0.84,
+        "REAL_Precision": 0.7906976744186046,
+        "REAL_Recall": 0.918918918918919,
+        "REAL_F1": 0.85,
+        "FAB_Precision": 0.90625,
+        "FAB_Recall": 0.7631578947368421,
+        "FAB_F1": 0.8285714285714286
       },
       "McNemar": {
-        "Statistic": 1.5625,
-        "p_value": 0.21129954733370696
+        "Statistic": 6.05,
+        "p_value": 0.01390629689534605
       },
+      "Conditional_Retrieval_Acc": 0.84,
       "Category_Breakdown": {
         "DLR": {
-          "Standard_Acc": 0.7466666666666667,
-          "Agentic_Acc": 0.7866666666666666
+          "count": 47,
+          "Standard_Acc": 0.7659574468085106,
+          "Agentic_Acc": 0.7659574468085106
         },
         "BLC": {
-          "Standard_Acc": 0.7466666666666667,
-          "Agentic_Acc": 0.7866666666666666
+          "count": 16,
+          "Standard_Acc": 0.3125,
+          "Agentic_Acc": 0.75
         },
         "ALR": {
-          "Standard_Acc": 0.7466666666666667,
-          "Agentic_Acc": 0.7866666666666666
+          "count": 15,
+          "Standard_Acc": 0.6666666666666666,
+          "Agentic_Acc": 0.8666666666666667
+        },
+        "STATUTE_OR_OTHER": {
+          "count": 72,
+          "Standard_Acc": 0.875,
+          "Agentic_Acc": 0.9027777777777778
         }
-      },
-      "NearMiss_HardAnomaly_Acc": 0.7466666666666667
+      }
     },
-    "deepseek-v4-flash": {
+    "meta-llama/llama-3.3-70b-instruct": {
       "Standard": {
-        "Accuracy": 0.8533333333333334,
-        "REAL_Precision": 0.9482758620689655,
-        "REAL_Recall": 0.7432432432432432,
-        "REAL_F1": 0.8333333333333334,
-        "FAB_Precision": 0.7934782608695652,
-        "FAB_Recall": 0.9605263157894737,
-        "FAB_F1": 0.8690476190476191
+        "Accuracy": 0.7666666666666667,
+        "REAL_Precision": 0.7010309278350515,
+        "REAL_Recall": 0.918918918918919,
+        "REAL_F1": 0.7953216374269005,
+        "FAB_Precision": 0.8867924528301887,
+        "FAB_Recall": 0.618421052631579,
+        "FAB_F1": 0.7286821705426356
       },
       "Agentic_RAG": {
-        "Accuracy": 0.56,
-        "REAL_Precision": 1.0,
-        "REAL_Recall": 0.10810810810810811,
-        "REAL_F1": 0.1951219512195122,
-        "FAB_Precision": 0.5352112676056338,
-        "FAB_Recall": 1.0,
-        "FAB_F1": 0.6972477064220184
-      },
-      "McNemar": {
-        "Statistic": 35.55769230769231,
-        "p_value": 2.4760732241913895e-09
-      },
-      "NearMiss_HardAnomaly_Acc": 0.5066666666666667
-    },
-    "glm-5.3": {
-      "Standard": {
-        "Accuracy": 0.5066666666666667,
-        "REAL_Precision": 0.0,
-        "REAL_Recall": 0.0,
-        "REAL_F1": 0.0,
-        "FAB_Precision": 0.5066666666666667,
-        "FAB_Recall": 1.0,
-        "FAB_F1": 0.672566371681416
-      },
-      "Agentic_RAG": {
-        "Accuracy": 0.5066666666666667,
-        "REAL_Precision": 0.0,
-        "REAL_Recall": 0.0,
-        "REAL_F1": 0.0,
-        "FAB_Precision": 0.5066666666666667,
-        "FAB_Recall": 1.0,
-        "FAB_F1": 0.672566371681416
+        "Accuracy": 0.76,
+        "REAL_Precision": 0.6792452830188679,
+        "REAL_Recall": 0.972972972972973,
+        "REAL_F1": 0.8,
+        "FAB_Precision": 0.9545454545454546,
+        "FAB_Recall": 0.5526315789473685,
+        "FAB_F1": 0.7
       },
       "McNemar": {
         "Statistic": 0.0,
         "p_value": 1.0
       },
-      "NearMiss_HardAnomaly_Acc": 0.5066666666666667
+      "Conditional_Retrieval_Acc": 0.76,
+      "Category_Breakdown": {
+        "DLR": {
+          "count": 47,
+          "Standard_Acc": 0.7659574468085106,
+          "Agentic_Acc": 0.6808510638297872
+        },
+        "BLC": {
+          "count": 16,
+          "Standard_Acc": 0.375,
+          "Agentic_Acc": 0.375
+        },
+        "ALR": {
+          "count": 15,
+          "Standard_Acc": 0.8,
+          "Agentic_Acc": 0.8
+        },
+        "STATUTE_OR_OTHER": {
+          "count": 72,
+          "Standard_Acc": 0.8472222222222222,
+          "Agentic_Acc": 0.8888888888888888
+        }
+      }
+    },
+    "qwen/qwen-2.5-72b-instruct": {
+      "Standard": {
+        "Accuracy": 0.7466666666666667,
+        "REAL_Precision": 0.7,
+        "REAL_Recall": 0.8513513513513513,
+        "REAL_F1": 0.7682926829268293,
+        "FAB_Precision": 0.8166666666666667,
+        "FAB_Recall": 0.6447368421052632,
+        "FAB_F1": 0.7205882352941176
+      },
+      "Agentic_RAG": {
+        "Accuracy": 0.7133333333333334,
+        "REAL_Precision": 0.6741573033707865,
+        "REAL_Recall": 0.8108108108108109,
+        "REAL_F1": 0.7361963190184049,
+        "FAB_Precision": 0.7704918032786885,
+        "FAB_Recall": 0.618421052631579,
+        "FAB_F1": 0.6861313868613139
+      },
+      "McNemar": {
+        "Statistic": 1.2307692307692308,
+        "p_value": 0.2672574931543847
+      },
+      "Conditional_Retrieval_Acc": 0.7133333333333334,
+      "Category_Breakdown": {
+        "DLR": {
+          "count": 47,
+          "Standard_Acc": 0.7659574468085106,
+          "Agentic_Acc": 0.6595744680851063
+        },
+        "BLC": {
+          "count": 16,
+          "Standard_Acc": 0.5,
+          "Agentic_Acc": 0.4375
+        },
+        "ALR": {
+          "count": 15,
+          "Standard_Acc": 0.6666666666666666,
+          "Agentic_Acc": 0.7333333333333333
+        },
+        "STATUTE_OR_OTHER": {
+          "count": 72,
+          "Standard_Acc": 0.8055555555555556,
+          "Agentic_Acc": 0.8055555555555556
+        }
+      }
     }
   }
 }
