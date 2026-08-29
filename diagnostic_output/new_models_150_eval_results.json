@@ -1,0 +1,74 @@
+{
+  "google/gemini-2.5-flash-lite": {
+    "Standard": {
+      "Accuracy": 0.76,
+      "REAL_Precision": 0.7021276595744681,
+      "REAL_Recall": 0.8918918918918919,
+      "REAL_F1": 0.7857142857142857,
+      "FAB_Precision": 0.8571428571428571,
+      "FAB_Recall": 0.631578947368421,
+      "FAB_F1": 0.7272727272727273
+    },
+    "Agentic_RAG": {
+      "Accuracy": 0.8066666666666666,
+      "REAL_Precision": 0.7586206896551724,
+      "REAL_Recall": 0.8918918918918919,
+      "REAL_F1": 0.8198757763975155,
+      "FAB_Precision": 0.873015873015873,
+      "FAB_Recall": 0.7236842105263158,
+      "FAB_F1": 0.7913669064748201
+    },
+    "McNemar": {
+      "Statistic": 1.7142857142857142,
+      "p_value": 0.19043026382552042
+    }
+  },
+  "openai/gpt-4o-mini": {
+    "Standard": {
+      "Accuracy": 0.7933333333333333,
+      "REAL_Precision": 0.7415730337078652,
+      "REAL_Recall": 0.8918918918918919,
+      "REAL_F1": 0.8098159509202454,
+      "FAB_Precision": 0.8688524590163934,
+      "FAB_Recall": 0.6973684210526315,
+      "FAB_F1": 0.7737226277372263
+    },
+    "Agentic_RAG": {
+      "Accuracy": 0.7,
+      "REAL_Precision": 0.6260869565217392,
+      "REAL_Recall": 0.972972972972973,
+      "REAL_F1": 0.7619047619047619,
+      "FAB_Precision": 0.9428571428571428,
+      "FAB_Recall": 0.4342105263157895,
+      "FAB_F1": 0.5945945945945946
+    },
+    "McNemar": {
+      "Statistic": 6.5,
+      "p_value": 0.010787449254670362
+    }
+  },
+  "deepseek/deepseek-chat": {
+    "Standard": {
+      "Accuracy": 0.7466666666666667,
+      "REAL_Precision": 0.7142857142857143,
+      "REAL_Recall": 0.8108108108108109,
+      "REAL_F1": 0.759493670886076,
+      "FAB_Precision": 0.7878787878787878,
+      "FAB_Recall": 0.6842105263157895,
+      "FAB_F1": 0.7323943661971831
+    },
+    "Agentic_RAG": {
+      "Accuracy": 0.7866666666666666,
+      "REAL_Precision": 0.7441860465116279,
+      "REAL_Recall": 0.8648648648648649,
+      "REAL_F1": 0.8,
+      "FAB_Precision": 0.84375,
+      "FAB_Recall": 0.7105263157894737,
+      "FAB_F1": 0.7714285714285715
+    },
+    "McNemar": {
+      "Statistic": 1.5625,
+      "p_value": 0.21129954733370696
+    }
+  }
+}

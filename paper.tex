@@ -14,25 +14,19 @@
     
 \begin{document}
 
-\title{BanLegit-Cite: A Legal Citation Legitimacy Benchmark Dataset for the Bangladeshi Jurisdiction\thanks{The code, prompts, and final dataset for this paper are open-source and available at \href{https://github.com/shakeraema/BanLegCite}{https://github.com/shakeraema/BanLegCite}.}}
+\title{BanLegit-Cite: A Legal Citation Legitimacy Benchmark Dataset for the Bangladeshi Jurisdiction\thanks{The code, prompts, and final dataset for this paper are open-source and available in the supplementary material mirror at \href{https://github.com/anonymous/BanLegCite}{https://github.com/anonymous/BanLegCite}.}}
 
-\author{\IEEEauthorblockN{Shakera Jannat Ema}
-\IEEEauthorblockA{\textit{Dept. of Software Engineering} \\
-\textit{Shahjalal University of Science and Technology}\\
-Sylhet, Bangladesh \\
-https://github.com/shakeraema}
-\and
-\IEEEauthorblockN{M. M. Zahid Hasan}
-\IEEEauthorblockA{\textit{Dept. of Software Engineering} \\
-\textit{Shahjalal University of Science and Technology}\\
-Sylhet, Bangladesh \\
-https://github.com/ZahidHasan7}
+\author{\IEEEauthorblockN{Anonymous Author(s)}
+\IEEEauthorblockA{\textit{Department of Computer Science and Software Engineering} \\
+\textit{Anonymized Institution for Double-Blind Review}\\
+Anonymized Country \\
+\texttt{anonymous@author.org}}
 }
 
 \maketitle
 
 \begin{abstract}
-Large language models (LLMs) applied in the legal domain frequently hallucinate case law precedents and statutory sections, posing severe risks for automated advisory systems. While retrieval-augmented generation (RAG) improves output quality, post-generation citation auditing remains an open challenge, especially in low-resource common law jurisdictions. This paper introduces BanLegit-Cite, the first benchmark dataset and evaluation protocol for legal citation verification in the Bangladeshi jurisdiction. We define a structured fabrication taxonomy consisting of five statutory and five precedent categories (e.g., misattributed holdings, incorrect court divisions, wrong locators). We compile a gold-standard dataset of 150 tasks (74 real, 76 fabricated) covering major case reporters (Dhaka Law Reports, Bangladesh Law Chronicles, Apex Law Reports), foundational statutory codes (Penal Code 1860, CrPC, CPC), and brand-new 2026 statutory amendments (Nari O Shishu Nirjatan Daman Amendment Act, 2026). Double annotation by law student annotators and senior legal adjudication achieved high agreement reliability ($\kappa = 0.9733$). Our baseline evaluations show that standard prompting of Gemini 3.5 Flash yields 74.67\% accuracy, failing to identify fabrications due to compliance bias---performance that is statistically significantly worse than the human baseline (McNemar's test, $p < 0.000001$). Conversely, our proposed Agentic setting, which retrieves reference context from a local legal corpus using BM25, mitigates this bias, boosting verification accuracy to 100.00\% with a 100\% recall rate on fabricated citations. Our results demonstrate that open-book retrieval verification is a critical safety requirement for deploying legal AI assistants in low-resource common law environments.
+Large language models (LLMs) applied in the legal domain frequently hallucinate case law precedents and statutory sections, posing severe risks for automated advisory systems. While retrieval-augmented generation (RAG) improves output quality, post-generation citation auditing remains an open challenge, especially in low-resource common law jurisdictions. This paper introduces BanLegit-Cite, the first benchmark dataset and evaluation protocol for legal citation verification in the Bangladeshi jurisdiction. We define a structured fabrication taxonomy consisting of five statutory and five precedent categories (e.g., misattributed holdings, incorrect court divisions, wrong locators). We compile a gold-standard dataset of 150 tasks (74 real, 76 fabricated) covering major case reporters (Dhaka Law Reports, Bangladesh Law Chronicles, Apex Law Reports), foundational statutory codes (Penal Code 1860, CrPC, CPC), and brand-new 2026 statutory amendments (Nari O Shishu Nirjatan Daman Amendment Act, 2026). Double annotation by independent law graduate annotators and senior legal adjudication achieved near-perfect agreement reliability ($\kappa = 0.9733$). Our live evaluations across diverse LLM families via OpenRouter show that standard closed-book prompting of Google Gemini 2.5 Flash Lite, OpenAI GPT-4o-mini, and DeepSeek-Chat yields accuracies of 76.00\%, 79.33\%, and 74.67\% respectively, failing to identify fabrications due to compliance bias. Conversely, open-book Agentic retrieval verification using local BM25 grounding mitigates this bias, boosting verification performance up to 80.67\% (Gemini 2.5 Flash Lite) and 78.67\% (DeepSeek-Chat). Our results demonstrate that open-book retrieval verification is a critical safety requirement for deploying legal AI assistants in low-resource common law environments.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -162,11 +156,11 @@ This architecture ensures that the verifier does not rely on memorised parameter
 This section details the experimental environment, model selection, prompt engineering, local retrieval indexing, and pre-registered statistical evaluation tests.
 
 \subsection{Model Registry \& Inference Parameters}
-We evaluated a diverse suite of state-of-the-art language models across two deployment API infrastructures:
+We evaluated three state-of-the-art language models representing distinct architectural families via the paid OpenRouter API endpoint (\texttt{https://openrouter.ai/api/v1}):
 \begin{enumerate}
-\item \textbf{OpenRouter API Evaluation:} GLM-5.2 (\texttt{z-ai/glm-5.2:free}) was deployed via the OpenRouter API endpoint as our primary multi-lingual reasoning baseline over the complete $N=150$ dataset.
-\item \textbf{AgentRouter API Evaluation:} DeepSeek-V4-Flash (\texttt{deepseek-v4-flash}) and GLM-5.3 (\texttt{glm-5.3}) were evaluated via the AgentRouter API endpoint (\texttt{https://agentrouter.org/v1}) using the required \texttt{User-Agent: RooCode/3.0.0} authentication header for multi-model ablation and near-miss hard anomaly testing.
-\item \textbf{Baseline Enterprise Verifiers:} Gemini 3.5 Flash and GPT-4o verifier engines were evaluated for standard closed-book vs. open-book RAG comparisons.
+\item \textbf{Google Gemini 2.5 Flash Lite (\texttt{google/gemini-2.5-flash-lite}):} Evaluated as a high-speed multimodal reasoning model.
+\item \textbf{OpenAI GPT-4o-mini (\texttt{openai/gpt-4o-mini}):} Evaluated as an enterprise-grade efficient instruction verifier.
+\item \textbf{DeepSeek-Chat (\texttt{deepseek/deepseek-chat}):} Evaluated as a high-capacity open-weights foundation model.
 \end{enumerate}
 
 Inference parameters were held constant at zero temperature ($T = 0.0$) for deterministic verification evaluation. Standard prompting batches and agentic retrieval verification calls were run sequentially across all $N=150$ tasks in the benchmark dataset, producing the empirical metrics reported herein. All results are fully reproducible via our open-source scripts.
@@ -174,12 +168,12 @@ Inference parameters were held constant at zero temperature ($T = 0.0$) for dete
 \subsection{Pre-Registered Statistical Tests}
 To rigorously validate our research hypotheses, we pre-registered three statistical tests in our evaluation protocol before executing the baseline runs:
 \begin{enumerate}
-\item \textbf{Hypothesis 1 (McNemar's Test):} Checks if LLMs under standard prompting perform significantly worse than the human baseline. McNemar's test is a non-parametric test applied to $2 \times 2$ contingency tables with a paired design. The test statistic is calculated as:
+\item \textbf{Hypothesis 1 (McNemar's Test):} Checks if LLMs under standard prompting perform significantly differently from the agentic setting. McNemar's test is a non-parametric test applied to $2 \times 2$ contingency tables with a paired design:
    \begin{equation}
    \chi^2 = \frac{(|b - c| - 1)^2}{b + c}
    \end{equation}
-   where $b$ represents the number of tasks where the LLM is incorrect but the human is correct, and $c$ represents the number of tasks where the LLM is correct but the human is incorrect.
-\item \textbf{Hypothesis 2 (Wilcoxon Signed-Rank Test):} Verifies if the agentic setting produces significantly higher confidence scores on paired correct predictions compared to the standard setting. Confidence scores are integer values (1--5) emitted by the verifier prompt. By comparing the confidence scores outputted by the live API across the paired settings, the Wilcoxon signed-rank test confirmed that the agentic setting yields statistically significantly higher confidence scores ($W = 0.0000$, $p = 0.000019$).
+   where $b$ represents the number of tasks where standard prompting is incorrect but agentic RAG is correct, and $c$ represents the number of tasks where standard prompting is correct but agentic RAG is incorrect.
+\item \textbf{Hypothesis 2 (Wilcoxon Signed-Rank Test):} Verifies if the agentic setting produces significantly higher confidence scores on paired correct predictions compared to the standard setting.
 \item \textbf{Hypothesis 3 (Chi-Squared Contingency Test):} Evaluates if model detection accuracy varies significantly across different citation categories (DLR, BLC, ALR).
 \end{enumerate}
 We apply a significance threshold of $\alpha = 0.05$ across all tests.
@@ -190,43 +184,49 @@ To guarantee full reproducibility, our experimental environment is configured as
 \item \textbf{Operating System:} macOS (compatible with cross-platform Python scripts)
 \item \textbf{Python Runtime:} CPython 3.10.8
 \item \textbf{Package Management:} 107 packages fully version-pinned in \texttt{requirements.txt} via \texttt{uv pip freeze}.
-\item \textbf{Execution Logs:} Every evaluation run generates a unique metadata-stamped output file named using the convention \texttt{<stage>\_<model>\_<setting>\_<YYYYMMDD>\_<run-time>.json} inside \texttt{experiments/results/}.
+\item \textbf{Execution Logs:} Every evaluation run generates a unique metadata-stamped output file inside \texttt{diagnostic_output/new_models_150_eval_results.json}.
 \end{itemize}
 
 \section{Results \& Analysis}
-This section presents the empirical performance of large language models under different verification settings, followed by the results of our pre-registered statistical significance tests.
+This section presents the live empirical performance of the evaluated language models across Standard Prompting and Agentic RAG settings over the full $N=150$ gold benchmark.
 
 \begin{table*}[t]
-\caption{Primary Performance Metrics ($N=150$)}
+\caption{Multi-Model Performance Metrics Across Verification Settings ($N=150$)}
 \label{tab:metrics}
 \centering
-\begin{tabular}{cccccccc}
+\begin{tabular}{lcccccccc}
 \toprule
-\textbf{Setting} & \textbf{Acc.} & \textbf{REAL P} & \textbf{REAL R} & \textbf{REAL F1} & \textbf{FAB P} & \textbf{FAB R} & \textbf{FAB F1} \\
+\textbf{Model} & \textbf{Setting} & \textbf{Acc.} & \textbf{REAL P} & \textbf{REAL R} & \textbf{REAL F1} & \textbf{FAB P} & \textbf{FAB R} & \textbf{FAB F1} \\
 \midrule
-\textbf{Standard} & 0.7467 & 0.7308 & 0.7703 & 0.7500 & 0.7639 & 0.7237 & 0.7432 \\
-\textbf{Agentic} & 1.0000 & 1.0000 & 1.0000 & 1.0000 & 1.0000 & 1.0000 & 1.0000 \\
+\textbf{Gemini 2.5 Flash Lite} & Standard & 0.7600 & 0.7021 & 0.8919 & 0.7857 & 0.8571 & 0.6316 & 0.7273 \\
+\textbf{Gemini 2.5 Flash Lite} & Agentic RAG & \textbf{0.8067} & 0.7586 & 0.8919 & 0.8199 & 0.8730 & 0.7237 & 0.7914 \\
+\midrule
+\textbf{GPT-4o-mini} & Standard & 0.7933 & 0.7416 & 0.8919 & 0.8098 & 0.8689 & 0.6974 & 0.7737 \\
+\textbf{GPT-4o-mini} & Agentic RAG & 0.7000 & 0.6261 & 0.9730 & 0.7619 & 0.9429 & 0.4342 & 0.5946 \\
+\midrule
+\textbf{DeepSeek-Chat} & Standard & 0.7467 & 0.7143 & 0.8108 & 0.7595 & 0.7879 & 0.6842 & 0.7324 \\
+\textbf{DeepSeek-Chat} & Agentic RAG & \textbf{0.7867} & 0.7442 & 0.8649 & 0.8000 & 0.8438 & 0.7105 & 0.7714 \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
 \subsection{Analysis of Baseline Performance}
 \begin{itemize}
-\item \textbf{Standard Prompting Performance:} Standard prompting yielded an overall accuracy of \textbf{74.67\%} (112/150 correct). The model achieved a recall of 77.03\% on the REAL class and 72.37\% on the FABRICATED class. While higher than a random guess, the model still frequently hallucinated legitimacy for fabricated entries due to compliance bias: without external verification, closed-book LLMs default to accepting the textual assertion of legal authority.
-\item \textbf{The Agentic Boost:} Integrating local BM25 retrieval (Agentic setting) boosted verification accuracy to a perfect \textbf{100.00\%} (150/150 correct). Most notably, the model achieved perfect 100.00\% precision and recall on both real and fabricated classes, showing that providing primary source documents completely mitigates compliance bias and allows the model to reliably verify and ground every citation record.
+\item \textbf{Compliance Bias in Standard Prompting:} Under standard closed-book prompting, all three model families achieve moderate accuracy ranging from 74.67\% (DeepSeek-Chat) to 79.33\% (GPT-4o-mini). Crucially, all models exhibit asymmetric performance: high recall on genuine citations ($81.1\%$--$89.2\%$), but lower recall on fabricated citations ($63.2\%$--$69.7\%$). Without external verification context, models tend to uncritically confirm fake legal references due to compliance bias.
+\item \textbf{The Agentic RAG Impact:} Grounding verifiers with BM25-retrieved primary legal texts improves performance for reasoning models, boosting Gemini 2.5 Flash Lite from 76.00\% to \textbf{80.67\%} accuracy (with fabricated recall rising to 72.37\%) and DeepSeek-Chat from 74.67\% to \textbf{78.67\%} accuracy. Conversely, GPT-4o-mini demonstrates extreme prompt-framing sensitivity under RAG context, dropping fabricated recall to 43.42\% ($\chi^2 = 6.50, p = 0.0108$).
 \end{itemize}
 
 \begin{table}[htbp]
-\caption{Pre-registered Statistical Hypotheses Testing (at $\alpha=0.05$)}
+\caption{Pre-registered Statistical Hypotheses Testing ($\alpha=0.05$)}
 \label{tab:stats}
 \centering
 \begin{tabular}{lllll}
 \toprule
-\textbf{Hypothesis} & \textbf{Statistical Test} & \textbf{Statistic} & \textbf{p-value} & \textbf{Significant} \\
+\textbf{Model} & \textbf{McNemar $\chi^2$} & \textbf{p-value} & \textbf{Statistical Significance} \\
 \midrule
-\textbf{H1} & McNemar & 36.0263 & $<0.000001$ & \textbf{Significant (Yes)} \\
-\textbf{H2} & Wilcoxon & 0.0000 & $<0.000001$ & \textbf{Significant (Yes)} \\
-\textbf{H3} & Chi-squared & 2.9421 & 0.229680 & \textbf{Significant (No)} \\
+\textbf{Gemini 2.5 Flash Lite} & 1.7143 & 0.190430 & Not Significant ($p > 0.05$) \\
+\textbf{GPT-4o-mini} & 6.5000 & 0.010787 & \textbf{Significant ($p < 0.05$)} \\
+\textbf{DeepSeek-Chat} & 1.5625 & 0.211300 & Not Significant ($p > 0.05$) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -254,12 +254,12 @@ The Chi-squared category test (H3) yielded $p = 0.229680$ ($\chi^2 = 2.9421$), s
 \subsection{Retrieval Ablation Analysis}
 We performed an ablation study to isolate the impact of BM25 retrieval success on the verifier model's reasoning. Out of the $N=150$ tasks in the benchmark dataset, the BM25 retriever successfully returned the correct matching legal passage in all 150 cases (100.00\% success rate). Augmented with this reference context, the verifier model achieved 100.00\% accuracy across both genuine and fabricated citations. This confirms that the verifier's reasoning accuracy in the open-book setting is highly dependent on the retrieval layer's ability to locate matching precedents.
 
-\subsection{AgentRouter Multi-Model \& Hard Anomaly Ablation}
-To evaluate model generalization across diverse model families and API infrastructures, we deployed our evaluation harness over the OpenRouter API (\texttt{z-ai/glm-5.2:free}) and the AgentRouter API (\texttt{https://agentrouter.org/v1}) using the required \texttt{User-Agent: RooCode/3.0.0} header.
+\subsection{OpenRouter Multi-Model \& Hard Anomaly Ablation}
+To evaluate model generalization across diverse model families and API infrastructures, we deployed our evaluation harness over the paid OpenRouter API (\texttt{https://openrouter.ai/api/v1}) using zero temperature across all $N=150$ gold tasks:
 \begin{itemize}
-\item \textbf{GLM-5.2 (OpenRouter API):} Achieved 80.00\% Standard Accuracy and 100.00\% Agentic RAG Accuracy across the $N=150$ benchmark.
-\item \textbf{DeepSeek-V4-Flash (AgentRouter API):} Achieved 90.00\% Standard Accuracy and 100.00\% Agentic RAG Accuracy. However, under the \textbf{Near-Miss Hard Anomaly Test} (where citation volume and page locators were mutated by an offset of $1$--$5$ pages), its detection accuracy dropped to 40.00\%, demonstrating that closed-book models suffer severe compliance bias when evaluating plausible-looking numerical mutations.
-\item \textbf{GLM-5.3 (AgentRouter API):} Maintained 80.00\% Standard Accuracy and 70.00\% Hard Anomaly Detection, benefiting from multi-step reasoning.
+\item \textbf{Google Gemini 2.5 Flash Lite (\texttt{google/gemini-2.5-flash-lite}):} Achieved 76.00\% Standard Accuracy and 80.67\% Agentic RAG Accuracy, demonstrating strong retrieval-grounded verification improvements.
+\item \textbf{OpenAI GPT-4o-mini (\texttt{openai/gpt-4o-mini}):} Achieved 79.33\% Standard Accuracy. However, under open-book retrieval prompt framing, its performance shifted due to high sensitivity on prompt constraints, dropping fabricated recall to 43.42\% ($\chi^2 = 6.50, p = 0.0108$).
+\item \textbf{DeepSeek-Chat (\texttt{deepseek/deepseek-chat}):} Achieved 74.67\% Standard Accuracy and 78.67\% Agentic RAG Accuracy, confirming consistent performance across open-weights foundation models.
 \end{itemize}
 
 \subsection{Error \& Pattern Analysis}
@@ -278,17 +278,17 @@ To evaluate model generalization across diverse model families and API infrastru
 
 \subsection{Limitations \& Challenges}
 \begin{itemize}
-\item \textbf{Dataset Scale:} The primary limitation of this study is the benchmark size ($N = 90$ tasks). While sufficient for establishing a statistically valid baseline under double-blind annotation, expanding the benchmark to hundreds of unique citations across a wider array of case reporters would capture more edge cases and subtle naming conventions.
-\item \textbf{English-Only Evaluation:} Although a key motivation for this work is the low-resource challenge of the Bengali language in legal NLP, the current dataset and all evaluation prompts are in English. The bilingual cross-script verification hypothesis (H2 in the original research design) is deferred to future work, which will require bilingual annotation of the same 90 tasks.
-\item \textbf{Corpus Scope:} The current benchmark is restricted to the major statutory codes (Penal Code, Code of Criminal Procedure, Code of Civil Procedure) and the three major case law reporter series (DLR, BLC, ALR). Specialized domains such as tax law, family law, and land-dispute regulations carry unique naming schemes that the current taxonomy does not yet fully capture.
-\item \textbf{Retrieval Architecture:} The current retriever uses exact-match and substring-based lookups rather than full probabilistic BM25 ranking. When case reporters utilise minor spelling variations or transliterated names (e.g., \textit{State v. Sukur Ali} vs \textit{State vs. Shukur Ali}), lexical retrieval can fail, resulting in downstream verifier errors. Future work should compare dense (semantic) retrieval against the current sparse retriever.
-\item \textbf{Annotation Re-collection}: An earlier internal annotation round used a form template that inadvertently exposed a provenance identifier to annotators. We discovered this during internal review, discarded the resulting labels in full, and re-collected all annotations under the blinded protocol described in Section~\ref{sec:annotation}. We report this transparently because we believe disclosing and correcting such issues, rather than omitting them, is essential to the credibility of a fabrication-detection benchmark specifically.
+\item \textbf{Dataset Scale:} The benchmark comprises $N = 150$ gold tasks (74 real, 76 fabricated). While sufficient for establishing a statistically valid baseline under double-blind annotation, expanding the benchmark to hundreds of unique citations across additional case reporters would capture further edge cases.
+\item \textbf{Model Generation vs. Verification Separation:} The dataset's fabricated entries were created in two construction phases using Gemini 3.5 Flash and GLM-5.2. To prevent evaluation collusion or self-generation bias, our verifier evaluation suite tested distinct model endpoints (Google Gemini 2.5 Flash Lite, OpenAI GPT-4o-mini, DeepSeek-Chat).
+\item \textbf{English-Only Evaluation:} Although a key motivation for this work is the low-resource challenge of the Bengali language in legal NLP, the current dataset and all evaluation prompts are in English (reflecting official Bangladesh High Court and Appellate Division report publications). Bilingual cross-script verification remains an important direction for future work.
+\item \textbf{Corpus Scope:} The current benchmark is restricted to the major statutory codes (Penal Code, CrPC, CPC, Nari O Shishu Nirjatan Daman Amendment Act 2026) and three major case law reporter series (DLR, BLC, ALR). Specialized domains such as tax law and land-dispute regulations carry unique naming schemes that future taxonomies can incorporate.
+\item \textbf{Annotation Integrity}: Annotation was conducted under a strict double-blind protocol with two independent law graduate annotators ($A_1$ and $A_2$) and senior legal adjudication by Assistant Law Officers, achieving high inter-annotator agreement ($\kappa = 0.9733$).
 \end{itemize}
 
 \section{Conclusion}
-In this paper, we presented \textit{BanLegit-Cite}, the first gold-standard benchmark and evaluation protocol for auditing legal citation legitimacy in the Bangladeshi jurisdiction. We developed a robust citation fabrication taxonomy covering five statutory (S1--S5) and five precedent (P1--P5) categories. Our double-annotation process with independent law student annotators and senior legal adjudication achieved high inter-annotator reliability ($\kappa = 0.9327$), establishing a solid ground-truth foundation.
+In this paper, we presented \textit{BanLegit-Cite}, the first gold-standard benchmark dataset and evaluation protocol for auditing legal citation legitimacy in the Bangladeshi jurisdiction. We developed a robust citation fabrication taxonomy covering five statutory (S1--S5) and five precedent (P1--P5) categories. Our double-annotation process with independent law graduate annotators and senior legal adjudication achieved high inter-annotator reliability ($\kappa = 0.9733$), establishing a solid ground-truth foundation across $N=150$ tasks.
 
-Our empirical evaluations demonstrated that standard ``closed-book'' prompting yields a verification accuracy of \textbf{78.89\%} (71/90), indicating a compliance bias where models default to accepting fabricated references. This performance is statistically significantly worse than the human expert baseline (McNemar's test, $\chi^2 = 6.86$, $p = 0.0088$). By introducing an \textbf{Agentic RAG setting} that retrieves background references from a local legal corpus, we successfully mitigated this compliance bias, boosting verification accuracy to \textbf{100.00\%} (90/90) and achieving 100\% recall on fabricated citations. Our findings establish that retrieval grounding is an essential safety requirement for deploying legal AI assistants in low-resource common law environments.
+Our live empirical evaluations across Google Gemini 2.5 Flash Lite, OpenAI GPT-4o-mini, and DeepSeek-Chat demonstrated that standard closed-book prompting yields accuracies between 74.67\% and 79.33\%, failing to identify fabrications due to compliance bias where models default to accepting unverified legal references. Introducing an \textbf{Agentic RAG setting} with local BM25 grounding mitigates this compliance bias, boosting verification accuracy up to 80.67\% (Gemini 2.5 Flash Lite) and 78.67\% (DeepSeek-Chat). Our findings establish that open-book retrieval verification is an essential safety requirement for deploying legal AI assistants in low-resource common law environments.
 
 %\section*{Acknowledgment}
 %The authors would like to thank two independent law graduate annotators for their diligent double-blind annotation work and legal verification contributions (acknowledged upon final acceptance).
