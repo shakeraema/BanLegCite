@@ -91,7 +91,7 @@ Evaluations across our primary 5-verifier suite ($N=150$ gold tasks) demonstrate
 ## 🛠️ Quickstart & Reproduction Guide
 
 ### 1. Prerequisites
-- **Python**: CPython `3.10` or higher
+- **Python**: CPython `3.10.8` (or compatible 3.10+ runtime)
 - **OpenRouter API Key**: Set `OPENROUTER_API_KEY` in environment
 
 ### 2. Environment Setup
