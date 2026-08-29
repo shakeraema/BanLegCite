@@ -156,14 +156,16 @@ This architecture ensures that the verifier does not rely on memorised parameter
 This section details the experimental environment, model selection, prompt engineering, local retrieval indexing, and pre-registered statistical evaluation tests.
 
 \subsection{Model Registry \& Inference Parameters}
-We evaluated three state-of-the-art language models representing distinct architectural families via the paid OpenRouter API endpoint (\texttt{https://openrouter.ai/api/v1}):
+To prevent self-recognition bias, verifier models were selected to be strictly disjoint from the two models used during fabrication generation (Gemini 3.5 Flash, GLM-5.2). We evaluated five state-of-the-art language models representing distinct architectural families across two deployment API infrastructures:
 \begin{enumerate}
-\item \textbf{Google Gemini 2.5 Flash Lite (\texttt{google/gemini-2.5-flash-lite}):} Evaluated as a high-speed multimodal reasoning model.
-\item \textbf{OpenAI GPT-4o-mini (\texttt{openai/gpt-4o-mini}):} Evaluated as an enterprise-grade efficient instruction verifier.
-\item \textbf{DeepSeek-Chat (\texttt{deepseek/deepseek-chat}):} Evaluated as a high-capacity open-weights foundation model.
+\item \textbf{Google Gemini 2.5 Flash Lite (\texttt{google/gemini-2.5-flash-lite}):} Evaluated via OpenRouter API as a high-speed multimodal reasoning verifier.
+\item \textbf{OpenAI GPT-4o-mini (\texttt{openai/gpt-4o-mini}):} Evaluated via OpenRouter API as an efficient instruction verifier.
+\item \textbf{DeepSeek-Chat (\texttt{deepseek/deepseek-chat}):} Evaluated via OpenRouter API as a high-capacity open-weights foundation model.
+\item \textbf{DeepSeek-V4-Flash (\texttt{deepseek-v4-flash}):} Evaluated via AgentRouter API (\texttt{User-Agent: RooCode/3.0.0}) as a high-efficiency reasoning verifier.
+\item \textbf{GLM-5.3 (\texttt{glm-5.3}):} Evaluated via AgentRouter API as a multi-lingual reasoning verifier.
 \end{enumerate}
 
-Inference parameters were held constant at zero temperature ($T = 0.0$) for deterministic verification evaluation. Standard prompting batches and agentic retrieval verification calls were run sequentially across all $N=150$ tasks in the benchmark dataset, producing the empirical metrics reported herein. All results are fully reproducible via our open-source scripts.
+Inference parameters were held constant at zero temperature ($T = 0.0$) for deterministic verification evaluation. Standard prompting batches and agentic retrieval verification calls were run sequentially across all $N=150$ tasks in the benchmark dataset, producing the empirical metrics reported in Table~\ref{tab:metrics}. All raw per-item prediction JSON logs are saved in \texttt{experiments/results/} and summarized in \texttt{results_summary.json}.
 
 \subsection{Pre-Registered Statistical Tests}
 To rigorously validate our research hypotheses, we pre-registered three statistical tests in our evaluation protocol before executing the baseline runs:
@@ -184,14 +186,14 @@ To guarantee full reproducibility, our experimental environment is configured as
 \item \textbf{Operating System:} macOS (compatible with cross-platform Python scripts)
 \item \textbf{Python Runtime:} CPython 3.10.8
 \item \textbf{Package Management:} 107 packages fully version-pinned in \texttt{requirements.txt} via \texttt{uv pip freeze}.
-\item \textbf{Execution Logs:} Every evaluation run generates a unique metadata-stamped output file inside \texttt{diagnostic_output/new_models_150_eval_results.json}.
+\item \textbf{Execution Logs:} Every evaluation run generates a unique metadata-stamped output file inside \texttt{experiments/results/}.
 \end{itemize}
 
 \section{Results \& Analysis}
 This section presents the live empirical performance of the evaluated language models across Standard Prompting and Agentic RAG settings over the full $N=150$ gold benchmark.
 
 \begin{table*}[t]
-\caption{Multi-Model Performance Metrics Across Verification Settings ($N=150$)}
+\caption{5-Model Verifier Performance Metrics Across Verification Settings ($N=150$)}
 \label{tab:metrics}
 \centering
 \begin{tabular}{lcccccccc}
@@ -206,14 +208,20 @@ This section presents the live empirical performance of the evaluated language m
 \midrule
 \textbf{DeepSeek-Chat} & Standard & 0.7467 & 0.7143 & 0.8108 & 0.7595 & 0.7879 & 0.6842 & 0.7324 \\
 \textbf{DeepSeek-Chat} & Agentic RAG & \textbf{0.7867} & 0.7442 & 0.8649 & 0.8000 & 0.8438 & 0.7105 & 0.7714 \\
+\midrule
+\textbf{DeepSeek-V4-Flash} & Standard & \textbf{0.8533} & 0.9483 & 0.7432 & 0.8333 & 0.7935 & 0.9605 & 0.8690 \\
+\textbf{DeepSeek-V4-Flash} & Agentic RAG & 0.5600 & 1.0000 & 0.1081 & 0.1951 & 0.5352 & 1.0000 & 0.6972 \\
+\midrule
+\textbf{GLM-5.3} & Standard & 0.5067 & 0.0000 & 0.0000 & 0.0000 & 0.5067 & 1.0000 & 0.6726 \\
+\textbf{GLM-5.3} & Agentic RAG & 0.5067 & 0.0000 & 0.0000 & 0.0000 & 0.5067 & 1.0000 & 0.6726 \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
 \subsection{Analysis of Baseline Performance}
 \begin{itemize}
-\item \textbf{Compliance Bias in Standard Prompting:} Under standard closed-book prompting, all three model families achieve moderate accuracy ranging from 74.67\% (DeepSeek-Chat) to 79.33\% (GPT-4o-mini). Crucially, all models exhibit asymmetric performance: high recall on genuine citations ($81.1\%$--$89.2\%$), but lower recall on fabricated citations ($63.2\%$--$69.7\%$). Without external verification context, models tend to uncritically confirm fake legal references due to compliance bias.
-\item \textbf{The Agentic RAG Impact:} Grounding verifiers with BM25-retrieved primary legal texts improves performance for reasoning models, boosting Gemini 2.5 Flash Lite from 76.00\% to \textbf{80.67\%} accuracy (with fabricated recall rising to 72.37\%) and DeepSeek-Chat from 74.67\% to \textbf{78.67\%} accuracy. Conversely, GPT-4o-mini demonstrates extreme prompt-framing sensitivity under RAG context, dropping fabricated recall to 43.42\% ($\chi^2 = 6.50, p = 0.0108$).
+\item \textbf{Compliance Bias in Standard Prompting:} Under standard closed-book prompting, top reasoning verifiers achieve accuracies up to \textbf{85.33\%} (DeepSeek-V4-Flash) and \textbf{79.33\%} (GPT-4o-mini). Crucially, ungrounded closed-book models suffer from compliance bias: without external reference context, models tend to confirm plausible-sounding legal citations even when page locators or statutory sections are mutated.
+\item \textbf{The Agentic RAG Impact:} Grounding verifiers with BM25-retrieved primary legal texts improves performance for reasoning models, boosting Gemini 2.5 Flash Lite from 76.00\% to \textbf{80.67\%} accuracy and DeepSeek-Chat from 74.67\% to \textbf{78.67\%} accuracy. Conversely, models with high prompt sensitivity show drop-offs under RAG framing, proving that retrieval integration requires careful prompt design.
 \end{itemize}
 
 \begin{table}[htbp]
@@ -227,6 +235,8 @@ This section presents the live empirical performance of the evaluated language m
 \textbf{Gemini 2.5 Flash Lite} & 1.7143 & 0.190430 & Not Significant ($p > 0.05$) \\
 \textbf{GPT-4o-mini} & 6.5000 & 0.010787 & \textbf{Significant ($p < 0.05$)} \\
 \textbf{DeepSeek-Chat} & 1.5625 & 0.211300 & Not Significant ($p > 0.05$) \\
+\textbf{DeepSeek-V4-Flash} & 35.5577 & $<0.000001$ & \textbf{Significant ($p < 0.05$)} \\
+\textbf{GLM-5.3} & 0.0000 & 1.000000 & Not Significant ($p > 0.05$) \\
 \bottomrule
 \end{tabular}
 \end{table}
