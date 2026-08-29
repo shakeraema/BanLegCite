@@ -62,7 +62,7 @@ Our primary contributions are threefold:
 \begin{enumerate}
 \item \textbf{The BanLegit-Cite Dataset:} A gold-standard annotated dataset of 150 tasks (74 real, 76 fabricated) covering DLR, BLC, and ALR case reports, major statutory codes (\textit{Penal Code 1860}, \textit{CrPC}, \textit{CPC}), and statutory provisions from the \textit{Nari O Shishu Nirjatan Daman Amendment Act, 2026}.
 \item \textbf{A Citation Fabrication Taxonomy:} A structured classification system dividing fabrications into 5 statutory categories (S1--S5) and 5 precedent categories (P1--P5) to diagnose specific model failures.
-\item \textbf{Rigorous Empirical Benchmark:} Evaluation across 5 verifier models (\texttt{google/gemini-2.5-flash-lite}, \texttt{openai/gpt-4o-mini}, \texttt{deepseek/deepseek-chat}, \texttt{deepseek-v4-flash}, \texttt{glm-5.3}) establishing that standard closed-book prompting suffers from compliance bias, which is mitigated under open-book retrieval verification.
+\item \textbf{Rigorous Empirical Benchmark:} We evaluate a primary suite of five verifier models (\texttt{google/gemini-2.5-flash-lite}, \texttt{openai/gpt-4o-mini}, \texttt{deepseek/deepseek-chat}, \texttt{meta-llama/llama-3.3-70b-instruct}, \texttt{qwen/qwen-2.5-72b-instruct}) under closed-book and agentic RAG settings, and additionally report a diagnostic analysis of two models (\texttt{deepseek-v4-flash}, \texttt{glm-5.3}) whose behavior under RAG revealed a performance collapse and a degenerate constant-prediction failure mode, respectively (Section VI-D).
 \end{enumerate}
 
 \section{Related Work}
@@ -74,7 +74,7 @@ Hallucination in large language models has emerged as a fundamental barrier to t
 \subsection{Bangla Legal NLP \& RAG Systems}
 The application of NLP to the legal domain of Bangladesh has expanded rapidly in recent years:
 \begin{itemize}
-\item \textbf{UKIL-DB-EN (2024) \cite{ukildb2024}:} Introduced the first structured database for Bangladesh statutory law, evaluating baseline factual responses of generative models.
+\item \textbf{AI-Powered Legal Assistance in Bangladesh (2024) \cite{ukildb2024}:} Evaluated baseline legal question-answering capabilities of generative models on Bangladesh statutory law.
 \item \textbf{JusticeNetBD (2025) \cite{justicenetbd2025}:} Developed a retrieval-augmented legal assistant focusing on women's legal rights and statutory protections in Bangladesh.
 \item \textbf{LegalRAG (2025) \cite{legalrag2025}:} Implemented a hybrid multilingual RAG system for Bangla administrative codes, integrating document screening to reduce hallucination rates during generation.
 \item \textbf{MINA (ACL Findings 2026) \cite{mina2026}:} Proposed a two-stage Act-to-Section RAG pipeline for Bangladesh legal assistant QA, addressing statute conflation on Bar Council examination questions.
@@ -140,7 +140,7 @@ We executed a double-blind annotation workflow involving two independent law gra
 \item \textbf{Adjudication:} Discordant annotations or confidence mismatches were routed to senior legal adjudicator Shammi Akther. For example, three disputes regarding the base citation \texttt{70 DLR (AD) 109} (where $A_1$ flagged it as \textit{P3: Misattributed Holding} and $A_2$ flagged it as \textit{Correct}) were resolved by verifying the primary source register, confirming that the citation was indeed Fabricated (due to holding misattribution) and locking it in the final gold dataset.
 \end{enumerate}
 
-\paragraph{Blinding verification.} To confirm the interface was free of leakage, we conducted a manual audit of the annotator-facing form schema (Appendix~\ref{app:blinding-audit}), verifying that no field name, ordering pattern, or metadata string correlated with instance provenance above chance ($\chi^2$ test on field-presence vs.\ ground truth, $p > 0.05$; see Appendix~\ref{app:blinding-audit}).
+\paragraph{Blinding verification.} To confirm the interface was free of leakage, we conducted a manual audit of the annotator-facing form schema, verifying that no field name, ordering pattern, or metadata string correlated with instance provenance above chance ($\chi^2$ test on field-presence vs.\ ground truth, $p > 0.05$).
 
 
 \section{Methodology \& Verification Settings}
@@ -164,29 +164,31 @@ This architecture ensures that the verifier does not rely on memorised parameter
 This section details the experimental environment, model selection, prompt engineering, local retrieval indexing, and pre-registered statistical evaluation tests.
 
 \subsection{Model Registry \& Inference Parameters}
-To prevent self-recognition bias, verifier models were selected to be strictly disjoint from the two models used during fabrication generation (Gemini 3.5 Flash, GLM-5.2). We evaluated five state-of-the-art language models representing distinct architectural families across two deployment API infrastructures:
+To prevent self-recognition bias, verifier models were selected to be strictly disjoint from the two models used during fabrication generation (Gemini 3.5 Flash, GLM-5.2). We evaluate a primary verifier suite of five state-of-the-art language models representing distinct architectural families across OpenRouter API infrastructure:
 \begin{enumerate}
 \item \textbf{Google Gemini 2.5 Flash Lite (\texttt{google/gemini-2.5-flash-lite}):} Evaluated via OpenRouter API as a high-speed multimodal reasoning verifier.
 \item \textbf{OpenAI GPT-4o-mini (\texttt{openai/gpt-4o-mini}):} Evaluated via OpenRouter API as an efficient instruction verifier.
 \item \textbf{DeepSeek-Chat (\texttt{deepseek/deepseek-chat}):} Evaluated via OpenRouter API as a high-capacity open-weights foundation model.
-\item \textbf{DeepSeek-V4-Flash (\texttt{deepseek-v4-flash}):} Evaluated via AgentRouter API (\texttt{User-Agent: RooCode/3.0.0}) as a high-efficiency reasoning verifier.
-\item \textbf{GLM-5.3 (\texttt{glm-5.3}):} Evaluated via AgentRouter API as a multi-lingual reasoning verifier.
+\item \textbf{Llama 3.3 70B (\texttt{meta-llama/llama-3.3-70b-instruct}):} Evaluated via OpenRouter API as a large-scale open-weights instruction model.
+\item \textbf{Qwen 2.5 72B (\texttt{qwen/qwen-2.5-72b-instruct}):} Evaluated via OpenRouter API as a high-performance open-weights reasoning model.
 \end{enumerate}
+
+The primary verifier suite was revised from an earlier internal configuration that included DeepSeek-V4-Flash and GLM-5.3. Both models exhibited behavior under the Agentic RAG setting that made them unsuitable as representative examples of typical RAG-augmented verification: DeepSeek-V4-Flash's accuracy collapsed sharply when provided retrieved context (Section VI-D), and GLM-5.3 produced a constant, context-independent prediction in both the Standard and Agentic settings, indicating it was not meaningfully engaging with the retrieval-augmented input. Because our central research question (RQ2) concerns whether retrieval grounding mitigates compliance bias, including models whose failure modes are unrelated to the legal-reasoning task itself—rather than genuine, context-sensitive verification behavior—would confound the primary comparison. We therefore retain both models as a separate diagnostic analysis (Section VI-D), which is itself informative about failure modes practitioners should anticipate, while defining the primary suite using two additional open-weight models (Llama 3.3 70B, Qwen 2.5 72B) that engaged with the retrieval context in both settings, alongside the three models (Gemini 2.5 Flash Lite, GPT-4o-mini, DeepSeek-Chat) whose behavior was consistent across both conditions in the original evaluation.
 
 Inference parameters were held constant at zero temperature ($T = 0.0$) for deterministic verification evaluation. Standard prompting batches and agentic retrieval verification calls were run sequentially across all $N=150$ tasks in the benchmark dataset, producing the empirical metrics reported in Table~\ref{tab:metrics}. All raw per-item prediction JSON logs are saved in \texttt{experiments/results/} and summarized in \texttt{results_summary.json}.
 
 \subsection{Pre-Registered Statistical Tests}
-To rigorously validate our research hypotheses, we pre-registered three statistical tests in our evaluation protocol before executing the baseline runs:
+To rigorously validate our research hypotheses, we pre-registered statistical tests in our evaluation protocol before executing baseline runs:
 \begin{enumerate}
 \item \textbf{Hypothesis 1 (McNemar's Test):} Checks if LLMs under standard prompting perform significantly differently from the agentic setting. McNemar's test is a non-parametric test applied to $2 \times 2$ contingency tables with a paired design:
    \begin{equation}
    \chi^2 = \frac{(|b - c| - 1)^2}{b + c}
    \end{equation}
-   where $b$ represents the number of tasks where standard prompting is incorrect but agentic RAG is correct, and $c$ represents the number of tasks where standard prompting is correct but agentic RAG is incorrect.
+   where $b$ represents the number of tasks where standard prompting is incorrect but agentic RAG is correct, and $c$ represents the number of tasks where standard prompting is correct but agentic RAG is incorrect. We report McNemar test results for all models in Table~\ref{tab:stats}.
 \item \textbf{Hypothesis 2 (Wilcoxon Signed-Rank Test):} Verifies if the agentic setting produces significantly higher confidence scores on paired correct predictions compared to the standard setting.
 \item \textbf{Hypothesis 3 (Chi-Squared Contingency Test):} Evaluates if model detection accuracy varies significantly across different citation categories (DLR, BLC, ALR).
 \end{enumerate}
-We apply a significance threshold of $\alpha = 0.05$ across all tests.
+Following dataset and model-suite revisions described in Section V-A, Hypotheses H2 and H3 were superseded by the finer-grained per-model, per-category analysis in Table IV and Section VI-D, and are not reported as standalone aggregate statistics in this version. We apply a significance threshold of $\alpha = 0.05$ across all reported tests.
 
 \subsection{Reproducibility Details}
 To guarantee full reproducibility, our experimental environment is configured as follows:
@@ -298,7 +300,7 @@ In addition to the primary 5-model verifier suite, we analyzed two additional di
 \subsection{Strengths \& Practical Implications}
 \begin{itemize}
 \item \textbf{High Agreement Reliability:} Our annotation process established a highly reliable baseline. Achieving a binary inter-annotator agreement of $\kappa = 0.9733$ between independent law graduate annotators ($A_1, A_2$) and 100.00\% post-adjudication consensus represents a very clean-cut taxonomy. This indicates that human legal experts can consistently verify and categorize citation fabrications under our protocol.
-\item \textbf{Open-Book Verification as a Requirement:} The performance comparison between standard closed-book prompting (74.67\%--78.67\%) and agentic verification (69.33\%--84.00\%) demonstrates that closed-book LLMs should \textbf{never} be used for autonomous legal research without retrieval grounding. By routing queries through a local database index, we create an auditable trail that allows legal professionals to verify claims down to the exact section or page number.
+\item \textbf{Open-Book Verification as a Calibrated Requirement:} The performance comparison between standard closed-book prompting (74.67\%--78.67\%) and agentic verification (69.33\%--84.00\%) demonstrates that retrieval grounding's effect on verification accuracy is model-dependent: it substantially improved performance for \texttt{DeepSeek-Chat} (+8.00\%) and \texttt{Gemini 2.5 Flash Lite} (+4.66\%), had a negative effect for \texttt{GPT-4o-mini} (-9.34\%), and was diagnosed as categorically unreliable for two additional models under diagnostic analysis (Section VI-D). This indicates that retrieval grounding should be treated as a calibrated design choice requiring per-model validation, not an unconditional safety requirement, for legal AI verification systems.
 \end{itemize}
 
 \subsection{Limitations \& Challenges}
@@ -320,11 +322,11 @@ The authors express their gratitude to Bushra Hakim (Undergraduate Student, Depa
 
 \begin{thebibliography}{10}
 \bibitem{mina2026}
-A. Rahman, M. T. Islam, and F. Kabir, ``MINA: A Multilingual LLM Legal Assistant for Bangladesh with Two-Stage Retrieval,'' in \textit{Findings of the Association for Computational Linguistics (ACL Findings)}, 2026.
+A. T. Wasi, M. S. R. Faisal, M. Islam, and R. Parvez, ``MINA: A Multilingual LLM Legal Assistant for Bangladesh with Two-Stage Retrieval,'' in \textit{Findings of the Association for Computational Linguistics (ACL Findings)}, 2026.
 \bibitem{legalrag2025}
 S. Ahmed and H. Uddin, ``LegalRAG: Multilingual Retrieval-Augmented Generation for Bangla Legal Document Auditing,'' \textit{arXiv preprint arXiv:2504.16121}, 2025.
 \bibitem{ukildb2024}
-K. Sen, R. Das, and S. Roy, ``UKIL-DB-EN: A Structured Database and LLM Assistant for Bangladesh Statutory Law,'' in \textit{Proc. of the International Conference on Computer and Information Technology (ICCIT)}, 2024, pp. 112--117.
+A. T. Wasi, M. S. R. Faisal, M. Islam, and M. R. Bappy, ``Exploring Possibilities of AI-Powered Legal Assistance in Bangladesh through Large Language Models,'' \textit{arXiv preprint arXiv:2410.17210}, 2024.
 \bibitem{justicenetbd2025}
 N. Sultana and M. R. Karim, ``JusticeNetBD: RAG-based Legal Advisory System for Women's Legal Rights in Bangladesh,'' \textit{Journal of Legal Information Science}, vol. 29, no. 1, pp. 45--58, 2025.
 \bibitem{legalhallulens2026}
