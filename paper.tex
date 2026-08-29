@@ -53,9 +53,9 @@ To address these challenges, we introduce \textbf{BanLegit-Cite}, the first dedi
 
 Our primary contributions are threefold:
 \begin{enumerate}
-\item \textbf{The BanLegit-Cite Dataset:} A gold-standard annotated dataset of 150 tasks (74 real, 76 fabricated) covering DLR, BLC, and ALR case reports, major statutory codes (Penal Code 1860, CrPC, CPC), and brand-new statutory provisions from the \textit{Nari O Shishu Nirjatan Daman (Amendment) Act, 2026}.
+\item \textbf{The BanLegit-Cite Dataset:} A gold-standard annotated dataset of 150 tasks (74 real, 76 fabricated) covering DLR, BLC, and ALR case reports, major statutory codes (\textit{Penal Code 1860}, \textit{CrPC}, \textit{CPC}), and statutory provisions from the \textit{Nari O Shishu Nirjatan Daman Amendment Act, 2026}.
 \item \textbf{A Citation Fabrication Taxonomy:} A structured classification system dividing fabrications into 5 statutory categories (S1--S5) and 5 precedent categories (P1--P5) to diagnose specific model failures.
-\item \textbf{Rigorous Empirical Benchmark:} Evaluation of \texttt{gemini-3.5-flash} showing that standard prompting suffers from compliance bias (74.67\% accuracy), which is statistically significantly worse than the human baseline (McNemar's $p < 0.000001$), but can be mitigated to 100.00\% accuracy using our agentic setting.
+\item \textbf{Rigorous Empirical Benchmark:} Evaluation across 5 verifier models (\texttt{google/gemini-2.5-flash-lite}, \texttt{openai/gpt-4o-mini}, \texttt{deepseek/deepseek-chat}, \texttt{deepseek-v4-flash}, \texttt{glm-5.3}) establishing that standard closed-book prompting suffers from compliance bias, which is mitigated under open-book retrieval verification.
 \end{enumerate}
 
 \section{Related Work}
@@ -89,29 +89,30 @@ In citation-level factual auditing, recent benchmarks have attempted to formulat
 \section{Dataset \& Fabrication Taxonomy}
 To diagnose specific failure modes of language models, we developed a multi-tier taxonomy divided into two super-categories: \textbf{Statutory Fabrications} (applicable to acts, codes, and ordinances) and \textbf{Precedent Fabrications} (applicable to published judicial case law from reporters).
 
-\begin{table*}[htbp]
+\begin{table}[htbp]
 \caption{Citation Fabrication Taxonomy Structure}
-\begin{center}
+\label{tab:taxonomy}
+\centering
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{llll}
 \toprule
 \textbf{Code} & \textbf{Category Name} & \textbf{Description} & \textbf{Example (Penal Code / Reporter)} \\
 \midrule
-\textbf{S1} & Non-Existent Section & Section number does not exist in named Act & Section 515 of the Penal Code 1860 \\
+\textbf{S1} & Non-Existent Section & Section number does not exist in named Act & Section 515 of the \textit{Penal Code 1860} \\
 \textbf{S2} & Wrong Act Attribution & Section exists, but in another Act & Attrib. Section 326 to \textit{Nari O Shishu Ain} \\
 \textbf{S3} & Misstated Content & Section is real, but legal text is wrong & Claiming Section 302 governs theft \\
 \textbf{S4} & Cross-Jurisdictional Statute Bleed & Cites statutory section from India/Pakistan & Citing Section 498A of the Penal Code \\
-\textbf{S5} & Repealed/Superseded & Section has been repealed or replaced & Provision from Digital Security Act 2018 \\
+\textbf{S5} & Repealed/Superseded & Section has been repealed or replaced & Provision from \textit{Digital Security Act 2018} \\
 \midrule
-\textbf{P1} & Non-Existent Case & Case name or entire locator is fictional & \textit{Kalam v. The State, 75 DLR (AD) 405} \\
-\textbf{P2} & Wrong Citation Locator & Case exists, but volume/page is incorrect & \textit{State v. Sukur Ali, 67 DLR (AD) 485} (true is 185) \\
+\textbf{P1} & Non-Existent Case & Case name or entire locator is fictional & \textit{Kalam v. The State}, 75 DLR (AD) 405 \\
+\textbf{P2} & Wrong Citation Locator & Case exists, but volume/page is incorrect & \textit{State v. Sukur Ali}, 67 DLR (AD) 485 \\
 \textbf{P3} & Misattributed Holding & Case and locator are real, but holding is fake & Citing arrest guideline case for tax laws \\
-\textbf{P4} & Wrong Court Level & Attributes HCD decision to AD or vice versa & Citing HCD \textit{X v. Y, 65 DLR 112} as AD ruling \\
+\textbf{P4} & Wrong Court Level & Attributes HCD decision to AD or vice versa & Citing HCD \textit{X v. Y}, 65 DLR 112 as AD ruling \\
 \textbf{P5} & Cross-Jurisdictional Precedent Bleed & Cites foreign case law as binding local precedent & Citing Indian \textit{Kesavananda Bharati} as BD AD case \\
 \bottomrule
-\end{tabular}
-\label{tab:taxonomy}
-\end{center}
-\end{table*}
+\end{tabular}%
+}
+\end{table}
 
 \subsection{Dataset Curation and Programmatic Fabrication}
 To construct the benchmark, we first compiled a corpus of verified, real landmark case law citations from primary Bangladeshi case reporters (\textit{Dhaka Law Reports}, \textit{Bangladesh Law Chronicles}, \textit{Apex Law Reports}) and statutory codes (Penal Code 1860, CrPC, CPC, and the \textit{Nari O Shishu Nirjatan Daman Amendment Act 2026}). To introduce controlled legal anomalies without parametric bias, we employed a hybrid programmatic fabrication pipeline across two sequential dataset construction phases:
@@ -192,10 +193,11 @@ To guarantee full reproducibility, our experimental environment is configured as
 \section{Results \& Analysis}
 This section presents the live empirical performance of the evaluated language models across Standard Prompting and Agentic RAG settings over the full $N=150$ gold benchmark.
 
-\begin{table*}[t]
+\begin{table}[htbp]
 \caption{5-Model Verifier Performance Metrics Across Verification Settings ($N=150$)}
 \label{tab:metrics}
 \centering
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcccccccc}
 \toprule
 \textbf{Model} & \textbf{Setting} & \textbf{Acc.} & \textbf{REAL P} & \textbf{REAL R} & \textbf{REAL F1} & \textbf{FAB P} & \textbf{FAB R} & \textbf{FAB F1} \\
@@ -215,8 +217,9 @@ This section presents the live empirical performance of the evaluated language m
 \textbf{GLM-5.3} & Standard & 0.5067 & 0.0000 & 0.0000 & 0.0000 & 0.5067 & 1.0000 & 0.6726 \\
 \textbf{GLM-5.3} & Agentic RAG & 0.5067 & 0.0000 & 0.0000 & 0.0000 & 0.5067 & 1.0000 & 0.6726 \\
 \bottomrule
-\end{tabular}
-\end{table*}
+\end{tabular}%
+}
+\end{table}
 
 \subsection{Analysis of Baseline Performance}
 \begin{itemize}
@@ -224,11 +227,12 @@ This section presents the live empirical performance of the evaluated language m
 \item \textbf{The Agentic RAG Impact:} Grounding verifiers with BM25-retrieved primary legal texts improves performance for reasoning models, boosting Gemini 2.5 Flash Lite from 76.00\% to \textbf{80.67\%} accuracy and DeepSeek-Chat from 74.67\% to \textbf{78.67\%} accuracy. Conversely, models with high prompt sensitivity show drop-offs under RAG framing, proving that retrieval integration requires careful prompt design.
 \end{itemize}
 
-\begin{table}[htbp]
+\begin{table}[!t]
 \caption{Pre-registered Statistical Hypotheses Testing ($\alpha=0.05$)}
 \label{tab:stats}
 \centering
-\begin{tabular}{lllll}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llll}
 \toprule
 \textbf{Model} & \textbf{McNemar $\chi^2$} & \textbf{p-value} & \textbf{Statistical Significance} \\
 \midrule
@@ -238,7 +242,8 @@ This section presents the live empirical performance of the evaluated language m
 \textbf{DeepSeek-V4-Flash} & 35.5577 & $<0.000001$ & \textbf{Significant ($p < 0.05$)} \\
 \textbf{GLM-5.3} & 0.0000 & 1.000000 & Not Significant ($p > 0.05$) \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \subsection{Category-Level Performance Breakdown}
