@@ -120,9 +120,13 @@ To diagnose specific failure modes of language models, we developed a multi-tier
 \end{table*}
 
 \subsection{Dataset Curation and Programmatic Fabrication}
-To construct the benchmark, we first compiled a corpus of verified, real landmark case law citations from the primary Bangladeshi case reporters: the \textit{Dhaka Law Reports (DLR)} and the \textit{Bangladesh Law Chronicles (BLC)}. Rather than relying on commercial language models to generate citation errors---which would introduce parametric bias and risk evaluation collusion---we utilized a deterministic, rule-based programmatic pipeline to construct the fabricated entries. 
+To construct the benchmark, we first compiled a corpus of verified, real landmark case law citations from primary Bangladeshi case reporters (\textit{Dhaka Law Reports}, \textit{Bangladesh Law Chronicles}, \textit{Apex Law Reports}) and statutory codes (Penal Code 1860, CrPC, CPC, and the \textit{Nari O Shishu Nirjatan Daman Amendment Act 2026}). To introduce controlled legal anomalies without parametric bias, we employed a hybrid programmatic fabrication pipeline across two sequential dataset construction phases:
+\begin{enumerate}
+\item \textbf{Phase 1 Fabrication (Initial 45 Tasks):} Constructed using Gemini 3.5 Flash, generating initial statutory section shifts ($S1$--$S5$) and precedent locator mutations ($P1$--$P5$).
+\item \textbf{Phase 2 Fabrication (Remaining 31 Tasks):} Extended using GLM-5.2 via the OpenRouter API (\texttt{z-ai/glm-5.2:free}), generating complex misattributed holdings ($P3$), repealed section anomalies ($S5$), and cross-jurisdictional statutory bleeds ($S4$).
+\end{enumerate}
 
-For each real case, we introduced controlled mutations to create fabricated variants. Specifically, page numbers were shifted by fixed offsets to generate incorrect locator variants (categorized under P2), while holdings were cross-paired with incorrect citation strings to generate misattributed holding variants (categorized under P3). This programmatic approach guarantees that the ground truth of fabrication is deterministically defined and perfectly reproducible, creating a clean boundary between the rule-based anomaly generation and the downstream model verification evaluation.
+For each real case, page numbers were shifted by fixed numerical offsets to generate incorrect locator variants ($P2$), while holdings were cross-paired with incorrect citation strings ($P3$). This dual-generator approach guarantees that ground truth is deterministically defined, creating a clean boundary between anomaly generation and downstream verifier evaluation.
 
 \subsection{Blinded Double-Annotation \& Adjudication Pipeline}
 To ensure the integrity of the ground-truth labels and prevent label leakage, the annotator-facing interface excludes any metadata that could reveal ground-truth status (e.g., internal organizational identifiers used for dataset construction). Each task presents only the legal context, the target citation, and the purported source document; no field indicates whether an instance was constructed as a genuine or fabricated citation. 
