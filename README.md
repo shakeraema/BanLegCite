@@ -1,107 +1,157 @@
 # BanLegit-Cite: A Legal Citation Legitimacy Benchmark Dataset for the Bangladeshi Jurisdiction
 
-Official repository for **BanLegit-Cite**, an academic legal NLP research project targeting citation legitimacy verification and hallucination auditing in the Bangladeshi jurisdiction. 
+Official open-source repository for **BanLegit-Cite**, an academic legal NLP benchmark dataset and post-generation hallucination auditing framework for the Bangladeshi legal jurisdiction.
+
+[![LaTeX Paper](https://img.shields.to/badge/Paper-IEEEtran%20LaTeX-blue.svg)](paper.tex)
+[![Dataset](https://img.shields.to/badge/Dataset-N%3D150%20Gold%20Tasks-green.svg)](banlegit_cite_v2_dataset.csv)
+[![License](https://img.shields.to/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
-## 👥 Authors & Affiliations
+## 👥 Authors & Collaborators
 
-*   **Shakera Jannat Ema** (Dept. of Software Engineering, Shahjalal University of Science and Technology, Sylhet, Bangladesh)
-*   **M. M. Zahid Hasan** (Dept. of Software Engineering, Shahjalal University of Science and Technology, Sylhet, Bangladesh)
+### 🎓 Authors & Research Leads
+* **Shakera Jannat Ema** — Department of Software Engineering, Shahjalal University of Science and Technology (SUST), Sylhet, Bangladesh (`shakeraema@gmail.com`)
+* **M. M. Zahid Hasan** — Department of Software Engineering, Shahjalal University of Science and Technology (SUST), Sylhet, Bangladesh (`zahidhasan7@gmail.com`)
 
-### 🖋️ Student Annotators
-*   **Shakila Sharmin** (Islamic University, Kushtia, Bangladesh)
-*   **Haris Rahman Antor** (Leading University, Sylhet, Bangladesh)
+### 🖋️ Double-Blind Human Law Annotators
+* **Bushra Hakim** — Undergraduate Student, Department of Law, Leading University, Sylhet, Bangladesh
+* **Haris Rahman Antor** — Law Graduate, Department of Law, Leading University, Sylhet, Bangladesh
 
----
-
-## 📖 Overview
-
-Large Language Models (LLMs) frequently hallucinate legal authorities, statutory sections, and case precedents, posing severe risks for automated advisory systems. While Retrieval-Augmented Generation (RAG) improves output quality, post-generation citation auditing remains an open challenge, especially in low-resource common law jurisdictions like Bangladesh where transitional naming conventions (e.g., Appellate Division vs. High Court Division splits) introduce lexical naming inconsistencies.
-
-**BanLegit-Cite** is the first gold-standard benchmark and evaluation protocol designed to audit legal citation legitimacy in Bangladesh. It includes a structured fabrication taxonomy consisting of:
-*   **Statutory Fabrications (S1–S5):** Non-existent sections, wrong Act attributions, misstated content, cross-jurisdictional statute bleed, and repealed/superseded laws.
-*   **Precedent Fabrications (P1–P5):** Non-existent cases, wrong citation locators, misattributed holdings, wrong court levels, and cross-jurisdictional precedent bleed.
+### ⚖️ Senior Legal Adjudicator
+* **Shammi Akther** — Assistant Law Officer, Rajdhani Unnayan Kartripakkha (RAJUK), Dhaka, Bangladesh
 
 ---
 
-## 📊 Experimental Results
+## 📖 Executive Summary & Overview
 
-We benchmarked **Gemini 3.5 Flash** on the final gold-standard dataset of **90 unique tasks** (45 real, 45 fabricated cases) spanning major reporters (Dhaka Law Reports [DLR], Bangladesh Law Chronicles [BLC], and Apex Law Reports [ALR]).
+Large Language Models (LLMs) applied in the legal domain frequently hallucinate statutory sections and judicial precedents with high linguistic fluency. In low-resource common law jurisdictions like Bangladesh, post-generation citation auditing is hampered by transitional court naming variations (e.g., Appellate Division vs. High Court Division splits), dual reporter locators, and unindexed physical volume archives.
 
-### Primary Performance Metrics
-| Verification Setting | Accuracy | REAL Precision | REAL Recall | REAL F1 | FAB Precision | FAB Recall | FAB F1 |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Standard (Zero-Shot)** | **78.89%** | 0.7955 | 0.7778 | 0.7865 | 0.7826 | 0.8000 | 0.7912 |
-| **Agentic (RAG-Augmented)** | **100.00%** | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+**BanLegit-Cite** introduces the first gold-standard benchmark ($N=150$ tasks: 74 genuine, 76 fabricated) and evaluation protocol specifically designed to audit legal citation legitimacy in Bangladesh.
 
-### Pre-Registered Statistical Hypotheses
-*   **H1 (LLM vs. Human Expert Baseline):** **Supported** ($p = 0.008829$, $\alpha = 0.05$). Standard prompting performs statistically significantly worse than human legal annotators due to compliance bias (defaulting to accepting fabricated references).
-*   **H2 (Agentic vs. Standard Confidence):** **Supported** ($W = 0.0, p = 0.000019$, $\alpha = 0.05$). The agentic setting produces statistically significantly higher confidence scores on correct predictions compared to standard prompting.
-*   **H3 (Reporter Category Bias):** **Not Supported** ($p = 0.229680$, $\alpha = 0.05$). The model's verification accuracy is robust and does not vary significantly across different citation reporter sub-corpora.
+### 📐 Double-Blind Annotation Reliability
+- **Inter-Annotator Agreement (IAA):** Binary Cohen's Kappa $\kappa = 0.9733$ between independent law graduate annotators ($A_1, A_2$).
+- **Senior Legal Adjudication:** 100.00% consensus following adjudication by Assistant Law Officer Shammi Akther.
 
 ---
 
-## 🛠️ Installation & Setup
+## 🏷️ Citation Fabrication Taxonomy
 
-### Prerequisites
-*   **Python:** CPython `3.10.8` (or compatible 3.10+ runtime)
-*   **Gemini API Key:** Required for live model queries (set as `GEMINI_API_KEY` in environment)
+Our structured taxonomy categorizes legal citation anomalies into two distinct super-categories:
 
-### Environment Initialization
+### 1. Statutory Fabrications (S1–S5)
+| Code | Category Name | Description | Example (Statute) |
+| :---: | :--- | :--- | :--- |
+| **S1** | Non-Existent Section | Section number does not exist in named Act | Section 515, *Penal Code 1860* |
+| **S2** | Wrong Act Attribution | Real section attributed to wrong Act | Attributing Sec. 326 to *Nari O Shishu Ain* |
+| **S3** | Misstated Statutory Content | Section is real, but legal text is mutated | Claiming Sec. 302 governs theft |
+| **S4** | Cross-Jurisdictional Statute Bleed | Foreign statutory section cited as local law | Citing Indian CrPC Sec. 438 in BD court |
+| **S5** | Repealed / Superseded Law | Cites repealed law without amendment context | Citing repealed *DSA 2018* for 2026 offense |
+
+### 2. Precedent Fabrications (P1–P5)
+| Code | Category Name | Description | Example (Reporter) |
+| :---: | :--- | :--- | :--- |
+| **P1** | Completely Non-Existent Case | Case title and volume locator are fictitious | *Rahman v. State*, 99 DLR (AD) 888 |
+| **P2** | Wrong Citation Locator | Real case, but volume or page number is mutated | *Masdar Hossain* cited as 55 DLR (AD) 99 |
+| **P3** | Misattributed Holding | Real citation locator, but holding is fabricated | Claiming *Anwar Hossain* legalized 8th Amend. |
+| **P4** | Wrong Court Level / Division | Real case attributed to wrong division/level | Attributing HCD ruling to Appellate Division |
+| **P5** | Cross-Jurisdictional Precedent Bleed | Foreign case law cited as binding local precedent | Citing Indian *Kesavananda Bharati* as BD AD case |
+
+---
+
+## 📊 Empirical Verification Results
+
+Evaluations across our primary 5-verifier suite ($N=150$ gold tasks) demonstrate that standard closed-book prompting suffers from compliance bias, while open-book retrieval verification produces model-dependent effects:
+
+### Primary Verifier Suite ($N=150$)
+| Model Name | Verification Setting | Accuracy | REAL Precision | REAL Recall | REAL F1 | FAB Precision | FAB Recall | FAB F1 | McNemar $p$-value |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Google Gemini 2.5 Flash Lite** | Standard | 76.67% | 0.7097 | 0.8919 | 0.7904 | 0.8596 | 0.6447 | 0.7368 | — |
+| **Google Gemini 2.5 Flash Lite** | Agentic RAG | **81.33%** | 0.7614 | 0.9054 | 0.8272 | 0.8871 | 0.7237 | 0.7971 | $p = 0.2109$ |
+| **OpenAI GPT-4o-mini** | Standard | 78.67% | 0.7386 | 0.8784 | 0.8025 | 0.8548 | 0.6974 | 0.7681 | — |
+| **OpenAI GPT-4o-mini** | Agentic RAG | 69.33% | 0.6228 | 0.9595 | 0.7553 | 0.9167 | 0.4342 | 0.5893 | **$p = 0.0140$** |
+| **DeepSeek-Chat** | Standard | 76.00% | 0.6863 | 0.9459 | 0.7955 | 0.9167 | 0.5789 | 0.7097 | — |
+| **DeepSeek-Chat** | Agentic RAG | **84.00%** | 0.7907 | 0.9189 | 0.8500 | 0.9063 | 0.7632 | 0.8286 | **$p = 0.0139$** |
+| **Llama 3.3 70B** | Standard | 76.67% | 0.7010 | 0.9189 | 0.7953 | 0.8868 | 0.6184 | 0.7287 | — |
+| **Llama 3.3 70B** | Agentic RAG | 76.00% | 0.6792 | 0.9730 | 0.8000 | 0.9545 | 0.5526 | 0.7000 | $p = 1.0000$ |
+| **Qwen 2.5 72B** | Standard | 74.67% | 0.7000 | 0.8514 | 0.7683 | 0.8167 | 0.6447 | 0.7206 | — |
+| **Qwen 2.5 72B** | Agentic RAG | 71.33% | 0.6742 | 0.8108 | 0.7362 | 0.7705 | 0.6184 | 0.6861 | $p = 0.2673$ |
+
+### Category-Level Accuracy Breakdown
+| Model | DLR ($N=47$) Std / Agt | BLC ($N=16$) Std / Agt | ALR ($N=15$) Std / Agt | Statute ($N=72$) Std / Agt |
+| :--- | :---: | :---: | :---: | :---: |
+| **Gemini 2.5 Flash Lite** | 76.60% / 68.09% | 31.25% / 81.25% | 93.33% / 100.00% | 83.33% / 86.11% |
+| **GPT-4o-mini** | 78.72% / 70.21% | 37.50% / 18.75% | 93.33% / 46.67% | 84.72% / 84.72% |
+| **DeepSeek-Chat** | 76.60% / 76.60% | 31.25% / 75.00% | 66.67% / 86.67% | 87.50% / 90.28% |
+| **Llama 3.3 70B** | 76.60% / 68.09% | 37.50% / 37.50% | 80.00% / 80.00% | 84.72% / 88.89% |
+| **Qwen 2.5 72B** | 76.60% / 65.96% | 50.00% / 43.75% | 66.67% / 73.33% | 80.56% / 80.56% |
+
+---
+
+## 🛠️ Quickstart & Reproduction Guide
+
+### 1. Prerequisites
+- **Python**: CPython `3.10` or higher
+- **OpenRouter API Key**: Set `OPENROUTER_API_KEY` in environment
+
+### 2. Environment Setup
 ```bash
-# 1. Clone the repository
+# Clone repository
 git clone https://github.com/ZahidHasan7/BanLegit-Cite.git
 cd BanLegit-Cite
 
-# 2. Set up virtual environment and install pinned dependencies
+# Install dependencies
 python3 -m venv venv
 source venv/bin/activate
-pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
----
-
-## 🚀 Running Pipelines & Checks
-
-### 1. Programmatic Citation Fabrication
-Mutate raw verified precedents into realistic fabricated cases:
+### 3. Run Benchmark Verification Suite
 ```bash
-GEMINI_API_KEY="your-api-key" python3 scripts/fabrication/fabricator.py
+# Execute master 5-verifier benchmark across all N=150 tasks
+OPENROUTER_API_KEY="your_api_key_here" python scripts/evaluation/run_full_raw_verifier_suite.py
 ```
 
-### 2. Live Model Baseline Evaluation
-Evaluate both standard and agentic settings across all 90 benchmark items:
+### 4. Run Paper Consistency Audits
 ```bash
-GEMINI_API_KEY="your-api-key" PYTHONPATH=. python3 scripts/evaluation/run_phase4.py --limit 90
-```
-
-### 3. Reproducibility Verification
-Run the automated reproducibility test suite to verify requirements and results integrity:
-```bash
-python3 scripts/utils/repro_check.py
-```
-
-### 4. Code Packaging Release
-Build clean CSV/JSON dataset releases under `data/release/` and calculate SHA256 checksums:
-```bash
-python3 scripts/utils/release_package.py
+# Verify 100% citation matching and paper-codebase consistency
+python scripts/utils/audit_paper_citations.py
+python scripts/utils/verify_paper_stats.py
 ```
 
 ---
 
-## 📂 Project Structure
+## 📂 Repository Structure
 
 ```
-├── data/
-│   ├── raw/         # Raw citation source files (DLR, BLC, ALR)
-│   └── release/     # Unified clean datasets (CSV, JSON, SHA256 checksums)
+├── banlegit_cite_v2_dataset.csv  # Canonical Gold Benchmark Dataset (N=150)
+├── tasks_150_v2.jsonl            # Full JSONL Task Specifications with Extracted URLs
+├── tasks_real_75.jsonl           # Verified Real Citations Sub-dataset (N=74)
+├── tasks_fabricated_75.jsonl     # Verified Fabricated Citations Sub-dataset (N=76)
+├── paper.tex                     # Compilable IEEEtran LaTeX Source Code of the Paper
+├── results_summary.json          # Synchronized Statistical Results & Metrics JSON
+├── annotation/                   # Raw Annotator Reports & Adjudication Registers
+│   ├── senior_lawyer_adjudication_report.md
+│   ├── bushra_annotaion_report.md
+│   └── haris_annotation_report.md
 ├── scripts/
-│   ├── evaluation/  # Baseline evaluation, statistical testing, and simulation scripts
-│   ├── fabrication/ # LLM-based precedent fabrication scripts
-│   └── utils/       # Release packager and reproducibility checks
-├── tests/           # Pytest unit tests for prompts, retrievers, and metrics
-├── paper.tex        # Full compilable LaTeX source code of the manuscript
-└── requirements.txt # Pinned python package dependencies
+│   ├── evaluation/               # Master Benchmark Execution Scripts
+│   └── utils/                    # Paper Citation Audit & Consistency Verification Scripts
+├── experiments/results/          # Raw Per-Item Itemized Model Prediction JSON Logs
+└── requirements.txt              # Pinned Dependencies
+```
+
+---
+
+## 📜 Citation
+
+If you use BanLegit-Cite in your research, please cite our IEEEtran paper:
+
+```bibtex
+@inproceedings{ema2026banlegitcite,
+  title={BanLegit-Cite: A Legal Citation Legitimacy Benchmark Dataset for the Bangladeshi Jurisdiction},
+  author={Ema, Shakera Jannat and Hasan, M. M. Zahid},
+  booktitle={Proceedings of the International Conference on Computer and Information Technology (ICCIT)},
+  year={2026}
+}
 ```
