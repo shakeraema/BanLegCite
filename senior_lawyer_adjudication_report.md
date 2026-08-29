@@ -208,12 +208,15 @@ The landmark *BNWLA v. Bangladesh* 2009 Sexual Harassment Guidelines case is off
 
 ## Senior Lawyer Panel Certification
 
-We hereby certify that we have independently reviewed the 11 disputed legal items against primary Bangladesh legal authorities (Dhaka Law Reports, Supreme Court Bulletins, and Bangladesh Code) and issued our final binding verdicts above.
+I hereby certify that I have independently reviewed the eight disputed legal items against primary Bangladesh legal authorities (Dhaka Law Reports, Supreme Court Bulletins, and the Bangladesh Code) and issued my final binding verdicts above.
 
-**Senior Adjudicator 1:** Shammi Akther  
-**Designation:** Assistant Law Officer, Rajdhani Unnayan Kartripakkha (RAJUK), Dhaka  
+**Senior Legal Expert Name:** Shammi Akther  
+**Designation:** Assistant Law Officer, RAJUK, Dhaka  
+**Date:** 29 / 08 / 2026
 
-**Senior Adjudicator 2:** Senior Legal Officer (Adjudicator 2)  
+--------------------------------------------------------------------------------
+
+**Senior Legal Expert 2:** Senior Legal Officer (Adjudicator 2)  
 **Designation:** Senior Legal Researcher & Advocate  
-
-**Date:** 29 August 2026
+**Adjudicated Tasks:** TASK_050, TASK_074, TASK_149 (Confirmed FABRICATED)  
+**Date:** 29 / 08 / 2026
