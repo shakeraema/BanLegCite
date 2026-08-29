@@ -1,0 +1,12 @@
+{
+  "glm-5.3": {
+    "Standard_Accuracy": 0.8,
+    "Agentic_Accuracy": 0.7,
+    "NearMiss_HardAnomaly_Accuracy": 0.6
+  },
+  "deepseek-v4-flash": {
+    "Standard_Accuracy": 0.9,
+    "Agentic_Accuracy": 1.0,
+    "NearMiss_HardAnomaly_Accuracy": 0.4
+  }
+}
