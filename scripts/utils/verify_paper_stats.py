@@ -1,5 +1,4 @@
 import json
-import re
 
 with open("results_summary.json", "r") as f:
     summary = json.load(f)
@@ -29,9 +28,10 @@ for m in models:
 assert "To prevent self-recognition bias" in tex, "Generator/Verifier separation narrative missing from paper.tex!"
 print("✅ Generator/Verifier separation narrative present in paper.tex")
 
-# Check anonymization
-assert "Anonymous Author(s)" in tex, "Author block not anonymized!"
-assert "shakeraema" not in tex.split("\\title")[1].split("\\maketitle")[0], "Personal GitHub handle found in title author block!"
-print("✅ Double-blind anonymization confirmed in paper.tex")
+# Check author & contributor names
+authors = ["Shakera Jannat Ema", "M. M. Zahid Hasan", "Bushra Hakim", "Haris Rahman Antor", "Shammi Akther"]
+for a in authors:
+    assert a in tex, f"Name '{a}' missing from paper.tex!"
+    print(f"✅ Name '{a}' confirmed in paper.tex")
 
-print("\nALL CONSISTENCY CHECKS PASSED PERFECTLY! Ready for ICCIT submission.")
+print("\nALL CONSISTENCY CHECKS PASSED PERFECTLY! Ready for submission.")

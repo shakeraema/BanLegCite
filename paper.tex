@@ -14,13 +14,20 @@
     
 \begin{document}
 
-\title{BanLegit-Cite: A Legal Citation Legitimacy Benchmark Dataset for the Bangladeshi Jurisdiction\thanks{The code, prompts, and final dataset for this paper are open-source and available in the supplementary material mirror at \href{https://github.com/anonymous/BanLegCite}{https://github.com/anonymous/BanLegCite}.}}
+\title{BanLegit-Cite: A Legal Citation Legitimacy Benchmark Dataset for the Bangladeshi Jurisdiction\thanks{The code, prompts, and final dataset for this paper are open-source and available at \href{https://github.com/shakeraema/BanLegCite}{https://github.com/shakeraema/BanLegCite}.}}
 
-\author{\IEEEauthorblockN{Anonymous Author(s)}
-\IEEEauthorblockA{\textit{Department of Computer Science and Software Engineering} \\
-\textit{Anonymized Institution for Double-Blind Review}\\
-Anonymized Country \\
-\texttt{anonymous@author.org}}
+\author{
+\IEEEauthorblockN{Shakera Jannat Ema}
+\IEEEauthorblockA{\textit{Dept. of Software Engineering} \\
+\textit{Shahjalal University of Science and Technology}\\
+Sylhet, Bangladesh \\
+shakeraema@gmail.com}
+\and
+\IEEEauthorblockN{M. M. Zahid Hasan}
+\IEEEauthorblockA{\textit{Dept. of Software Engineering} \\
+\textit{Shahjalal University of Science and Technology}\\
+Sylhet, Bangladesh \\
+zahidhasan7@gmail.com}
 }
 
 \maketitle
@@ -126,11 +133,11 @@ For each real case, page numbers were shifted by fixed numerical offsets to gene
 \subsection{Blinded Double-Annotation \& Adjudication Pipeline}
 To ensure the integrity of the ground-truth labels and prevent label leakage, the annotator-facing interface excludes any metadata that could reveal ground-truth status (e.g., internal organizational identifiers used for dataset construction). Each task presents only the legal context, the target citation, and the purported source document; no field indicates whether an instance was constructed as a genuine or fabricated citation. 
 
-We executed a double-blind annotation workflow involving two independent law graduate annotators ($A_1$ and $A_2$) and a senior legal adjudicator.
+We executed a double-blind annotation workflow involving two independent law graduate annotators—$A_1$ (Bushra Hakim, Undergraduate Student, Leading University) and $A_2$ (Haris Rahman Antor, Law Graduate, Leading University)—and a senior legal adjudicator (Shammi Akther, Assistant Law Officer, RAJUK).
 \begin{enumerate}
 \item \textbf{Independent Annotation:} Annotators independently labeled all $N=150$ instances under this blinded interface before any adjudication step. For each task, they assigned a binary legitimacy status, a specific taxonomy category code, and a confidence level (Low, Medium, High).
-\item \textbf{Agreement Calculation:} We calculated Inter-Annotator Agreement (IAA) using Cohen's Kappa ($\kappa$). Our pipeline achieved a binary agreement of $\kappa = 0.9733$ between independent annotators and 100.00\% agreement following senior legal adjudication, demonstrating near-perfect agreement reliability.
-\item \textbf{Adjudication:} Discordant annotations or confidence mismatches were routed to a senior legal adjudicator. For example, three disputes regarding the base citation \texttt{70 DLR (AD) 109} (where $A_1$ flagged it as \textit{P3: Misattributed Holding} and $A_2$ flagged it as \textit{Correct}) were resolved by verifying the primary source register, confirming that the citation was indeed Fabricated (due to holding misattribution) and locking it in the final gold dataset.
+\item \textbf{Agreement Calculation:} We calculated Inter-Annotator Agreement (IAA) using Cohen's Kappa ($\kappa$). Our pipeline achieved a binary agreement of $\kappa = 0.9733$ between independent annotators and 100.00\% agreement following senior legal adjudication by Assistant Law Officer Shammi Akther, demonstrating near-perfect agreement reliability.
+\item \textbf{Adjudication:} Discordant annotations or confidence mismatches were routed to senior legal adjudicator Shammi Akther. For example, three disputes regarding the base citation \texttt{70 DLR (AD) 109} (where $A_1$ flagged it as \textit{P3: Misattributed Holding} and $A_2$ flagged it as \textit{Correct}) were resolved by verifying the primary source register, confirming that the citation was indeed Fabricated (due to holding misattribution) and locking it in the final gold dataset.
 \end{enumerate}
 
 \paragraph{Blinding verification.} To confirm the interface was free of leakage, we conducted a manual audit of the annotator-facing form schema (Appendix~\ref{app:blinding-audit}), verifying that no field name, ordering pattern, or metadata string correlated with instance provenance above chance ($\chi^2$ test on field-presence vs.\ ground truth, $p > 0.05$; see Appendix~\ref{app:blinding-audit}).
@@ -231,10 +238,10 @@ This section presents the live empirical performance of the evaluated language m
 \caption{Pre-registered Statistical Hypotheses Testing ($\alpha=0.05$)}
 \label{tab:stats}
 \centering
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{llll}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{@{}lccp{1.45in}@{}}
 \toprule
-\textbf{Model} & \textbf{McNemar $\chi^2$} & \textbf{p-value} & \textbf{Statistical Significance} \\
+\textbf{Model} & \textbf{McNemar $\chi^2$} & \textbf{p-value} & \textbf{\shortstack{Statistical\\Significance}} \\
 \midrule
 \textbf{Gemini 2.5 Flash Lite} & 1.7143 & 0.190430 & Not Significant ($p > 0.05$) \\
 \textbf{GPT-4o-mini} & 6.5000 & 0.010787 & \textbf{Significant ($p < 0.05$)} \\
@@ -242,8 +249,7 @@ This section presents the live empirical performance of the evaluated language m
 \textbf{DeepSeek-V4-Flash} & 35.5577 & $<0.000001$ & \textbf{Significant ($p < 0.05$)} \\
 \textbf{GLM-5.3} & 0.0000 & 1.000000 & Not Significant ($p > 0.05$) \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular}
 \end{table}
 
 \subsection{Category-Level Performance Breakdown}
@@ -305,8 +311,8 @@ In this paper, we presented \textit{BanLegit-Cite}, the first gold-standard benc
 
 Our live empirical evaluations across Google Gemini 2.5 Flash Lite, OpenAI GPT-4o-mini, and DeepSeek-Chat demonstrated that standard closed-book prompting yields accuracies between 74.67\% and 79.33\%, failing to identify fabrications due to compliance bias where models default to accepting unverified legal references. Introducing an \textbf{Agentic RAG setting} with local BM25 grounding mitigates this compliance bias, boosting verification accuracy up to 80.67\% (Gemini 2.5 Flash Lite) and 78.67\% (DeepSeek-Chat). Our findings establish that open-book retrieval verification is an essential safety requirement for deploying legal AI assistants in low-resource common law environments.
 
-%\section*{Acknowledgment}
-%The authors would like to thank two independent law graduate annotators for their diligent double-blind annotation work and legal verification contributions (acknowledged upon final acceptance).
+\section*{Acknowledgment}
+The authors express their gratitude to Bushra Hakim (Undergraduate Student, Department of Law, Leading University) and Haris Rahman Antor (Law Graduate, Department of Law, Leading University) for their rigorous double-blind dataset annotation. We also extend special thanks to Shammi Akther, Assistant Law Officer at RAJUK (Rajdhani Unnayan Kartripakkha), for providing expert legal adjudication to resolve dataset conflicts and establish authoritative ground truth.
 
 \begin{thebibliography}{10}
 \bibitem{mina2026}
