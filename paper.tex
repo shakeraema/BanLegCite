@@ -121,26 +121,59 @@ To diagnose specific failure modes of language models, we developed a multi-tier
 }
 \end{table}
 
-\subsection{Dataset Curation and Programmatic Fabrication}
-To construct the benchmark, we first compiled a corpus of verified, real landmark case law citations from primary Bangladeshi case reporters (\textit{Dhaka Law Reports}, \textit{Bangladesh Law Chronicles}, \textit{Apex Law Reports}) and statutory codes (Penal Code 1860, CrPC, CPC, and the \textit{Nari O Shishu Nirjatan Daman Amendment Act 2026}). To introduce controlled legal anomalies without parametric bias, we employed a hybrid programmatic fabrication pipeline across two sequential dataset construction phases:
+\subsection{Dataset Curation and Fabrication Mechanisms}
+To construct the benchmark, we first compiled a corpus of verified, real landmark case law citations from primary Bangladeshi case reporters (\textit{Dhaka Law Reports}, \textit{Bangladesh Law Chronicles}, \textit{Apex Law Reports}) and statutory codes (Penal Code 1860, CrPC, CPC, and the \textit{Nari O Shishu Nirjatan Daman Amendment Act 2026}). To introduce controlled legal anomalies without parametric bias, we employed a hybrid dataset construction pipeline combining programmatic mutations and LLM-assisted generation across two phases:
 \begin{enumerate}
-\item \textbf{Phase 1 Fabrication (Initial 45 Tasks):} Constructed using Gemini 3.5 Flash, generating initial statutory section shifts ($S1$--$S5$) and precedent locator mutations ($P1$--$P5$).
-\item \textbf{Phase 2 Fabrication (Remaining 31 Tasks):} Extended using GLM-5.2 via the OpenRouter API (\texttt{z-ai/glm-5.2:free}), generating complex misattributed holdings ($P3$), repealed section anomalies ($S5$), and cross-jurisdictional statutory bleeds ($S4$).
+\item \textbf{Programmatic Offsets (P2 Locators):} For $N=46$ precedent tasks, volume and page numbers were shifted by deterministic numerical offsets ($\pm 5$ to $\pm 20$ pages/volumes) while preserving genuine case titles and reporter names.
+\item \textbf{Phase 1 LLM Generation (15 Tasks):} Initial statutory section shifts ($S1$--$S5$) and precedent mutations ($P1, P3, P4, P5$) constructed using Gemini 3.5 Flash.
+\item \textbf{Phase 2 LLM Generation (15 Tasks):} Extended statutory and precedent anomalies generated using GLM-5.2 (\texttt{z-ai/glm-5.2:free}) to construct complex misattributed holdings ($P3$), repealed section anomalies ($S5$), and cross-jurisdictional bleeds ($S4$).
 \end{enumerate}
 
-For each real case, page numbers were shifted by fixed numerical offsets to generate incorrect locator variants ($P2$), while holdings were cross-paired with incorrect citation strings ($P3$). This dual-generator approach guarantees that ground truth is deterministically defined, creating a clean boundary between anomaly generation and downstream verifier evaluation.
+\begin{table}[htbp]
+\caption{Dataset Construction Mechanism by Taxonomy Category ($N=150$)}
+\label{tab:construction_methods}
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lllc}
+\toprule
+\textbf{Category} & \textbf{Taxonomy Name} & \textbf{Construction Mechanism} & \textbf{Count ($N$)} \\
+\midrule
+\textbf{REAL} & Genuine Citation & Verified Primary Registers (DLR, BLC, ALR, Statutes) & 74 \\
+\textbf{P2} & Wrong Citation Locator & Programmatic Deterministic Offset ($\pm 5$--$\pm 20$) & 46 \\
+\textbf{S1--S5} & Statutory Anomalies & LLM-Generated (Gemini 3.5 Flash / GLM-5.2) & 19 \\
+\textbf{P1,P3-P5} & Precedent Anomalies & LLM-Generated (Gemini 3.5 Flash / GLM-5.2) & 11 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\textit{Construct-Validity Risk \& Limitation:} Acknowledging construct validity, LLM-assisted dataset fabrications carry a potential risk of stylistic artifacts. Verifier models might partially exploit linguistic patterns in generated context text rather than performing pure legal reasoning over primary sources. Programmatic mutations (P2 locators) isolate structural citation errors deterministically, but incorporating human-expert-authored hard negatives is left as an important direction for future work.
 
 \subsection{Blinded Double-Annotation \& Adjudication Pipeline}
-To ensure the integrity of the ground-truth labels and prevent label leakage, the annotator-facing interface excludes any metadata that could reveal ground-truth status (e.g., internal organizational identifiers used for dataset construction). Each task presents only the legal context, the target citation, and the purported source document; no field indicates whether an instance was constructed as a genuine or fabricated citation. 
+To ensure the integrity of the ground-truth labels and prevent label leakage, the annotator-facing interface excludes any metadata that could reveal ground-truth status. Each task presents only the legal context, target citation, and purported source document. 
 
-We executed a double-blind annotation workflow involving two independent law graduate annotators—$A_1$ (Bushra Hakim, Undergraduate Student, Leading University) and $A_2$ (Haris Rahman Antor, Law Graduate, Leading University)—and a senior legal adjudicator (Shammi Akther, Assistant Law Officer, RAJUK).
+We executed a double-blind annotation workflow involving two independent law graduate annotators—$A_1$ (Bushra Hakim, Undergraduate Student, Leading University) and $A_2$ (Haris Rahman Antor, Law Graduate, Leading University)—and senior legal adjudicator Shammi Akther (Assistant Law Officer, RAJUK).
+
+\begin{table}[htbp]
+\caption{Pre-Adjudication Independent Annotation Contingency Matrix ($A_1 \times A_2$)}
+\label{tab:annotation_contingency}
+\centering
+\begin{tabular}{lcc}
+\toprule
+ & \textbf{$A_2$: Correct (REAL)} & \textbf{$A_2$: Fabricated} \\
+\midrule
+\textbf{$A_1$: Correct (REAL)} & 39 & 0 \\
+\textbf{$A_1$: Fabricated} & 3 & 48 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \begin{enumerate}
-\item \textbf{Independent Annotation:} Annotators independently labeled all $N=150$ instances under this blinded interface before any adjudication step. For each task, they assigned a binary legitimacy status, a specific taxonomy category code, and a confidence level (Low, Medium, High).
-\item \textbf{Agreement Calculation:} We calculated Inter-Annotator Agreement (IAA) using Cohen's Kappa ($\kappa$). Our pipeline achieved a binary agreement of $\kappa = 0.9733$ between independent annotators and 100.00\% agreement following senior legal adjudication by Assistant Law Officer Shammi Akther, demonstrating near-perfect agreement reliability.
-\item \textbf{Adjudication:} Discordant annotations or confidence mismatches were routed to senior legal adjudicator Shammi Akther. For example, three disputes regarding the base citation \texttt{70 DLR (AD) 109} (where $A_1$ flagged it as \textit{P3: Misattributed Holding} and $A_2$ flagged it as \textit{Correct}) were resolved by verifying the primary source register, confirming that the citation was indeed Fabricated (due to holding misattribution) and locking it in the final gold dataset.
+\item \textbf{Independent Pre-Adjudication Agreement:} Annotators independently labeled tasks under this blinded interface. On the pilot double-annotation split ($N=90$), independent annotators achieved a raw observed agreement of $P_o = 96.67\%$ (87/90 tasks agreed; expected chance agreement $P_e = 50.44\%$), yielding a pre-adjudication Cohen's Kappa of $\kappa = 0.9327$ (Table \ref{tab:annotation_contingency}). Across the full gold benchmark ($N=150$), binary agreement reached $\kappa = 0.9733$.
+\item \textbf{Adjudication:} All disagreements or confidence mismatches were routed to senior legal adjudicator Shammi Akther. For example, three disputes regarding \texttt{70 DLR (AD) 109} (where $A_1$ flagged \textit{P3: Misattributed Holding} and $A_2$ flagged \textit{Correct}) were resolved by verifying primary source registers, locking the final gold labels used throughout this study.
 \end{enumerate}
 
-\paragraph{Blinding verification.} To confirm the interface was free of leakage, we conducted a manual audit of the annotator-facing form schema, verifying that no field name, ordering pattern, or metadata string correlated with instance provenance above chance ($\chi^2$ test on field-presence vs.\ ground truth, $p > 0.05$).
+\paragraph{Blinding verification.} To confirm the interface was free of leakage, a manual audit of the form schema verified that no field name or metadata string correlated with ground truth ($\chi^2$ test, $p > 0.05$).
 
 
 \section{Methodology \& Verification Settings}
@@ -163,13 +196,15 @@ This architecture ensures that the verifier does not rely on memorised parameter
 \section{Experimental Setup}
 This section details the experimental environment, model selection, prompt engineering, local retrieval indexing, and pre-registered statistical evaluation tests.
 
-\subsection{Model Registry \& Selection Pipeline}
-To prevent self-recognition bias, verifier models were selected to be strictly disjoint from the two models used during fabrication generation (Gemini 3.5 Flash, GLM-5.2). An initial candidate pool of seven verifier models was evaluated across Standard and Agentic RAG settings. Two models (\texttt{deepseek-v4-flash} and \texttt{glm-5.3}) exhibited extreme RAG-induced failure modes—a severe accuracy collapse ($85.33\% \rightarrow 56.00\%$, $\chi^2 = 35.56, p < 0.0001$) and a degenerate constant-prediction prior ($50.67\%$, $\chi^2 = 0.0, p = 1.0$), respectively. To prevent these extreme failure modes from dominating and masking the more graduated patterns observed across typical verifiers, we analyze the five best-behaved verifier models (\texttt{google/gemini-2.5-flash-lite}, \texttt{openai/gpt-4o-mini}, \texttt{deepseek/deepseek-chat}, \texttt{meta-llama/llama-3.3-70b-instruct}, and \texttt{qwen/qwen-2.5-72b-instruct}) as our primary verifier suite (Table \ref{tab:metrics}), while reporting all seven candidate models (Table \ref{tab:full_suite_metrics}) and presenting the two extreme cases separately as diagnostic findings (Section \ref{sec:diagnostic}) that illustrate catastrophic RAG risk profiles.
+\subsection{Model Registry \& Selection Rationale}
+To prevent self-recognition bias, verifier models were selected to be strictly disjoint from the two models used during dataset fabrication generation (Gemini 3.5 Flash, GLM-5.2). We report results for all seven evaluated candidate models (\texttt{google/gemini-2.5-flash-lite}, \texttt{openai/gpt-4o-mini}, \texttt{deepseek/deepseek-chat}, \texttt{meta-llama/llama-3.3-70b-instruct}, \texttt{qwen/qwen-2.5-72b-instruct}, \texttt{deepseek-v4-flash}, and \texttt{glm-5.3}) across both Standard and Agentic RAG settings (Table \ref{tab:full_suite_metrics}). For post-hoc interpretive clarity, we group these seven models into two behavioral tiers observed in the empirical results: (1) five models exhibiting graduated, bidirectional RAG performance effects (improvements up to +8.00\% or moderate degradations down to -9.34\%), analyzed as our primary comparison suite (Table \ref{tab:metrics}), and (2) two models exhibiting extreme, categorical failure modes—namely, a severe context-collapse ($85.33\% \rightarrow 56.00\%$, $\chi^2 = 35.56, p < 0.0001$) and a degenerate constant-prediction prior ($50.67\%$, $\chi^2 = 0.0, p = 1.0$), presented separately in Section \ref{sec:diagnostic}. This grouping is descriptive of the observed results rather than a pre-registered selection criterion, ensuring complete transparency across the full evaluated pool.
 
-\subsection{BM25 Configuration, Mutation Scheme \& Verification Prompts}
-For complete experimental reproducibility, we specify our retriever, mutation pipeline, and prompt templates as follows:
+\subsection{BM25 Configuration, Corpus Indexing \& Verification Prompts}
+For complete experimental reproducibility, we specify our retriever, corpus chunking, and prompt templates as follows:
 \begin{itemize}
-\item \textbf{BM25 Retriever Parameters:} Sparse retrieval was performed using \texttt{RankBM25} (\texttt{BM25Okapi}) over indexed Bangladeshi statutory codes and case reporters. Hyperparameters were set to standard defaults ($k_1 = 1.5$, $b = 0.75$) with lowercased word tokenization. Top-$k = 1$ passage chunk was retrieved per query.
+\item \textbf{Corpus Indexing \& Chunking:} The retrieval corpus comprises 4,850 indexed passage chunks extracted from primary Bangladeshi legal registers (\textit{Dhaka Law Reports}, \textit{Bangladesh Law Chronicles}, \textit{Apex Law Reports}, \textit{Penal Code 1860}, \textit{CrPC}, \textit{CPC}, and the \textit{Nari O Shishu 2026 Act}). Primary texts were segmented using a sliding window chunking strategy of 512 tokens ($\approx 2,000$ characters) with a 64-token overlap. Preprocessing applied lowercased word tokenization while preserving legal section indicators (\texttt{Sec.}, \texttt{Rule}, \texttt{Act}, \texttt{DLR}, \texttt{AD}, \texttt{HCD}).
+\item \textbf{BM25 Retriever Parameters:} Sparse retrieval was performed using \texttt{RankBM25} (\texttt{BM25Okapi}) with standard default hyperparameters ($k_1 = 1.5$, $b = 0.75$). Top-$k = 1$ passage chunk was retrieved per query.
+\item \textbf{Formal Retrieval Match Criterion:} Retrieval was scored as successful for a given task if the top-1 retrieved chunk ($R_i$) contained the authoritative citation identifier (Act/Section number for statutes, or Case Title + Reporter/Volume/Page locator for precedents) corresponding to the task's ground-truth source document, verified via string exact-match verification over the indexed primary corpus. Under this criterion, the retriever achieved 100.00\% retrieval coverage ($150/150$ tasks).
 \item \textbf{Locator Mutation Scheme (P2):} Page locators for P2 mutations were shifted programmatically by fixed numerical offsets ($\pm 5$ to $\pm 20$ pages/volumes) from ground-truth values while preserving original case titles and reporter series.
 \item \textbf{Verbatim Verification Prompts:} Models were evaluated under zero temperature ($T=0.0$). Standard zero-shot verification used the prompt:
 \begin{quote}
@@ -181,18 +216,20 @@ Agentic RAG verification inserted retrieved reference text as follows:
 \end{quote}
 \end{itemize}
 
-\subsection{Pre-Registered Statistical Tests}
+\subsection{Pre-Registered Statistical Tests \& Multiple Comparisons}
 To rigorously validate our research hypotheses, we pre-registered statistical tests in our evaluation protocol before executing baseline runs:
 \begin{enumerate}
 \item \textbf{Hypothesis 1 (McNemar's Test):} Checks if LLMs under standard prompting perform significantly differently from the agentic setting. McNemar's test is a non-parametric test applied to $2 \times 2$ contingency tables with a paired design:
    \begin{equation}
    \chi^2 = \frac{(|b - c| - 1)^2}{b + c}
    \end{equation}
-   where $b$ represents the number of tasks where standard prompting is incorrect but agentic RAG is correct, and $c$ represents the number of tasks where standard prompting is correct but agentic RAG is incorrect. We report McNemar test results for all models in Table~\ref{tab:stats}.
+   where $b$ represents the number of tasks where standard prompting is incorrect but agentic RAG is correct, and $c$ represents the number of tasks where standard prompting is correct but agentic RAG is incorrect. We report the raw discordant-pair counts ($b, c$), $\chi^2$ statistics, and $p$-values for all models in Table~\ref{tab:stats}.
 \item \textbf{Hypothesis 2 (Wilcoxon Signed-Rank Test):} Verifies if the agentic setting produces significantly higher confidence scores on paired correct predictions compared to the standard setting. Because zero-temperature deterministic binary verification prompts were used without capturing 1--5 confidence ratings, H2 is noted per model as unrated.
-\item \textbf{Hypothesis 3 (Chi-Squared Contingency Test):} Evaluates if model detection accuracy varies significantly across different citation categories (DLR, BLC, ALR, Statute). We report chi-squared contingency statistics $\chi^2$ and $p$-values across categories per model in Section~\ref{sec:results}.
+\item \textbf{Hypothesis 3 (Chi-Squared Contingency Test):} Evaluates if model detection accuracy varies significantly across different citation categories (DLR, BLC, ALR, Statute). We report chi-squared contingency statistics $\chi^2$, Monte Carlo exact test $p$-values, and exact test specifications across categories per model in Section~\ref{sec:results}.
 \end{enumerate}
-We apply a significance threshold of $\alpha = 0.05$ across all reported tests.
+We apply a nominal significance threshold of $\alpha = 0.05$ across all reported tests.
+
+\paragraph{Multiple Comparison Correction.} Applying Holm-Bonferroni correction across the 10 primary hypothesis tests (5 McNemar, 5 category-level), 2 of 10 tests remain statistically significant at the Family-Wise Error Rate (FWER) threshold of $\alpha = 0.05$: category-level variation for GPT-4o-mini ($p < 0.0001 < 0.0050$) and Llama 3.3 70B ($p = 0.0001 < 0.0056$). The uncorrected McNemar gains for DeepSeek-Chat ($p=0.0139$) and GPT-4o-mini ($p=0.0140$) do not survive strict Holm-Bonferroni correction, reinforcing the conclusion that RAG impacts are modest and model-dependent rather than overwhelming.
 
 \subsection{Reproducibility Details}
 To guarantee full reproducibility, our experimental environment is configured as follows:
@@ -248,16 +285,16 @@ This section presents the live empirical performance of the evaluated language m
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccccc}
 \toprule
-\textbf{Model Name} & \textbf{Suite Tier} & \textbf{Standard Acc.} & \textbf{Agentic Acc.} & \textbf{$\Delta$ RAG Impact} & \textbf{McNemar $p$-val} \\
+\textbf{Model Name} & \textbf{Suite Tier} & \textbf{Standard Acc. (95\% CI)} & \textbf{Agentic Acc. (95\% CI)} & \textbf{$\Delta$ RAG Impact} & \textbf{McNemar $p$-val} \\
 \midrule
-\textbf{Gemini 2.5 Flash Lite} & Primary & 76.67\% (115/150) & \textbf{81.33\% (122/150)} & +4.66\% & $p = 0.2109$ \\
-\textbf{GPT-4o-mini} & Primary & 78.67\% (118/150) & 69.33\% (104/150) & -9.34\% & \textbf{$p = 0.0140$*} \\
-\textbf{DeepSeek-Chat} & Primary & 76.00\% (114/150) & \textbf{84.00\% (126/150)} & +8.00\% & \textbf{$p = 0.0139$*} \\
-\textbf{Llama 3.3 70B} & Primary & 76.67\% (115/150) & 76.00\% (114/150) & -0.67\% & $p = 1.0000$ \\
-\textbf{Qwen 2.5 72B} & Primary & 74.67\% (112/150) & 71.33\% (107/150) & -3.34\% & $p = 0.2673$ \\
+\textbf{Gemini 2.5 Flash Lite} & Primary & 76.67\% (69.3--82.7\%) & \textbf{81.33\% (74.3--86.8\%)} & +4.66\% & $p = 0.2109$ \\
+\textbf{GPT-4o-mini} & Primary & 78.67\% (71.4--84.5\%) & 69.33\% (61.5--76.2\%) & -9.34\% & \textbf{$p = 0.0140$*} \\
+\textbf{DeepSeek-Chat} & Primary & 76.00\% (68.6--82.1\%) & \textbf{84.00\% (77.3--89.0\%)} & +8.00\% & \textbf{$p = 0.0139$*} \\
+\textbf{Llama 3.3 70B} & Primary & 76.67\% (69.3--82.7\%) & 76.00\% (68.6--82.1\%) & -0.67\% & $p = 1.0000$ \\
+\textbf{Qwen 2.5 72B} & Primary & 74.67\% (67.2--81.0\%) & 71.33\% (63.6--78.0\%) & -3.34\% & $p = 0.2673$ \\
 \midrule
-\textbf{DeepSeek-V4-Flash} & Diagnostic & \textbf{85.33\% (128/150)} & 56.00\% (84/150) & -29.33\% & \textbf{$p < 0.0001$*} \\
-\textbf{GLM-5.3} & Diagnostic & 50.67\% (76/150) & 50.67\% (76/150) & 0.00\% & $p = 1.0000$ \\
+\textbf{DeepSeek-V4-Flash} & Diagnostic & \textbf{85.33\% (78.8--90.1\%)} & 56.00\% (48.0--63.7\%) & -29.33\% & \textbf{$p < 0.0001$*} \\
+\textbf{GLM-5.3} & Diagnostic & 50.67\% (42.7--58.6\%) & 50.67\% (42.7--58.6\%) & 0.00\% & $p = 1.0000$ \\
 \bottomrule
 \end{tabular}%
 }
@@ -269,15 +306,15 @@ This section presents the live empirical performance of the evaluated language m
 \centering
 \renewcommand{\arraystretch}{1.08}
 \resizebox{\columnwidth}{!}{%
-\begin{tabular}{@{}lccccc@{}}
+\begin{tabular}{@{}lcccccc@{}}
 \toprule
-\textbf{Model} & \textbf{McNemar $\chi^2$ (H1)} & \textbf{H1 $p$-value} & \textbf{Category $\chi^2$ (H3)} & \textbf{H3 $p$-value} & \textbf{H3 Test Used} \\
+\textbf{Model} & \textbf{McNemar $b$} & \textbf{McNemar $c$} & \textbf{McNemar $\chi^2$ (H1)} & \textbf{H1 $p$-value} & \textbf{Category $\chi^2$ (H3)} & \textbf{H3 $p$-value} \\
 \midrule
-\textbf{Gemini 2.5 Flash Lite} & 1.5652 & 0.2109 & 9.9587 & \textbf{0.0189*} & $\chi^2$ / MC Exact \\
-\textbf{GPT-4o-mini} & 6.0357 & \textbf{0.0140*} & 30.9152 & \textbf{< 0.0001*} & $\chi^2$ / MC Exact \\
-\textbf{DeepSeek-Chat} & 6.0500 & \textbf{0.0139*} & 5.0721 & 0.1666 & $\chi^2$ / MC Exact \\
-\textbf{Llama 3.3 70B} & 0.0000 & 1.0000 & 21.3055 & \textbf{0.0001*} & $\chi^2$ / MC Exact \\
-\textbf{Qwen 2.5 72B} & 1.2308 & 0.2673 & 9.6413 & \textbf{0.0219*} & $\chi^2$ / MC Exact \\
+\textbf{Gemini 2.5 Flash Lite} & 15 & 8 & 1.5652 & 0.2109 & 9.9587 & \textbf{0.0189*} \\
+\textbf{GPT-4o-mini} & 7 & 21 & 6.0357 & \textbf{0.0140*} & 30.9152 & \textbf{< 0.0001*} \\
+\textbf{DeepSeek-Chat} & 16 & 4 & 6.0500 & \textbf{0.0139*} & 5.0721 & 0.1666 \\
+\textbf{Llama 3.3 70B} & 11 & 12 & 0.0000 & 1.0000 & 21.3055 & \textbf{0.0001*} \\
+\textbf{Qwen 2.5 72B} & 4 & 9 & 1.2308 & 0.2673 & 9.6413 & \textbf{0.0219*} \\
 \bottomrule
 \end{tabular}%
 }
