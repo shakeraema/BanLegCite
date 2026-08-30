@@ -200,6 +200,7 @@ To guarantee full reproducibility, our experimental environment is configured as
 \end{itemize}
 
 \section{Results \& Analysis}
+\label{sec:results}
 This section presents the live empirical performance of the evaluated language models across Standard Prompting and Agentic RAG settings over the full $N=150$ gold benchmark dataset.
 
 \begin{table}[htbp]
@@ -237,21 +238,23 @@ This section presents the live empirical performance of the evaluated language m
 \end{itemize}
 
 \begin{table}[!t]
-\caption{Pre-registered Statistical Hypotheses Testing ($\alpha=0.05$)}
+\caption{Pre-Registered Statistical Hypotheses Testing ($\alpha=0.05$)}
 \label{tab:stats}
 \centering
 \renewcommand{\arraystretch}{1.08}
-\begin{tabular}{@{}lccp{1.45in}@{}}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lcccc@{}}
 \toprule
-\textbf{Model} & \textbf{McNemar $\chi^2$} & \textbf{p-value} & \textbf{\shortstack{Statistical\\Significance}} \\
+\textbf{Model} & \textbf{McNemar $\chi^2$ (H1)} & \textbf{H1 $p$-value} & \textbf{Category $\chi^2$ (H3)} & \textbf{H3 $p$-value} \\
 \midrule
-\textbf{Gemini 2.5 Flash Lite} & 1.5652 & 0.210903 & Not Significant ($p > 0.05$) \\
-\textbf{GPT-4o-mini} & 6.0357 & 0.014019 & \textbf{Significant ($p < 0.05$)} \\
-\textbf{DeepSeek-Chat} & 6.0500 & 0.013906 & \textbf{Significant ($p < 0.05$)} \\
-\textbf{Llama 3.3 70B} & 0.0000 & 1.000000 & Not Significant ($p > 0.05$) \\
-\textbf{Qwen 2.5 72B} & 1.2308 & 0.267257 & Not Significant ($p > 0.05$) \\
+\textbf{Gemini 2.5 Flash Lite} & 1.5652 & 0.2109 & 9.9587 & \textbf{0.0189*} \\
+\textbf{GPT-4o-mini} & 6.0357 & \textbf{0.0140*} & 30.9152 & \textbf{< 0.0001*} \\
+\textbf{DeepSeek-Chat} & 6.0500 & \textbf{0.0139*} & 5.0721 & 0.1666 \\
+\textbf{Llama 3.3 70B} & 0.0000 & 1.0000 & 21.3055 & \textbf{0.0001*} \\
+\textbf{Qwen 2.5 72B} & 1.2308 & 0.2673 & 9.6413 & \textbf{0.0219*} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \subsection{Category-Level Performance Breakdown}
@@ -277,7 +280,7 @@ To evaluate whether model verification accuracy varies significantly across case
 }
 \end{table}
 
-Every category entry in Table \ref{tab:category_metrics} aggregates directly to match the overall accuracy rows in Table \ref{tab:metrics}. The Chi-squared category test (H3) reveals that under Agentic RAG verification, \texttt{DeepSeek-Chat} achieves robust category generalization across all sub-corpora ($\chi^2 = 5.0721, p = 0.1666$, not significant at $\alpha = 0.05$), confirming that retrieval grounding eliminates reporter-specific performance skew for high-capacity open-weights verifiers.
+Every category entry in Table \ref{tab:category_metrics} aggregates directly to match the overall accuracy rows in Table \ref{tab:metrics}. Under Agentic RAG verification, category-level accuracy variation across sub-corpora is not statistically significant for \texttt{DeepSeek-Chat} ($\chi^2 = 5.0721, p = 0.1666$), but remains statistically significant for \texttt{Gemini 2.5 Flash Lite} ($\chi^2 = 9.9587, p = 0.0189$), \texttt{Qwen 2.5 72B} ($\chi^2 = 9.6413, p = 0.0219$), \texttt{Llama 3.3 70B} ($\chi^2 = 21.3055, p = 0.0001$), and \texttt{GPT-4o-mini} ($\chi^2 = 30.9152, p < 0.0001$). This indicates that retrieval grounding's effect on reporter-specific performance consistency is itself model-dependent rather than uniform across the verifier suite—consistent with the broader model-dependent pattern reported throughout this study.
 
 \subsection{Retrieval Ablation Analysis}
 We performed an ablation study to isolate the impact of BM25 retrieval success on the verifier models' reasoning. Out of the $N=150$ tasks in the benchmark dataset, the BM25 retriever successfully returned the correct matching legal passage in all 150 cases (100.00\% retrieval success rate). When provided with this grounded context, conditional retrieval accuracies $P(\text{verifier correct} \mid \text{retrieval succeeded})$ varied across models: reaching \textbf{84.00\%} for \texttt{DeepSeek-Chat}, \textbf{81.33\%} for \texttt{Gemini 2.5 Flash Lite}, \textbf{76.00\%} for \texttt{Llama 3.3 70B}, \textbf{71.33\%} for \texttt{Qwen 2.5 72B}, and \textbf{69.33\%} for \texttt{GPT-4o-mini}. This refutes unscoped 100\% accuracy claims and demonstrates that open-book verification performance depends on how effectively each LLM processes the retrieved passage.
