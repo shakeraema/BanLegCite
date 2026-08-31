@@ -1,6 +1,9 @@
+import sys
 import re
 
-with open("paper.tex", "r", encoding="utf-8") as f:
+paper_file = sys.argv[1] if len(sys.argv) > 1 else "paper-v2.tex"
+
+with open(paper_file, "r", encoding="utf-8") as f:
     tex_text = f.read()
 
 # Extract all cite keys

@@ -141,29 +141,31 @@ To introduce controlled legal anomalies without parametric bias, we employed a h
 
 In total, the 76 fabricated tasks comprise 46 programmatic (P2) and 30 LLM-generated (21 statutory S1--S5, 9 precedent P1/P3--P5) anomalies, detailed by category in Table~\ref{tab:dataset_distribution}. Taxonomy codes (S/P) classify the fabrication mechanism, while corpus sources (DLR/BLC/ALR/Statute) classify the legal register.
 
-\begin{table}[htbp]
+\begin{table}[!t]
 \caption{Benchmark Instance Distribution by Category ($N=150$)}
 \label{tab:dataset_distribution}
 \centering
-\begin{tabular}{lccc}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.48\columnwidth}ccc}
 \toprule
-\textbf{Category} & \textbf{Real (Unmutated)} & \textbf{Fabricated} & \textbf{Total} \\
+\textbf{Category} & \textbf{Real} & \textbf{Fab.} & \textbf{Total} \\
 \midrule
-\textbf{S1: Non-Existent Section} & -- & 7 & 7 \\
-\textbf{S2: Wrong Act Attribution} & -- & 3 & 3 \\
-\textbf{S3: Misstated Content} & -- & 5 & 5 \\
-\textbf{S4: Cross-Jurisdictional Statute Bleed} & -- & 3 & 3 \\
-\textbf{S5: Repealed/Superseded} & -- & 3 & 3 \\
+\textbf{S1:} Non-Existent Section & -- & 7 & 7 \\
+\textbf{S2:} Wrong Act Attribution & -- & 3 & 3 \\
+\textbf{S3:} Misstated Content & -- & 5 & 5 \\
+\textbf{S4:} Cross-Jurisdictional Statute Bleed & -- & 3 & 3 \\
+\textbf{S5:} Repealed/Superseded & -- & 3 & 3 \\
 \textbf{Statute (REAL)} & 36 & -- & 36 \\
 \midrule
-\textbf{P1: Non-Existent Case} & -- & 2 & 2 \\
-\textbf{P2: Wrong Citation Locator} & -- & 46 & 46 \\
-\textbf{P3: Misattributed Holding} & -- & 2 & 2 \\
-\textbf{P4: Wrong Court Level} & -- & 3 & 3 \\
-\textbf{P5: Cross-Jurisdictional Precedent Bleed} & -- & 2 & 2 \\
+\textbf{P1:} Non-Existent Case & -- & 2 & 2 \\
+\textbf{P2:} Wrong Citation Locator & -- & 46 & 46 \\
+\textbf{P3:} Misattributed Holding & -- & 2 & 2 \\
+\textbf{P4:} Wrong Court Level & -- & 3 & 3 \\
+\textbf{P5:} Cross-Jurisdictional Precedent Bleed & -- & 2 & 2 \\
 \textbf{Precedent (REAL)} & 38 & -- & 38 \\
 \midrule
-\textbf{Total} & 74 & 76 & \textbf{150} \\
+\textbf{Total} & \textbf{74} & \textbf{76} & \textbf{150} \\
 \bottomrule
 \end{tabular}
 \end{table}
