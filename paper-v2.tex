@@ -49,16 +49,17 @@ Legal NLP, Hallucination Auditing, Citation Verification, RACV, Bangladesh Law, 
 \end{IEEEkeywords}
 
 \section{Introduction}
-The deployment of large language models (LLMs) in the legal domain holds promise for democratising access to justice, streamlining research, and assisting legal-aid organizations. However, the tendency of these models to ``hallucinate'' factual details poses a severe risk in high-stakes legal applications. When an LLM generates a legal memorandum or answers a citizen's query, it often fabricates statutory sections or published case precedents, presenting them with high linguistic fluency. In a prominent documented case, attorneys in \textit{Mata v. Avianca, Inc.} (SDNY, 2023) \cite{mata2023} were sanctioned by a federal judge for submitting AI-generated fictional case citations without verification.
+
+The deployment of large language models (LLMs) in the legal domain holds promise for democratising access to justice, streamlining research, and assisting legal-aid organizations. Still, the tendency of these models to ``hallucinate'' factual details poses a severe risk in high-stakes legal applications. When an LLM generates a legal memorandum or answers a citizen's query, it often fabricates statutory sections or published case precedents and presents them with high linguistic fluency. In a prominent documented case, attorneys in \textit{Mata v. Avianca, Inc.} (SDNY, 2023) \cite{mata2023} were sanctioned by a federal judge for submitting AI-generated fictional case citations without verification.
 
 In low-resource and developing common law jurisdictions like Bangladesh, this problem is exacerbated by three factors:
 \begin{enumerate}
-\item \textbf{Lack of Unified Digitisation:} Primary legal registries, such as the \textit{Dhaka Law Reports (DLR)} or the \textit{Bangladesh Law Chronicles (BLC)}, are only partially indexed and often locked behind expensive commercial print collections. This leaves LLMs with incomplete pre-training data.
-\item \textbf{Transitional Suffix Ambiguities:} The division of court systems following independence (such as early-1970s naming conventions split between High Court Division [HCD] and Appellate Division [AD]) introduces naming inconsistencies that throw off standard string-matching RAG pipelines.
-\item \textbf{Low-Resource Language Constraints:} Bengali is a low-resource language in legal NLP, with limited public benchmarks to evaluate factual grounding. While the current benchmark is in English (reflecting the language of official law reports), bilingual verification remains an open challenge for future work.
+\item \textbf{Lack of Unified Digitisation:} Primary legal registries, such as the \textit{Dhaka Law Reports (DLR)} or the \textit{Bangladesh Law Chronicles (BLC)}, are only partially indexed and often locked behind expensive commercial print collections. As a result, LLMs have incomplete pre-training data.
+\item \textbf{Transitional Suffix Ambiguities:} The division of court systems following independence, such as early-1970s naming conventions split between High Court Division [HCD] and Appellate Division [AD], introduces naming inconsistencies. These inconsistencies throw off standard string-matching RAG pipelines.
+\item \textbf{Low-Resource Language Constraints:} Bengali is a low-resource language in legal NLP, with limited public benchmarks to evaluate factual grounding. The current benchmark is in English, reflecting the language of official law reports. Bilingual verification remains an open challenge for future work.
 \end{enumerate}
 
-While RAG architectures (such as \texttt{MINA} \cite{mina2026} and \texttt{LegalRAG} \cite{legalrag2025}) improve initial generation quality, they do not verify or audit citations post-generation. A lawyer or NGO worker using an LLM still has no reliable way to verify if a generated citation is genuine without manual cross-referencing.
+RAG architectures, such as \texttt{MINA} \cite{mina2026} and \texttt{LegalRAG} \cite{legalrag2025}, improve initial generation quality, but they do not verify or audit citations post-generation. A lawyer or NGO worker using an LLM still has no reliable way to verify if a generated citation is genuine without manual cross-referencing.
 
 To address these challenges, we introduce \textbf{BanLegit-Cite}. To the best of our knowledge, BanLegit-Cite is the first publicly described benchmark specifically targeting citation-legitimacy verification for Bangladeshi statutory and reported case law. Specifically, we investigate the following Research Questions (RQs):
 \begin{itemize}
@@ -70,8 +71,9 @@ Our primary contributions are threefold:
 \begin{enumerate}
 \item \textbf{The BanLegit-Cite Dataset:} An annotated dataset of 150 tasks (74 real, 76 fabricated) covering DLR, BLC, and ALR case reports, major statutory codes (\textit{Penal Code 1860}, \textit{CrPC}, \textit{CPC}), and statutory provisions from the \textit{Nari O Shishu Nirjatan Daman Amendment Act, 2026}.
 \item \textbf{A Citation Fabrication Taxonomy:} A structured classification system dividing fabrications into 5 statutory categories (S1--S5) and 5 precedent categories (P1--P5) to diagnose specific model failures.
-\item \textbf{Rigorous Empirical Benchmark:} We evaluate a complete 7-model evaluation suite, comprising a 5-model primary verifier suite (\texttt{google/gemini-2.5-flash-lite}, \texttt{openai/gpt-4o-mini}, \texttt{deepseek/deepseek-chat}, \texttt{meta-llama/llama-3.3-70b-instruct}, \texttt{qwen/qwen-2.5-72b-instruct}) and 2 diagnostic models (\texttt{deepseek-v4-flash}, \texttt{glm-5.3}) analyzed separately in Section~\ref{sec:diagnostic} due to extreme, categorical failure behavior, under closed-book Standard Prompting and RACV settings.
+\item \textbf{Rigorous Empirical Benchmark:} We evaluate a complete 7-model evaluation suite, comprising a 5-model primary verifier suite (\texttt{google/gemini-2.5-flash-lite}, \texttt{openai/gpt-4o-mini}, \texttt{deepseek/deepseek-chat}, \texttt{meta-llama/llama-3.3-70b-instruct}, \texttt{qwen/qwen-2.5-72b-instruct}) and 2 diagnostic models (\texttt{deepseek-v4-flash}, \texttt{glm-5.3}). The diagnostic models are analyzed separately in Section~\ref{sec:diagnostic} due to extreme, categorical failure behavior, under closed-book Standard Prompting and RACV settings.
 \end{enumerate}
+
 
 \section{Related Work}
 We position our work at the intersection of three active research areas: general LLM hallucination and factual precision evaluation, Bangla legal NLP and RAG architectures, and specialized citation-level hallucination auditing.
@@ -245,7 +247,7 @@ To rigorously validate our research hypotheses, we pre-specified statistical tes
 \end{enumerate}
 We apply a nominal significance threshold of $\alpha = 0.05$ across all reported tests.
 
-\paragraph{Multiple Comparison Correction.} Applying Holm-Bonferroni correction across the 10 primary hypothesis tests (5 McNemar, 5 category-level), 2 of 10 tests remain statistically significant at the Family-Wise Error Rate (FWER) threshold of $\alpha = 0.05$: category-level variation for GPT-4o-mini ($p < 0.0001 < 0.0050$) and Llama 3.3 70B ($p = 0.0001 < 0.0056$). The uncorrected McNemar gains for DeepSeek-Chat ($p=0.0139$) and GPT-4o-mini ($p=0.0140$) do not survive strict Holm-Bonferroni correction, reinforcing the conclusion that RAG impacts are modest and model-dependent rather than overwhelming.
+\paragraph{Multiple Comparison Correction.} Applying Holm-Bonferroni correction across the 10 primary hypothesis tests (5 McNemar, 5 category-level), 2 of 10 tests remain statistically significant at the Family-Wise Error Rate (FWER) threshold of $\alpha = 0.05$: category-level variation for GPT-4o-mini ($p < 0.0001 < 0.0050$) and Llama 3.3 70B ($p = 0.0001 < 0.0056$). The uncorrected McNemar gains for DeepSeek-Chat ($p=0.0139$) and GPT-4o-mini ($p=0.0140$) do not survive strict Holm-Bonferroni correction, reinforcing the conclusion that RACV impacts are modest and model-dependent rather than overwhelming.
 
 \subsection{Reproducibility Details}
 To provide the implementation details necessary to facilitate reproduction, our experimental environment is configured as follows:
@@ -301,7 +303,7 @@ This section presents the live empirical performance of the evaluated language m
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcccccccc}
 \toprule
-\textbf{Model Name} & \textbf{Tier} & \textbf{Std Acc (95\% CI)} & \textbf{RACV Acc (95\% CI)} & \textbf{$\Delta$ RAG} & \textbf{McNemar $b/c$} & \textbf{McNemar $\chi^2$ ($p$)} & \textbf{Cat. $\chi^2$ ($p$)} \\
+\textbf{Model Name} & \textbf{Tier} & \textbf{Std Acc (95\% CI)} & \textbf{RACV Acc (95\% CI)} & \textbf{$\Delta$ RACV Impact} & \textbf{McNemar $b/c$} & \textbf{McNemar $\chi^2$ ($p$)} & \textbf{Cat. $\chi^2$ ($p$)} \\
 \midrule
 \textbf{Gemini 2.5 Flash Lite} & Primary & 76.67\% (69.3--82.7\%) & \textbf{81.33\% (74.3--86.8\%)} & +4.66\% & 15 / 8 & 1.565 ($p=0.2109$) & 9.959 ($p=\textbf{0.0189*}$) \\
 \textbf{GPT-4o-mini} & Primary & 78.67\% (71.4--84.5\%) & 69.33\% (61.5--76.2\%) & -9.34\% & 7 / 21 & 6.036 ($p=\textbf{0.0140*}$) & 30.915 ($p=\textbf{<0.0001*}$) \\
